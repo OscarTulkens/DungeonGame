@@ -44,7 +44,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7323014157286190597
 Transform:
@@ -307,6 +307,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles2 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 17b8dc1a785c8e142a87853815ef70f0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b8dc1a785c8e142a87853815ef70f0, type: 3}
 --- !u!4 &5045721700238671117 stripped
@@ -401,6 +406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassSmall (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 55089abc716af8d48bb2984dab7ee8b4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55089abc716af8d48bb2984dab7ee8b4, type: 3}
@@ -497,6 +507,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassLarge (2)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9b1fb749dfa34014398f753ae12c5e69,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1fb749dfa34014398f753ae12c5e69, type: 3}
 --- !u!4 &4854714937499691340 stripped
@@ -571,6 +586,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rock4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175325078972433155, guid: 3775b61069552474da3a0dc81244454c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3775b61069552474da3a0dc81244454c, type: 3}
@@ -667,6 +687,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassMedium (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: bd8234583304b0e4dac07aa8254ffac4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd8234583304b0e4dac07aa8254ffac4, type: 3}
 --- !u!4 &5582994734185225341 stripped
@@ -762,6 +787,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles3 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 49b97b4db5cc47f4fa379695bb569fc1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b97b4db5cc47f4fa379695bb569fc1, type: 3}
 --- !u!4 &5248650572052148607 stripped
@@ -856,6 +886,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RockTiles2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 17b8dc1a785c8e142a87853815ef70f0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b8dc1a785c8e142a87853815ef70f0, type: 3}
@@ -957,6 +992,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crystal Inside Chest
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d8c3e1083012a6747b95b2449aea69b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8c3e1083012a6747b95b2449aea69b1, type: 3}
 --- !u!4 &6167234897291033669 stripped
@@ -1051,6 +1091,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassLarge (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9b1fb749dfa34014398f753ae12c5e69,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1fb749dfa34014398f753ae12c5e69, type: 3}
@@ -1147,6 +1192,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassSmall (7)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 55089abc716af8d48bb2984dab7ee8b4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55089abc716af8d48bb2984dab7ee8b4, type: 3}
 --- !u!4 &5826195844406918526 stripped
@@ -1242,6 +1292,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassLarge
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9b1fb749dfa34014398f753ae12c5e69,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1fb749dfa34014398f753ae12c5e69, type: 3}
 --- !u!4 &5918476638110400588 stripped
@@ -1336,6 +1391,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassSmall (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 55089abc716af8d48bb2984dab7ee8b4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55089abc716af8d48bb2984dab7ee8b4, type: 3}
@@ -1447,6 +1507,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Book1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: fd0333735141cba44b0542f3ac692456,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd0333735141cba44b0542f3ac692456, type: 3}
 --- !u!4 &6864502269999703029 stripped
@@ -1521,6 +1586,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassMedium
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739623630237828008, guid: eda3eeb5b4620ce4892539d6ef724ae8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eda3eeb5b4620ce4892539d6ef724ae8, type: 3}
@@ -1617,6 +1687,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles3 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 49b97b4db5cc47f4fa379695bb569fc1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b97b4db5cc47f4fa379695bb569fc1, type: 3}
 --- !u!4 &6344723441189996766 stripped
@@ -1712,6 +1787,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 17b8dc1a785c8e142a87853815ef70f0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b8dc1a785c8e142a87853815ef70f0, type: 3}
 --- !u!4 &7367879838062361493 stripped
@@ -1731,6 +1811,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Skull
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734434670957267480, guid: a3c9dbb1d5696f945a6e1d5a065003bb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3335666474387863563, guid: a3c9dbb1d5696f945a6e1d5a065003bb,
         type: 3}
@@ -1882,6 +1967,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8b567b273aa1d1141a87024222b94820,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b567b273aa1d1141a87024222b94820, type: 3}
 --- !u!4 &7897565326082924157 stripped
@@ -1976,6 +2066,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RockTiles3
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 49b97b4db5cc47f4fa379695bb569fc1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b97b4db5cc47f4fa379695bb569fc1, type: 3}
@@ -2072,6 +2167,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassSmall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 55089abc716af8d48bb2984dab7ee8b4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55089abc716af8d48bb2984dab7ee8b4, type: 3}
 --- !u!4 &8061483823507586643 stripped
@@ -2167,6 +2267,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles3 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 49b97b4db5cc47f4fa379695bb569fc1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b97b4db5cc47f4fa379695bb569fc1, type: 3}
 --- !u!4 &7629874569974889106 stripped
@@ -2261,6 +2366,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RockTiles2
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 17b8dc1a785c8e142a87853815ef70f0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b8dc1a785c8e142a87853815ef70f0, type: 3}
@@ -2362,6 +2472,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin (4)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 094e27823d0a0564a8fada836b923ef4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 094e27823d0a0564a8fada836b923ef4, type: 3}
 --- !u!4 &8402242593095470539 stripped
@@ -2457,6 +2572,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassSmall (4)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 55089abc716af8d48bb2984dab7ee8b4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55089abc716af8d48bb2984dab7ee8b4, type: 3}
 --- !u!4 &8122292518814621681 stripped
@@ -2551,6 +2671,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RockTiles1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8b567b273aa1d1141a87024222b94820,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b567b273aa1d1141a87024222b94820, type: 3}
@@ -2733,6 +2858,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8b567b273aa1d1141a87024222b94820,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b567b273aa1d1141a87024222b94820, type: 3}
 --- !u!4 &8704753114090685416 stripped
@@ -2827,6 +2957,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rock4 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 72f6b780d668e4b42a58a36c2c9fe18c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72f6b780d668e4b42a58a36c2c9fe18c, type: 3}
@@ -2923,6 +3058,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 17b8dc1a785c8e142a87853815ef70f0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b8dc1a785c8e142a87853815ef70f0, type: 3}
 --- !u!4 &297332077181599641 stripped
@@ -3018,6 +3158,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floortile1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1e7fc656b38b7ca4db165e8b4c86e4e2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e7fc656b38b7ca4db165e8b4c86e4e2, type: 3}
 --- !u!4 &353578581051345122 stripped
@@ -3092,6 +3237,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rock1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7420442374817472538, guid: cd444d0040f31c444bc2770e02359837,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd444d0040f31c444bc2770e02359837, type: 3}
@@ -3187,6 +3337,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassLarge (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9b1fb749dfa34014398f753ae12c5e69,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1fb749dfa34014398f753ae12c5e69, type: 3}
@@ -3288,6 +3443,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest Bottom
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b13a6c8dbe4f6954d970b4d354b30d64,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13a6c8dbe4f6954d970b4d354b30d64, type: 3}
 --- !u!4 &64402911640320460 stripped
@@ -3383,6 +3543,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassSmall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 55089abc716af8d48bb2984dab7ee8b4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55089abc716af8d48bb2984dab7ee8b4, type: 3}
 --- !u!4 &1077739843571637809 stripped
@@ -3457,6 +3622,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bone
+      objectReference: {fileID: 0}
+    - target: {fileID: 8983907205963932528, guid: 30db8a920aec1464ba34db6fde784e16,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30db8a920aec1464ba34db6fde784e16, type: 3}
@@ -3553,6 +3723,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles3 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 49b97b4db5cc47f4fa379695bb569fc1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b97b4db5cc47f4fa379695bb569fc1, type: 3}
 --- !u!4 &780716549046392584 stripped
@@ -3572,6 +3747,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassSmall (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915242483711486002, guid: e213b3fac3da67241ad133512fe6c524,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3228825007866698273, guid: e213b3fac3da67241ad133512fe6c524,
         type: 3}
@@ -3703,6 +3883,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock6
       objectReference: {fileID: 0}
+    - target: {fileID: 7696659269512287030, guid: 5c6c07c95cfa2db479bf7704ec225369,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c6c07c95cfa2db479bf7704ec225369, type: 3}
 --- !u!4 &747488445945248458 stripped
@@ -3798,6 +3983,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassSmall
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 55089abc716af8d48bb2984dab7ee8b4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55089abc716af8d48bb2984dab7ee8b4, type: 3}
 --- !u!4 &2020444162615741241 stripped
@@ -3892,6 +4082,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassLarge (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9b1fb749dfa34014398f753ae12c5e69,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1fb749dfa34014398f753ae12c5e69, type: 3}
@@ -3993,6 +4188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin (5)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 094e27823d0a0564a8fada836b923ef4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 094e27823d0a0564a8fada836b923ef4, type: 3}
 --- !u!4 &2396319169219827260 stripped
@@ -4092,6 +4292,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coin (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 094e27823d0a0564a8fada836b923ef4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 094e27823d0a0564a8fada836b923ef4, type: 3}
@@ -4203,6 +4408,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8b7f2a3837427b84cb8de782dd20022b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b7f2a3837427b84cb8de782dd20022b, type: 3}
 --- !u!4 &3415672508279140479 stripped
@@ -4302,6 +4512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coin (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 094e27823d0a0564a8fada836b923ef4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 094e27823d0a0564a8fada836b923ef4, type: 3}
@@ -4403,6 +4618,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin (3)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 094e27823d0a0564a8fada836b923ef4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 094e27823d0a0564a8fada836b923ef4, type: 3}
 --- !u!4 &3383637650458971098 stripped
@@ -4502,6 +4722,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chest Top
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 26dd4f4ab386445469f199e465748ae1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26dd4f4ab386445469f199e465748ae1, type: 3}
@@ -4603,6 +4828,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 094e27823d0a0564a8fada836b923ef4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 094e27823d0a0564a8fada836b923ef4, type: 3}
 --- !u!4 &3170237406319452866 stripped
@@ -4697,6 +4927,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassLarge (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9b1fb749dfa34014398f753ae12c5e69,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1fb749dfa34014398f753ae12c5e69, type: 3}
@@ -4793,6 +5028,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockTiles1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8b567b273aa1d1141a87024222b94820,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b567b273aa1d1141a87024222b94820, type: 3}
 --- !u!4 &3818932541476196034 stripped
@@ -4887,6 +5127,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RockTiles3 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 49b97b4db5cc47f4fa379695bb569fc1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b97b4db5cc47f4fa379695bb569fc1, type: 3}
@@ -4983,6 +5228,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassLarge (6)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9b1fb749dfa34014398f753ae12c5e69,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1fb749dfa34014398f753ae12c5e69, type: 3}
 --- !u!4 &4318204169354843838 stripped
@@ -5002,6 +5252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassLarge (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473161336916840525, guid: abd42322d743d9c4e8670cbc60aa314d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8038380150551634526, guid: abd42322d743d9c4e8670cbc60aa314d,
         type: 3}

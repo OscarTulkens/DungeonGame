@@ -58,7 +58,6 @@ public class RoomSpawnManager : MonoBehaviour
     {
         Transform modeltransform = tileTransform.GetComponent<TileScript>().Model.transform;
 
-        Debug.Log("Dress");
         if (requiredSides.HasFlag(Sides.Top | Sides.Bot | Sides.Left | Sides.Right))
         {
             Instantiate(FourSplitTiles[RandomInt(0, FourSplitTiles.Count)], modeltransform.position, Quaternion.Euler(new Vector3(0, 0, 0)), modeltransform);

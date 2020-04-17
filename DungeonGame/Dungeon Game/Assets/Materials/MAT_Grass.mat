@@ -61,8 +61,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FogEndPos: -10
-    - _FogStartPos: 15.82
+    - _FogEndPos: 0
+    - _FogStartPos: 0.12
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -79,6 +79,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0.36078432, g: 0.65882355, b: 0.3921569, a: 0}
-    - _FrontColor: {r: 0.42184964, g: 0.582, b: 0.25608, a: 1}
-    - _RightColor: {r: 0.3445822, g: 0.496, b: 0.18451199, a: 1}
-    - _TopColor: {r: 0.37565988, g: 0.511, b: 0.23557097, a: 1}
+    - _FrontColor: {r: 0.36851007, g: 0.518, b: 0.20163758, a: 1}
+    - _RightColor: {r: 0.41252905, g: 0.617, b: 0.19370928, a: 1}
+    - _TopColor: {r: 0.381027, g: 0.532, b: 0.22286484, a: 1}

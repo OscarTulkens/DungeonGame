@@ -447,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 4751948655058070076, guid: 4515c954dd482924b8db559e5002052c,
         type: 3}
       propertyPath: _camOffset.y
-      value: 12.5
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4751948655058070076, guid: 4515c954dd482924b8db559e5002052c,
         type: 3}
@@ -549,7 +549,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925258285}
   m_LocalRotation: {x: 0.27984816, y: 0.3647052, z: -0.1159169, w: 0.8804763}
-  m_LocalPosition: {x: -10, y: 12.5, z: -10}
+  m_LocalPosition: {x: -10, y: 11, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -638,7 +638,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326633017}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4de8f81f56995a3479bd3177744adca0, type: 2}
   m_CullingMode: 0
@@ -673,7 +673,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828340090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1906156610}

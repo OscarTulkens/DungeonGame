@@ -13,9 +13,9 @@ public class TileScript : MonoBehaviour
     [HideInInspector] public bool ContainsMonster =false;
     [HideInInspector] public bool ContainsTreasure= false;
     [SerializeField] private float _TileMoveUpSpeed;
-    [HideInInspector] public GameObject Model;
 
     [SerializeField] private bool _startTile = false;
+    public bool StartTile { get { return _startTile; } }
     public bool _spawned= false;
     public Sides RequiredOpenSides;
     public Sides RequiredClosedSides;
@@ -23,31 +23,19 @@ public class TileScript : MonoBehaviour
     public int ChanceAtExtraSides;
 
     [HideInInspector] public TileContainedObjectScript TileSpecialSpawnScript;
+    [SerializeField] private GameObject _tileObject= null;
+    public GameObject TileObject { get { return _tileObject; } }
 
-    private void Awake()
-    {
-    }
     // Start is called before the first frame update
     void Start()
     {
-        Model = transform.Find("Model").gameObject;
-        if (!_startTile)
+        if (_startTile)
         {
-            Model.transform.position -= new Vector3(0, 30, 0);
-            Invoke("SpawnTile", 0.1f);
+            TileSpecialSpawnScript = GetComponentInChildren<TileContainedObjectScript>();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Vector3.Distance(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z)) >= 0.01f)
+        else
         {
-            Model.transform.position = Vector3.Lerp(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z), _TileMoveUpSpeed * Time.deltaTime);
-        }
-        else if (Model.transform.position != new Vector3(Model.transform.position.x, 0, Model.transform.position.z))
-        {
-            Model.transform.position = new Vector3(Model.transform.position.x, 0, Model.transform.position.z);
+            Invoke("SpawnTile", 0.05f);
         }
     }
 
@@ -71,7 +59,7 @@ public class TileScript : MonoBehaviour
     private void SpawnTile()
     {
         AddRandomOpenSides();
-        RoomSpawnManager.Instance.SpawnTile(this.transform, RequiredOpenSides);
+        RoomSpawnManager.Instance.SpawnTile(this, RequiredOpenSides);
         _spawned = true;
         RemoveExcessDetectionPoints();
         TileSpecialSpawnScript = GetComponentInChildren<TileContainedObjectScript>();

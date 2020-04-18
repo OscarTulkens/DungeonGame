@@ -20,12 +20,18 @@ public class ControlScript : MonoBehaviour
     private Vector2 _touchStart = Vector2.zero;
     private Vector2 _touchEnd = Vector2.zero;
     [SerializeField] private float _minSwipeDistance = 0;
-#if UNITY_IOS
+
+    public static ControlScript Instance;
+
+
     private void Awake()
     {
+        Instance = this;
+
+#if UNITY_IOS
         Application.targetFrameRate = 60;
-    }
 #endif
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -75,8 +81,8 @@ public class ControlScript : MonoBehaviour
                     else
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.LeftPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                        AddDesiredPosition(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
                     }
-                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -93,8 +99,8 @@ public class ControlScript : MonoBehaviour
                     else
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.TopPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                        AddDesiredPosition(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
                     }
-                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -111,8 +117,8 @@ public class ControlScript : MonoBehaviour
                     else
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.RightPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                        AddDesiredPosition(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
                     }
-                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -129,8 +135,8 @@ public class ControlScript : MonoBehaviour
                     else
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.BotPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                        AddDesiredPosition(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
                     }
-                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
         }
@@ -173,8 +179,8 @@ public class ControlScript : MonoBehaviour
                     else
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.LeftPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                        AddDesiredPosition(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
                     }
-                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -191,8 +197,8 @@ public class ControlScript : MonoBehaviour
                     else
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.TopPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                        AddDesiredPosition(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
                     }
-                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -209,8 +215,8 @@ public class ControlScript : MonoBehaviour
                     else
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.RightPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                        AddDesiredPosition(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
                     }
-                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -227,8 +233,8 @@ public class ControlScript : MonoBehaviour
                     else
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.BotPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                        AddDesiredPosition(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
                     }
-                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -239,19 +245,16 @@ public class ControlScript : MonoBehaviour
     }
 
 
-    void AddDesiredPosition()
-    {
-        Debug.Log(CurrentlySelectedTile.name);
-        Debug.Log(CurrentlySelectedTile.TileSpecialSpawnScript);
-        Debug.Log(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint);
-        _desiredPositions.Add(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
+    public void AddDesiredPosition(Vector3 positionToAdd)
+    { 
+        _desiredPositions.Add(positionToAdd);
     }
 
     void MoveToTile()
     {
         if (_desiredPositions.Count>=2)
         {
-            if (Vector3.Distance(_character.transform.position, _desiredPositions[0]) >= 0.1f)
+            if (Vector3.Distance(_character.transform.position, _desiredPositions[0]) >= 0.2f)
             {
                 _character.transform.position = Vector3.MoveTowards(_character.transform.position, _desiredPositions[0], _movementSpeed*_movementSpeedMultiplier * Time.deltaTime);
             }
@@ -262,7 +265,7 @@ public class ControlScript : MonoBehaviour
         }
         else if (_desiredPositions.Count == 1)
         {
-            if (Vector3.Distance(_character.transform.position, _desiredPositions[0]) >= 0.1f)
+            if (Vector3.Distance(_character.transform.position, _desiredPositions[0]) >= 0.01f)
             {
                 _character.transform.position = Vector3.Lerp(_character.transform.position, _desiredPositions[0], _movementSpeed * Time.deltaTime);
             }

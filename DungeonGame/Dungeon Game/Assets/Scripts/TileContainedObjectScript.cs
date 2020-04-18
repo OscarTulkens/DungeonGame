@@ -13,12 +13,16 @@ public class TileContainedObjectScript : MonoBehaviour
     [SerializeField] private GameObject _monsterSpawnPoints = null;
     [SerializeField] private GameObject _treasureSpawnPoints = null;
 
-    [HideInInspector] public Transform MovementPoint;
+    public Transform MovementPoint;
     private TileScript _tile = null;
+    public GameObject Model;
+
+    [SerializeField] private Vector3 _modelSpawnOffset;
+    [SerializeField] private float _tileMoveUpSpeed;
 
     private void Awake()
     {
-        DeactivatedAllSpawnPoints();
+        DeactivateAllSpawnPoints();
         _tile = GetComponentInParent<TileScript>();
 
     }
@@ -26,27 +30,49 @@ public class TileContainedObjectScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _monsters = RoomSpawnManager.Instance.MonsterPrefabs;
-        _treasures = RoomSpawnManager.Instance.TreasurePrefabs;
-        ActivateTileSpawnPoints();
+        if(!_tile.StartTile)
+        {
+            _monsters = RoomSpawnManager.Instance.MonsterPrefabs;
+            _treasures = RoomSpawnManager.Instance.TreasurePrefabs;
+            ActivateTileSpawnPoints();
+            SetModelPosition();
+        }
+        else
+        {
+            SetMovementPoint(_normalSpawnPoint.transform);
+        }
+    }
+
+    private void Update()
+    {
+        if (Vector3.Distance(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z)) >= 0.01f)
+        {
+            Model.transform.position = Vector3.Lerp(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z), _tileMoveUpSpeed * Time.deltaTime);
+        }
+        else if (Model.transform.position != new Vector3(Model.transform.position.x, 0, Model.transform.position.z))
+        {
+            Model.transform.position = new Vector3(Model.transform.position.x, 0, Model.transform.position.z);
+        }
     }
 
     void ActivateMonsterSpawn()
     {
         _monsterSpawnPoints.SetActive(true);
         Transform _monsterPoint = _monsterSpawnPoints.transform.Find("MonsterPoint");
-        Transform _movementPoint = _monsterSpawnPoints.transform.Find("MovePoint");
-        GameObject _instantiatedMonster = Instantiate<GameObject>(_monsters[RandomInt(0, _monsters.Count)], _monsterPoint.position, _monsterPoint.rotation, _monsterPoint);
-        SetMovementPoint(_movementPoint);
+        Transform _monsterMovementPoint = _monsterSpawnPoints.transform.Find("MovePoint");
+        GameObject _instantiatedMonster = Instantiate<GameObject>(_monsters[RandomInt(0, _monsters.Count)], _monsterPoint.position, _monsterPoint.rotation, Model.transform);
+        SetMovementPoint(_monsterMovementPoint);
+        ControlScript.Instance.AddDesiredPosition(_monsterMovementPoint.position);
     }
 
     void ActivateTreasureSpawn()
     {
         _treasureSpawnPoints.SetActive(true);
-        Transform _treasurepoint = _monsterSpawnPoints.transform.Find("TreasurePoint");
-        Transform _movementPoint = _monsterSpawnPoints.transform.Find("MovePoint");
-        GameObject _instantiatedTreasure = Instantiate<GameObject>(_treasures[RandomInt(0, _treasures.Count)], _treasurepoint.position, _treasurepoint.rotation, _treasurepoint);
-        SetMovementPoint(_movementPoint);
+        Transform _treasurepoint = _treasureSpawnPoints.transform.Find("TreasurePoint").transform;
+        Transform _treasureMovementPoint = _treasureSpawnPoints.transform.Find("MovePoint").transform;
+        GameObject _instantiatedTreasure = Instantiate<GameObject>(_treasures[RandomInt(0, _treasures.Count)], _treasurepoint.position, _treasurepoint.rotation, Model.transform);
+        SetMovementPoint(_treasureMovementPoint);
+        ControlScript.Instance.AddDesiredPosition(_treasureMovementPoint.position);
     }
 
     void ActivateNormalSpawn()
@@ -54,6 +80,7 @@ public class TileContainedObjectScript : MonoBehaviour
         Transform _movementPoint = _normalSpawnPoint.transform;
         _normalSpawnPoint.SetActive(true);
         MovementPoint = _normalSpawnPoint.transform;
+        ControlScript.Instance.AddDesiredPosition(_movementPoint.position);
     }
 
     void ActivateTileSpawnPoints()
@@ -74,10 +101,10 @@ public class TileContainedObjectScript : MonoBehaviour
 
     void SetMovementPoint(Transform chosenSpawnPoint)
     {
-        MovementPoint = chosenSpawnPoint.transform.Find("MovePoint");
+        MovementPoint = chosenSpawnPoint;
     }
 
-    void DeactivatedAllSpawnPoints()
+    void DeactivateAllSpawnPoints()
     {
         if (!OverrideDeactivateSpawnPoints)
         {
@@ -85,6 +112,11 @@ public class TileContainedObjectScript : MonoBehaviour
             _monsterSpawnPoints.SetActive(false);
             _normalSpawnPoint.SetActive(false);
         }
+    }
+
+    void SetModelPosition()
+    {
+        Model.transform.position = new Vector3(Model.transform.position.x+_modelSpawnOffset.x, Model.transform.position.y+_modelSpawnOffset.y, Model.transform.position.z+_modelSpawnOffset.z);
     }
 
     int RandomInt(int minvalue, int maxvalue)

@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &326371876 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8078873529422882355, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
+    type: 3}
+  m_PrefabInstance: {fileID: 521138759}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &521138759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -137,6 +143,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789796329400513970, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3519438260782243687, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
         type: 3}
@@ -213,6 +224,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4725011678591506315, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.076
+      objectReference: {fileID: 0}
     - target: {fileID: 5982250723721725744, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
         type: 3}
       propertyPath: m_RootOrder
@@ -238,6 +254,11 @@ PrefabInstance:
       propertyPath: OverrideDeactivateSpawnPoints
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7923609446736369228, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
+        type: 3}
+      propertyPath: MovementPoint
+      value: 
+      objectReference: {fileID: 326371876}
     - target: {fileID: 8232968113067195257, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
         type: 3}
       propertyPath: m_RootOrder
@@ -271,7 +292,7 @@ MonoBehaviour:
   SpawnpointsPrefab: {fileID: 2377591417283393079, guid: e03b4c68dcffd3643a49281b7136da2f,
     type: 3}
   _chanceAtMonsterPercentage: 20
-  _chanceAtTreasure: 20
+  _chanceAtTreasure: 10
   CornerTiles: []
   StraightTiles: []
   TSplitTiles: []
@@ -570,7 +591,7 @@ PrefabInstance:
     - target: {fileID: 4751948655058070076, guid: 4515c954dd482924b8db559e5002052c,
         type: 3}
       propertyPath: _movementSpeed
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4751948655058070076, guid: 4515c954dd482924b8db559e5002052c,
         type: 3}

@@ -56,20 +56,20 @@ public class RoomSpawnManager : MonoBehaviour
 
     }
 
-    public void SpawnTile(Transform tileTransform, Sides requiredSides)
+    public void SpawnTile(TileScript tilescript, Sides requiredSides)
     {
         if (RandomInt(0,100) < _chanceAtMonsterPercentage)
         {
-            tileTransform.GetComponent<TileScript>().ContainsMonster = true;
+            tilescript.ContainsMonster = true;
         }
 
         else if (RandomInt(0,100) < _chanceAtTreasure)
         {
-            tileTransform.GetComponent<TileScript>().ContainsTreasure = true;
+           tilescript.ContainsTreasure = true;
         }
 
 
-        Transform modeltransform = tileTransform.GetComponent<TileScript>().Model.transform;
+        Transform modeltransform = tilescript.TileObject.transform;
 
         if (requiredSides.HasFlag(Sides.Top | Sides.Bot | Sides.Left | Sides.Right))
         {

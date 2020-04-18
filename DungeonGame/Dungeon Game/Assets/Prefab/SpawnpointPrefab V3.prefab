@@ -86,13 +86,13 @@ MonoBehaviour:
   ContainsMonster: 0
   ContainsTreasure: 0
   _TileMoveUpSpeed: 13
-  Model: {fileID: 0}
   _startTile: 0
   _spawned: 0
   RequiredOpenSides: 0
   RequiredClosedSides: 0
   ChanceAtExtraSides: 3
-  _TileSpecialSpawnScript: {fileID: 0}
+  TileSpecialSpawnScript: {fileID: 0}
+  _tileObject: {fileID: 5122512731778073410}
 --- !u!1 &2610151084048187709
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6444969702084089606}
   m_Layer: 8
-  m_Name: Model
+  m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

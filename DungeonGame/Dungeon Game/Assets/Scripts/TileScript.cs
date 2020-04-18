@@ -10,6 +10,8 @@ public class TileScript : MonoBehaviour
     public GameObject BotPoint;
     public GameObject LeftPoint;
 
+    [HideInInspector] public bool ContainsMonster =false;
+    [HideInInspector] public bool ContainsTreasure= false;
     [SerializeField] private float _TileMoveUpSpeed;
     [HideInInspector] public GameObject Model;
 
@@ -20,11 +22,15 @@ public class TileScript : MonoBehaviour
     [Tooltip("Larger number means smaller chance")]
     public int ChanceAtExtraSides;
 
+    [HideInInspector] public TileContainedObjectScript TileSpecialSpawnScript;
+
+    private void Awake()
+    {
+    }
     // Start is called before the first frame update
     void Start()
     {
         Model = transform.Find("Model").gameObject;
-
         if (!_startTile)
         {
             Model.transform.position -= new Vector3(0, 30, 0);
@@ -68,6 +74,7 @@ public class TileScript : MonoBehaviour
         RoomSpawnManager.Instance.SpawnTile(this.transform, RequiredOpenSides);
         _spawned = true;
         RemoveExcessDetectionPoints();
+        TileSpecialSpawnScript = GetComponentInChildren<TileContainedObjectScript>();
     }
 
     private void RemoveExcessDetectionPoints()

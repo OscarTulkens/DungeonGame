@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Grass
-  m_Shader: {fileID: 4800000, guid: 2227595b1cb3ba441b4c8bdba1713d3c, type: 3}
+  m_Shader: {fileID: 4800000, guid: 196ad73d45056e049a6a050ac1fd6c32, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -62,6 +62,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FogEndPos: 0
+    - _FogGradientStrength: 0
+    - _FogHeight: 0
     - _FogStartPos: 0.12
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -78,7 +80,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FogColor: {r: 0.36078432, g: 0.65882355, b: 0.3921569, a: 0}
+    - _FogColor: {r: 0.36078432, g: 0.65882355, b: 0.3921569, a: 1}
     - _FrontColor: {r: 0.36851007, g: 0.518, b: 0.20163758, a: 1}
     - _RightColor: {r: 0.41252905, g: 0.617, b: 0.19370928, a: 1}
     - _TopColor: {r: 0.381027, g: 0.532, b: 0.22286484, a: 1}

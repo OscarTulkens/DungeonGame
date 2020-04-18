@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Book5
-  m_Shader: {fileID: 4800000, guid: ddeaa2e9e1ba29d46bc8758a50becb12, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8d3c9cb92399af6408479f3b54b1b133, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -57,12 +57,15 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _FogEndPos: 0
+    - _FogGradientStrength: 0
+    - _FogHeight: 0
     - _FogStartPos: 0
     - _FresnelPower: 2.81
     - _FresnelScale: 1.77
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _GradientStrength: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0

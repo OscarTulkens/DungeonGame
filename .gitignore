@@ -61,3 +61,4 @@ crashlytics-build.properties
 DungeonGame/Dungeon Game/Temp/__Backupscenes/0.backup
 DungeonGame/Dungeon Game/Temp/UnityLockfile
 DungeonGame/Dungeon Game/Library/
+*.cache

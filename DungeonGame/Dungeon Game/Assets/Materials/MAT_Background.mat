@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Background
-  m_Shader: {fileID: 4800000, guid: 2227595b1cb3ba441b4c8bdba1713d3c, type: 3}
+  m_Shader: {fileID: 4800000, guid: 196ad73d45056e049a6a050ac1fd6c32, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -62,6 +62,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FogEndPos: 0
+    - _FogGradientStrength: 0
+    - _FogHeight: 0
     - _FogStartPos: 0.72
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -79,6 +81,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0.3254902, g: 0.909804, b: 0.91372555, a: 0}
-    - _FrontColor: {r: 0.3254902, g: 0.909804, b: 0.91372555, a: 1}
+    - _FrontColor: {r: 0.27305093, g: 0.9764116, b: 0.9811321, a: 1}
     - _RightColor: {r: 0.3237362, g: 0.90974414, b: 0.9150943, a: 1}
-    - _TopColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+    - _TopColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}

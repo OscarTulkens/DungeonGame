@@ -6,6 +6,8 @@ using System;
 public class RoomSpawnManager : MonoBehaviour
 {
     public GameObject SpawnpointsPrefab;
+    [SerializeField] private float _chanceAtMonsterPercentage;
+    [SerializeField] private float _chanceAtTreasure;
 
     [HideInInspector] public List<GameObject> CornerTiles = new List<GameObject>();
     [HideInInspector] public List<GameObject> StraightTiles = new List<GameObject>();
@@ -13,49 +15,60 @@ public class RoomSpawnManager : MonoBehaviour
     [HideInInspector] public List<GameObject> FourSplitTiles = new List<GameObject>();
     [HideInInspector] public List<GameObject> DeadEndTiles = new List<GameObject>();
 
+    [HideInInspector] public List<GameObject> MonsterPrefabs = new List<GameObject>();
+    [HideInInspector] public List<GameObject> TreasurePrefabs = new List<GameObject>();
+
     public static RoomSpawnManager Instance;
 
     private void Awake()
     {
         Instance = this;
 
-
-        foreach (GameObject straightTile in Resources.LoadAll<GameObject>("StraightTiles"))
+        foreach (GameObject straightTile in Resources.LoadAll<GameObject>("TileTypes/StraightTiles"))
         {
             StraightTiles.Add(straightTile);
         }
-        foreach (GameObject fourSplitTile in Resources.LoadAll<GameObject>("FourSplitTiles"))
+        foreach (GameObject fourSplitTile in Resources.LoadAll<GameObject>("TileTypes/FourSplitTiles"))
         {
             FourSplitTiles.Add(fourSplitTile);
         }
-        foreach (GameObject tSplitTile in Resources.LoadAll<GameObject>("TSplitTiles"))
+        foreach (GameObject tSplitTile in Resources.LoadAll<GameObject>("TileTypes/TSplitTiles"))
         {
             TSplitTiles.Add(tSplitTile);
         }
-        foreach (GameObject cornerTile in Resources.LoadAll<GameObject>("CornerTiles"))
+        foreach (GameObject cornerTile in Resources.LoadAll<GameObject>("TileTypes/CornerTiles"))
         {
             CornerTiles.Add(cornerTile);
         }
-        foreach (GameObject deadEndTile in Resources.LoadAll<GameObject>("DeadEndTiles"))
+        foreach (GameObject deadEndTile in Resources.LoadAll<GameObject>("TileTypes/DeadEndTiles"))
         {
             DeadEndTiles.Add(deadEndTile);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        foreach(GameObject monster in Resources.LoadAll<GameObject>("TileSpawns/Monsters"))
+        {
+            MonsterPrefabs.Add(monster);
+        }
+        foreach(GameObject treasure in Resources.LoadAll<GameObject>("TileSpawns/Treasures"))
+        {
+            TreasurePrefabs.Add(treasure);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SpawnTile(Transform tileTransform, Sides requiredSides)
     {
+        if (RandomInt(0,100) < _chanceAtMonsterPercentage)
+        {
+            tileTransform.GetComponent<TileScript>().ContainsMonster = true;
+        }
+
+        else if (RandomInt(0,100) < _chanceAtTreasure)
+        {
+            tileTransform.GetComponent<TileScript>().ContainsTreasure = true;
+        }
+
+
         Transform modeltransform = tileTransform.GetComponent<TileScript>().Model.transform;
 
         if (requiredSides.HasFlag(Sides.Top | Sides.Bot | Sides.Left | Sides.Right))

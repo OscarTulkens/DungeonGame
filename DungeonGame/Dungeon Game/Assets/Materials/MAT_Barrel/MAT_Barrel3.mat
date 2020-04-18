@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Barrel3
-  m_Shader: {fileID: 4800000, guid: 2227595b1cb3ba441b4c8bdba1713d3c, type: 3}
+  m_Shader: {fileID: 4800000, guid: 196ad73d45056e049a6a050ac1fd6c32, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -62,6 +62,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FogEndPos: 0
+    - _FogGradientStrength: 0
+    - _FogHeight: 0
     - _FogStartPos: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5

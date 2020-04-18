@@ -15,10 +15,11 @@ public class ControlScript : MonoBehaviour
     [SerializeField] private Transform _pointToLookAt = null;
     [Tooltip("Multiplier when there's multiple tiles in the Queue")]
     [SerializeField] private float _movementSpeedMultiplier;
-    private Vector3 _desiredPos = new Vector3(0,0,0);
-    private List<Vector3> _desiredPositions= new List<Vector3>();
+    [HideInInspector] public List<Vector3> _desiredPositions= new List<Vector3>();
     private Animator _anim;
-
+    private Vector2 _touchStart = Vector2.zero;
+    private Vector2 _touchEnd = Vector2.zero;
+    [SerializeField] private float _minSwipeDistance = 0;
 #if UNITY_IOS
     private void Awake()
     {
@@ -30,9 +31,7 @@ public class ControlScript : MonoBehaviour
     void Start()
     {
         _anim = _character.GetComponentInChildren<Animator>();
-        _desiredPos = _character.transform.position;
         CurrentlySelectedTile = GameObject.FindGameObjectWithTag("Spawnpoint").GetComponentInChildren<TileScript>();
-        _desiredPositions.Add(CurrentlySelectedTile.transform.Find("MovePoint").position);
     }
 
     // Update is called once per frame
@@ -58,6 +57,9 @@ public class ControlScript : MonoBehaviour
         GameObject _newTile;
         Vector3 islandPos = _camera.GetComponent<Camera>().WorldToScreenPoint(CurrentlySelectedTile.transform.position);
         Vector3 clickPos = Input.mousePosition;
+
+        #region EDITOR
+#if UNITY_EDITOR
         if ((Input.GetMouseButtonDown(0)))
         {
             if (CurrentlySelectedTile.LeftPoint)
@@ -74,7 +76,7 @@ public class ControlScript : MonoBehaviour
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.LeftPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
                     }
-                    _desiredPositions.Add(CurrentlySelectedTile.transform.Find("MovePoint").position);
+                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -92,7 +94,7 @@ public class ControlScript : MonoBehaviour
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.TopPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
                     }
-                    _desiredPositions.Add(CurrentlySelectedTile.transform.Find("MovePoint").position);
+                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -110,7 +112,7 @@ public class ControlScript : MonoBehaviour
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.RightPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
                     }
-                    _desiredPositions.Add(CurrentlySelectedTile.transform.Find("MovePoint").position);
+                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
 
@@ -128,13 +130,122 @@ public class ControlScript : MonoBehaviour
                     {
                         CurrentlySelectedTile = CurrentlySelectedTile.BotPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
                     }
-                    _desiredPositions.Add(CurrentlySelectedTile.transform.Find("MovePoint").position);
+                    Invoke("AddDesiredPosition", 0.15f);
                 }
             }
         }
+#endif
+        #endregion
+
+        #region IOS
+#if UNITY_IOS
+        bool _swiped = false;
+        if (Input.touchCount>=1)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                _touchStart = Input.GetTouch(0).position;
+            }
+
+            if (Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                _touchEnd = Input.GetTouch(0).position;
+            }
+
+            if (Input.GetTouch(0).phase == TouchPhase.Ended && Vector2.Distance(_touchStart, _touchEnd) >= _minSwipeDistance)
+            {
+                _swiped = true;
+            }
+        }
+
+        if (_swiped == true)
+        {
+            if (CurrentlySelectedTile.LeftPoint)
+            {
+                if (_touchEnd.x < _touchStart.x && _touchEnd.y < _touchStart.y)
+                {
+                    if (CurrentlySelectedTile.LeftPoint.GetComponent<DetectionScript>().FreeSpace)
+                    {
+                        PlayJump();
+                        _newTile = Instantiate(RoomSpawnManager.Instance.SpawnpointsPrefab, CurrentlySelectedTile.LeftPoint.transform.position, Quaternion.identity);
+                        CurrentlySelectedTile = _newTile.GetComponentInChildren<TileScript>();
+                    }
+                    else
+                    {
+                        CurrentlySelectedTile = CurrentlySelectedTile.LeftPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                    }
+                    Invoke("AddDesiredPosition", 0.15f);
+                }
+            }
+
+            if (CurrentlySelectedTile.TopPoint)
+            {
+                if (_touchEnd.x < _touchStart.x && _touchEnd.y > _touchStart.y)
+                {
+                    if (CurrentlySelectedTile.TopPoint.GetComponent<DetectionScript>().FreeSpace)
+                    {
+                        PlayJump();
+                        _newTile = Instantiate(RoomSpawnManager.Instance.SpawnpointsPrefab, CurrentlySelectedTile.TopPoint.transform.position, Quaternion.identity);
+                        CurrentlySelectedTile = _newTile.GetComponentInChildren<TileScript>();
+                    }
+                    else
+                    {
+                        CurrentlySelectedTile = CurrentlySelectedTile.TopPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                    }
+                    Invoke("AddDesiredPosition", 0.15f);
+                }
+            }
+
+            if (CurrentlySelectedTile.RightPoint)
+            {
+                if (_touchEnd.x > _touchStart.x && _touchEnd.y > _touchStart.y)
+                {
+                    if (CurrentlySelectedTile.RightPoint.GetComponent<DetectionScript>().FreeSpace)
+                    {
+                        PlayJump();
+                        _newTile = Instantiate(RoomSpawnManager.Instance.SpawnpointsPrefab, CurrentlySelectedTile.RightPoint.transform.position, Quaternion.identity);
+                        CurrentlySelectedTile = _newTile.GetComponentInChildren<TileScript>();
+                    }
+                    else
+                    {
+                        CurrentlySelectedTile = CurrentlySelectedTile.RightPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                    }
+                    Invoke("AddDesiredPosition", 0.15f);
+                }
+            }
+
+            if (CurrentlySelectedTile.BotPoint)
+            {
+                if (_touchEnd.x > _touchStart.x && _touchEnd.y < _touchStart.y)
+                {
+                    if (CurrentlySelectedTile.BotPoint.GetComponent<DetectionScript>().FreeSpace)
+                    {
+                        PlayJump();
+                        _newTile = Instantiate(RoomSpawnManager.Instance.SpawnpointsPrefab, CurrentlySelectedTile.BotPoint.transform.position, Quaternion.identity);
+                        CurrentlySelectedTile = _newTile.GetComponentInChildren<TileScript>();
+                    }
+                    else
+                    {
+                        CurrentlySelectedTile = CurrentlySelectedTile.BotPoint.GetComponent<DetectionScript>().ConnectedTile.GetComponentInChildren<TileScript>();
+                    }
+                    Invoke("AddDesiredPosition", 0.15f);
+                }
+            }
+
+            _swiped = false;
+        }
+#endif
+        #endregion
     }
 
 
+    void AddDesiredPosition()
+    {
+        Debug.Log(CurrentlySelectedTile.name);
+        Debug.Log(CurrentlySelectedTile.TileSpecialSpawnScript);
+        Debug.Log(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint);
+        _desiredPositions.Add(CurrentlySelectedTile.TileSpecialSpawnScript.MovementPoint.position);
+    }
 
     void MoveToTile()
     {

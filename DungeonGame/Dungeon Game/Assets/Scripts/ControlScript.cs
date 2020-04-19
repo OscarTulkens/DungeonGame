@@ -9,20 +9,13 @@ public class ControlScript : MonoBehaviour
     [SerializeField] private GameObject _character = null;
     public TileScript CurrentlySelectedTile = null;
     [SerializeField] private GameObject _camera = null;
-    [SerializeField] private float _movementSpeed = 0;
-    [SerializeField] private float _cameraSpeed = 0;
-    [SerializeField] private Vector3 _camOffset = new Vector3(0,0,0);
-    [SerializeField] private Transform _pointToLookAt = null;
-    [Tooltip("Multiplier when there's multiple tiles in the Queue")]
-    [SerializeField] private float _movementSpeedMultiplier;
-    [HideInInspector] public List<Vector3> _desiredPositions= new List<Vector3>();
+    [HideInInspector] public List<Vector3> DesiredPositions= new List<Vector3>();
     private Animator _anim;
     private Vector2 _touchStart = Vector2.zero;
     private Vector2 _touchEnd = Vector2.zero;
     [SerializeField] private float _minSwipeDistance = 0;
 
-    public static ControlScript Instance;
-
+    public static ControlScript Instance { get; private set; }
 
     private void Awake()
     {
@@ -43,9 +36,6 @@ public class ControlScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveToTile();
-        MoveCamera();
-        CameraLookAtPoint(_pointToLookAt);
         SpawnAndSelectTile();
         ResetLevel();
     }
@@ -247,46 +237,7 @@ public class ControlScript : MonoBehaviour
 
     public void AddDesiredPosition(Vector3 positionToAdd)
     { 
-        _desiredPositions.Add(positionToAdd);
-    }
-
-    void MoveToTile()
-    {
-        if (_desiredPositions.Count>=2)
-        {
-            if (Vector3.Distance(_character.transform.position, _desiredPositions[0]) >= 0.2f)
-            {
-                _character.transform.position = Vector3.MoveTowards(_character.transform.position, _desiredPositions[0], _movementSpeed*_movementSpeedMultiplier * Time.deltaTime);
-            }
-            else
-            {
-                _desiredPositions.RemoveAt(0);
-            }
-        }
-        else if (_desiredPositions.Count == 1)
-        {
-            if (Vector3.Distance(_character.transform.position, _desiredPositions[0]) >= 0.01f)
-            {
-                _character.transform.position = Vector3.Lerp(_character.transform.position, _desiredPositions[0], _movementSpeed * Time.deltaTime);
-            }
-            else
-            {
-                _desiredPositions.RemoveAt(0);
-            }
-        }
-    }
-
-    void MoveCamera()
-    {
-        if (Vector3.Distance(_camera.transform.position, _character.transform.position+_camOffset) >=0.05f)
-        {
-            _camera.transform.position = Vector3.Lerp(_camera.transform.position, _character.transform.position + _camOffset, _cameraSpeed * Time.deltaTime);
-        }
-    }
-
-    private void CameraLookAtPoint(Transform pointToLookAt)
-    {
-        _camera.transform.rotation = Quaternion.Slerp(_camera.transform.rotation, Quaternion.LookRotation(pointToLookAt.transform.position - _camera.transform.position), Time.deltaTime * _cameraSpeed);
+        DesiredPositions.Add(positionToAdd);
     }
 
     private void PlayJump()

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ebb16dda0f2da4ba1d72dbf2f4c236, type: 3}
+  m_Name: RedMonster
+  m_EditorClassIdentifier: 
+  MonsterName: Red Monster
+  MonsterPrefab: {fileID: 2347873887362749744, guid: e8e596f51406d004aacacbe3ac7c7fbe,
+    type: 3}
+  MonsterHealth: 5
+  MonsterAttack: 2
+  difficultyLevel: 1

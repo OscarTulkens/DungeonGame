@@ -15,7 +15,7 @@ public class RoomSpawnManager : MonoBehaviour
     [HideInInspector] public List<GameObject> FourSplitTiles = new List<GameObject>();
     [HideInInspector] public List<GameObject> DeadEndTiles = new List<GameObject>();
 
-    [HideInInspector] public List<GameObject> MonsterPrefabs = new List<GameObject>();
+    [HideInInspector] public List<MonsterObject> MonsterPrefabs = new List<MonsterObject>();
     [HideInInspector] public List<GameObject> TreasurePrefabs = new List<GameObject>();
 
     public static RoomSpawnManager Instance;
@@ -45,7 +45,7 @@ public class RoomSpawnManager : MonoBehaviour
             DeadEndTiles.Add(deadEndTile);
         }
 
-        foreach(GameObject monster in Resources.LoadAll<GameObject>("TileSpawns/Monsters"))
+        foreach(MonsterObject monster in Resources.LoadAll<MonsterObject>("TileSpawns/Monsters"))
         {
             MonsterPrefabs.Add(monster);
         }

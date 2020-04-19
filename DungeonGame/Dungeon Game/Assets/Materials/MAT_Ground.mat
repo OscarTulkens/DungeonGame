@@ -62,8 +62,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FogEndPos: 0.92
-    - _FogGradientStrength: 0
-    - _FogHeight: 0
+    - _FogGradientStrength: 0.54
+    - _FogHeight: -0.38
     - _FogStartPos: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -80,7 +80,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FogColor: {r: 0.1961107, g: 0.3679245, b: 0.21373263, a: 0}
-    - _FrontColor: {r: 0.23829654, g: 0.5943396, b: 0.27481377, a: 1}
-    - _RightColor: {r: 0.378471, g: 0.5943396, b: 0.40061134, a: 1}
-    - _TopColor: {r: 0.37254903, g: 0.6784314, b: 0.4039216, a: 1}
+    - _FogColor: {r: 0.025453908, g: 0.41509432, b: 0.06973118, a: 1}
+    - _FrontColor: {r: 0.233208, g: 0.73800004, b: 0.28313246, a: 1}
+    - _RightColor: {r: 0.17345883, g: 0.59607846, b: 0.21187876, a: 1}
+    - _TopColor: {r: 0.18187195, g: 0.84199995, b: 0.24957739, a: 1}

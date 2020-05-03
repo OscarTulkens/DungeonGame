@@ -52,6 +52,8 @@ public class CombatManagerScript : MonoBehaviour
         Instance = this;
         _combatRenderTextureImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.height);
         _combatRenderTextureImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.height);
+        _combatRenderTextureImage.enabled = false;
+        _combatCam.enabled = false;
     }
 
     // Update is called once per frame
@@ -78,10 +80,18 @@ public class CombatManagerScript : MonoBehaviour
         if (_combat && _combatPPVolume.weight < 1)
         {
             _combatPPVolume.weight = Mathf.Lerp(_combatPPVolume.weight, 1, Time.deltaTime * _postproLerpSpeed);
+            if (_combatPPVolume.weight>=0.95)
+            {
+                _combatPPVolume.weight = 1;
+            }
         }
         else if (!_combat && _combatPPVolume.weight>0)
         {
             _combatPPVolume.weight = Mathf.Lerp(_combatPPVolume.weight, 0, Time.deltaTime * _postproLerpSpeed);
+            if (_combatPPVolume.weight <= 0.05)
+            {
+                _combatPPVolume.weight = 0;
+            }
         }
     }
 

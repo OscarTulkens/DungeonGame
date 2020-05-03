@@ -6,8 +6,8 @@ using System;
 public class RoomSpawnManager : MonoBehaviour
 {
     public GameObject SpawnpointsPrefab;
-    [SerializeField] private float _chanceAtMonsterPercentage;
-    [SerializeField] private float _chanceAtTreasure;
+    [SerializeField] private float _chanceAtMonsterPercentage = 0;
+    [SerializeField] private float _chanceAtTreasure = 0;
 
     [HideInInspector] public List<GameObject> CornerTiles = new List<GameObject>();
     [HideInInspector] public List<GameObject> StraightTiles = new List<GameObject>();
@@ -16,7 +16,7 @@ public class RoomSpawnManager : MonoBehaviour
     [HideInInspector] public List<GameObject> DeadEndTiles = new List<GameObject>();
 
     [HideInInspector] public List<MonsterObject> MonsterPrefabs = new List<MonsterObject>();
-    [HideInInspector] public List<GameObject> TreasurePrefabs = new List<GameObject>();
+    [HideInInspector] public List<TreasureObject> TreasurePrefabs = new List<TreasureObject>();
 
     public static RoomSpawnManager Instance;
 
@@ -49,7 +49,7 @@ public class RoomSpawnManager : MonoBehaviour
         {
             MonsterPrefabs.Add(monster);
         }
-        foreach(GameObject treasure in Resources.LoadAll<GameObject>("TileSpawns/Treasures"))
+        foreach(TreasureObject treasure in Resources.LoadAll<TreasureObject>("TileSpawns/Treasures"))
         {
             TreasurePrefabs.Add(treasure);
         }

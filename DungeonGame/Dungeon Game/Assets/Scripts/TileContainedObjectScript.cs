@@ -8,7 +8,8 @@ public class TileContainedObjectScript : MonoBehaviour
 
     private List<MonsterObject> _monsters = new List<MonsterObject>();
     private MonsterObject _chosenMonster;
-    private List<GameObject> _treasures = new List<GameObject>();
+    private List<TreasureObject> _treasures = new List<TreasureObject>();
+    private TreasureObject _chosenTreasure;
 
     [SerializeField] private GameObject _normalSpawnPoint = null;
     [SerializeField] private GameObject _monsterSpawnPoints = null;
@@ -20,8 +21,8 @@ public class TileContainedObjectScript : MonoBehaviour
 
     [HideInInspector] public GameObject SpecialSpawn;
 
-    [SerializeField] private Vector3 _modelSpawnOffset;
-    [SerializeField] private float _tileMoveUpSpeed;
+    [SerializeField] private Vector3 _modelSpawnOffset = Vector3.zero;
+    [SerializeField] private float _tileMoveUpSpeed = 0;
 
     private void Awake()
     {
@@ -75,10 +76,11 @@ public class TileContainedObjectScript : MonoBehaviour
         _treasureSpawnPoints.SetActive(true);
         Transform _treasurepoint = _treasureSpawnPoints.transform.Find("TreasurePoint").transform;
         Transform _treasureMovementPoint = _treasureSpawnPoints.transform.Find("MovePoint").transform;
-        GameObject _instantiatedTreasure = Instantiate<GameObject>(_treasures[RandomInt(0, _treasures.Count)], _treasurepoint.position, _treasurepoint.rotation, Model.transform);
+        GameObject _instantiatedTreasure = Instantiate(RandomTreasure().TreasurePrefab, _treasurepoint.position, _treasurepoint.rotation, Model.transform);
         SpecialSpawn = _instantiatedTreasure;
         SetMovementPoint(_treasureMovementPoint);
         ControlScript.Instance.AddDesiredPosition(_treasureMovementPoint.position);
+        Invoke("StartTreasure", 0.3f);
     }
 
     void ActivateNormalSpawn()
@@ -99,6 +101,7 @@ public class TileContainedObjectScript : MonoBehaviour
         else if (_tile.ContainsTreasure)
         {
             ActivateTreasureSpawn();
+            ControlScript.Instance.enabled = false;
         }
         else
         {
@@ -134,13 +137,22 @@ public class TileContainedObjectScript : MonoBehaviour
     MonsterObject RandomMonster()
     {
         _chosenMonster = _monsters[Random.Range(0, _monsters.Count)];
-        Debug.Log(_chosenMonster.MonsterName + " " + _chosenMonster.MonsterHealth);
         return _chosenMonster;
+    }
+
+    TreasureObject RandomTreasure()
+    {
+        _chosenTreasure = _treasures[RandomInt(0, _treasures.Count)];
+        return _chosenTreasure;
     }
 
     void StartCombat()
     {
         CombatManagerScript.Instance.StartCombat(_chosenMonster);
-        Debug.Log(_chosenMonster);
+    }
+
+    void StartTreasure()
+    {
+        TreasureManager.Instance.StartTreasure(_chosenTreasure);
     }
 }

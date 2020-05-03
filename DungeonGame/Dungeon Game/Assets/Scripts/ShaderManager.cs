@@ -5,10 +5,10 @@ using UnityEngine;
 [ExecuteAlways]
 public class ShaderManager : MonoBehaviour
 {
-    [SerializeField] private bool _fogOn;
-    [SerializeField] private float _worldFogHeight;
-    [SerializeField] private float _worldSpaceFogWidth;
-    [SerializeField] private float _worldSpaceFogStrength;
+    [SerializeField] private bool _fogOn = false;
+    [SerializeField] private float _worldFogHeight = 0;
+    [SerializeField] private float _worldSpaceFogWidth = 0;
+    [SerializeField] private float _worldSpaceFogStrength = 0;
 
     private void Update()
     {

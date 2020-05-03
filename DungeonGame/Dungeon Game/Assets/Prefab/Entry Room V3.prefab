@@ -310,7 +310,7 @@ MonoBehaviour:
   SpawnpointsPrefab: {fileID: 2377591417283393079, guid: e03b4c68dcffd3643a49281b7136da2f,
     type: 3}
   _chanceAtMonsterPercentage: 20
-  _chanceAtTreasure: 10
+  _chanceAtTreasure: 13
   CornerTiles: []
   StraightTiles: []
   TSplitTiles: []

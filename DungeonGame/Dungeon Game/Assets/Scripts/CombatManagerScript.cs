@@ -9,40 +9,41 @@ public class CombatManagerScript : MonoBehaviour
 {
 
     //general variables
+    [SerializeField] private Camera _combatCam = null;
     private bool _combat = false;
-    [SerializeField] private RawImage _combatRenderTextureImage;
+    [SerializeField] private RawImage _combatRenderTextureImage = null;
     [SerializeField] private float _postproLerpSpeed = 0;
     [SerializeField] private Volume _combatPPVolume = null;
-    [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _movementSpeed = 0;
     [SerializeField] private float _attackMovementSpeed = 0;
-    private ControlScript _controlScript;
+    private ControlScript _controlScript = null;
 
     //Player variables
     [Header("PLAYER")]
-    [SerializeField] private Transform _playerSpawnPoint;
-    [SerializeField] private Transform _playerFightPoint;
-    [SerializeField] private GameObject _playerObject;
+    [SerializeField] private Transform _playerSpawnPoint = null;
+    [SerializeField] private Transform _playerFightPoint = null;
+    [SerializeField] private GameObject _playerObject = null;
 
 
     //Monster variables
     [Header("MONSTER")]
-    [SerializeField] private Transform _monsterSpawnPoint;
-    [SerializeField] private Transform _monsterFightPoint;
-    [SerializeField] private GameObject _monsterObject;
-    private GameObject _monsterModel;
-    private int _monsterHealth;
+    [SerializeField] private Transform _monsterSpawnPoint = null;
+    [SerializeField] private Transform _monsterFightPoint = null;
+    [SerializeField] private GameObject _monsterObject = null;
+    private GameObject _monsterModel = null;
+    private int _monsterHealth = 0;
 
     //Singleton
     public static CombatManagerScript Instance = null;
 
     //Combat Variables
-    private bool _slideInDone;
+    private bool _slideInDone = false;
 
-    private bool _playerAttacked;
-    private bool _playerHitMonster;
+    private bool _playerAttacked = false;
+    private bool _playerHitMonster = false;
 
-    private bool _monsterAttacked;
-    private bool _monsterHitPlayer;
+    private bool _monsterAttacked = false;
+    private bool _monsterHitPlayer = false;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +64,7 @@ public class CombatManagerScript : MonoBehaviour
 
     public void StartCombat(MonsterObject monsterobject)
     {
+        _combatCam.enabled = true;
         _monsterHealth = monsterobject.MonsterHealth;
         _monsterModel = Instantiate(monsterobject.MonsterPrefab, _monsterObject.transform.position, Quaternion.Euler(0,225,0), _monsterObject.transform);
         _monsterObject.transform.position = _monsterSpawnPoint.position;
@@ -118,6 +120,7 @@ public class CombatManagerScript : MonoBehaviour
                 Destroy(_monsterModel);
                 _monsterObject.transform.position = _monsterSpawnPoint.position;
                 _playerObject.transform.position = _playerSpawnPoint.position;
+                _combatCam.enabled = false;
             }
         }
     }
@@ -162,7 +165,7 @@ public class CombatManagerScript : MonoBehaviour
                 _playerObject.transform.position += (_monsterObject.transform.position - _playerObject.transform.position).normalized * _attackMovementSpeed*Time.deltaTime;
                 if (Vector3.Distance(_playerObject.transform.position, _monsterObject.transform.position) <= 0.1f)
                 {
-                    CameraShake.Instance.AddShake(2.2f);
+                    _monsterObject.GetComponent<Shake>().AddShake(1.5f, _monsterFightPoint.position);
                     _playerHitMonster = true;
                 }
             }

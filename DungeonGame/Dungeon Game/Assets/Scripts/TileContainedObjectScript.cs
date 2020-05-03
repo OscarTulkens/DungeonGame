@@ -48,13 +48,13 @@ public class TileContainedObjectScript : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z)) >= 0.01f)
+        if (Vector3.Distance(Model.transform.position, new Vector3(Model.transform.position.x, 7, Model.transform.position.z)) >= 0.01f)
         {
-            Model.transform.position = Vector3.Lerp(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z), _tileMoveUpSpeed * Time.deltaTime);
+            Model.transform.position = Vector3.Lerp(Model.transform.position, new Vector3(Model.transform.position.x, 7, Model.transform.position.z), _tileMoveUpSpeed * Time.deltaTime);
         }
-        else if (Model.transform.position != new Vector3(Model.transform.position.x, 0, Model.transform.position.z))
+        else if (Model.transform.position != new Vector3(Model.transform.position.x, 7, Model.transform.position.z))
         {
-            Model.transform.position = new Vector3(Model.transform.position.x, 0, Model.transform.position.z);
+            Model.transform.position = new Vector3(Model.transform.position.x, 7, Model.transform.position.z);
         }
     }
 

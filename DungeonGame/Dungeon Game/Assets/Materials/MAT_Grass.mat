@@ -8,10 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Grass
-  m_Shader: {fileID: 4800000, guid: 196ad73d45056e049a6a050ac1fd6c32, type: 3}
+  m_Shader: {fileID: 4800000, guid: c6404c83db809c047b7852a0a044d5b1, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -62,8 +62,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FogEndPos: 0
-    - _FogGradientStrength: 0.72
-    - _FogHeight: 0.66
+    - _FogGradientStrength: 0.43
+    - _FogHeight: 1.3
     - _FogStartPos: 0.12
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -76,11 +76,16 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _WorldFogHeight: 0.51
+    - _WorldSpaceFogStrength: 6.64
+    - _WorldSpaceFogWidth: 7.21
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0.13148275, g: 0.73800004, b: 0.19086204, a: 1}
-    - _FrontColor: {r: 0.5255454, g: 0.73800004, b: 0.2851363, a: 1}
-    - _RightColor: {r: 0.45909572, g: 0.82199997, b: 0.056840442, a: 1}
-    - _TopColor: {r: 0.5056838, g: 0.709, b: 0.2971544, a: 1}
+    - _FrontColor: {r: 0.7851127, g: 0.9811321, b: 0.5784977, a: 1}
+    - _ObjectFogColor: {r: 0.48627454, g: 0.6313726, b: 0.33333334, a: 0}
+    - _RightColor: {r: 0.6192513, g: 0.735849, b: 0.496351, a: 1}
+    - _TopColor: {r: 0.49771762, g: 0.6981132, b: 0.28648987, a: 1}
+    - _WorldFogColor: {r: 0.7647059, g: 0.9411765, b: 0.9490196, a: 0}

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Crystal
-  m_Shader: {fileID: 4800000, guid: 8d3c9cb92399af6408479f3b54b1b133, type: 3}
+  m_Shader: {fileID: 4800000, guid: e5b370ab40574d347853e51b9e4f7e80, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -76,6 +76,7 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _WorkflowMode: 1
+    - _WorldFogHeight: 0
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.6792453, g: 0.4427295, b: 0, a: 1}
@@ -87,6 +88,7 @@ Material:
     - _RightColor: {r: 0.5153724, g: 0.894, b: 0.30395997, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TopColor: {r: 0.3608664, g: 0.8867924, b: 0.25516194, a: 0}
+    - _WorldFogColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3467111163261962010
 MonoBehaviour:
   m_ObjectHideFlags: 11

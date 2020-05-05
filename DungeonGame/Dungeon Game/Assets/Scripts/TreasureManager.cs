@@ -27,6 +27,12 @@ public class TreasureManager : MonoBehaviour
     public static TreasureManager Instance = null;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        Instance = this;
+        enabled = false;
+    }
     void Start()
     {
         if (!PlayerPrefs.HasKey("Currency"))
@@ -34,7 +40,6 @@ public class TreasureManager : MonoBehaviour
             PlayerPrefs.SetInt("Currency", 0);
         }
         UpdateText();
-        Instance = this;
         _treasureCam.enabled = false;
         _treasureRenderTextureImage.enabled = false;
         _controlScript = ControlScript.Instance;
@@ -43,7 +48,6 @@ public class TreasureManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangeTreasurePostPro();
         HandleTreasure();
     }
 
@@ -71,6 +75,9 @@ public class TreasureManager : MonoBehaviour
                 PlayerPrefs.SetInt("Currency", PlayerPrefs.GetInt("Currency") + _treasureValue);
                 PlayerPrefs.Save();
                 UpdateText();
+                GetComponentInChildren<Animator>().SetTrigger("Open");
+                _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Open");
+                _controlScript.CurrentlySelectedTile.ContainsTreasure = false;
                 Invoke("StopTreasure", 1f);
                 _claimed = true;
             }
@@ -84,30 +91,11 @@ public class TreasureManager : MonoBehaviour
 
     private void StopTreasure()
     {
-        _treasure = false;
         Destroy(_treasureObject);
         _treasureCam.enabled = false;
         _treasureRenderTextureImage.enabled = false;
         _controlScript.enabled = true;
-    }
-
-    private void ChangeTreasurePostPro()
-    {
-        if (_treasure && _treasurePPVolume.weight < 1)
-        {
-            _treasurePPVolume.weight = Mathf.Lerp(_treasurePPVolume.weight, 1, Time.deltaTime * _postproLerpSpeed);
-            if (_treasurePPVolume.weight >= 0.95)
-            {
-                _treasurePPVolume.weight = 1;
-            }
-        }
-        else if (!_treasure && _treasurePPVolume.weight > 0)
-        {
-            _treasurePPVolume.weight = Mathf.Lerp(_treasurePPVolume.weight, 0, Time.deltaTime * _postproLerpSpeed);
-            if (_treasurePPVolume.weight <= 0.05)
-            {
-                _treasurePPVolume.weight = 0;
-            }
-        }
+        _treasure = false;
+        this.enabled = false;
     }
 }

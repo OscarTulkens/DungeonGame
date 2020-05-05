@@ -95,13 +95,15 @@ public class TileContainedObjectScript : MonoBehaviour
     {
         if (_tile.ContainsMonster)
         {
-            ActivateMonsterSpawn();
             ControlScript.Instance.enabled = false;
+            CombatManagerScript.Instance.enabled = true;
+            ActivateMonsterSpawn();
         }
         else if (_tile.ContainsTreasure)
         {
-            ActivateTreasureSpawn();
             ControlScript.Instance.enabled = false;
+            TreasureManager.Instance.enabled = true;
+            ActivateTreasureSpawn();
         }
         else
         {

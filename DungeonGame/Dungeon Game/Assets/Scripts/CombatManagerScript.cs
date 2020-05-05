@@ -45,11 +45,16 @@ public class CombatManagerScript : MonoBehaviour
     private bool _monsterAttacked = false;
     private bool _monsterHitPlayer = false;
 
+    private void Awake()
+    {
+        Instance = this;
+        enabled = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _controlScript = ControlScript.Instance;
-        Instance = this;
         _combatRenderTextureImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.height);
         _combatRenderTextureImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.height);
         _combatRenderTextureImage.enabled = false;
@@ -59,7 +64,6 @@ public class CombatManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangeCombatPostPro();
         SlideInCombat();
         ManageCombat();
     }
@@ -73,26 +77,6 @@ public class CombatManagerScript : MonoBehaviour
         _playerObject.transform.position = _playerSpawnPoint.position;
         _combatRenderTextureImage.enabled = true;
         _combat = true;
-    }
-
-    private void ChangeCombatPostPro()
-    {
-        if (_combat && _combatPPVolume.weight < 1)
-        {
-            _combatPPVolume.weight = Mathf.Lerp(_combatPPVolume.weight, 1, Time.deltaTime * _postproLerpSpeed);
-            if (_combatPPVolume.weight>=0.95)
-            {
-                _combatPPVolume.weight = 1;
-            }
-        }
-        else if (!_combat && _combatPPVolume.weight>0)
-        {
-            _combatPPVolume.weight = Mathf.Lerp(_combatPPVolume.weight, 0, Time.deltaTime * _postproLerpSpeed);
-            if (_combatPPVolume.weight <= 0.05)
-            {
-                _combatPPVolume.weight = 0;
-            }
-        }
     }
 
     private void SlideInCombat()
@@ -131,6 +115,7 @@ public class CombatManagerScript : MonoBehaviour
                 _monsterObject.transform.position = _monsterSpawnPoint.position;
                 _playerObject.transform.position = _playerSpawnPoint.position;
                 _combatCam.enabled = false;
+                this.enabled = false;
             }
         }
     }

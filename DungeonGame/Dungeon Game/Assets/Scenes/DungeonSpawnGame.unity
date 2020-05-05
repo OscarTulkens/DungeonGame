@@ -251,6 +251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f819f7c0f956ba6419f7fbca7e3f96b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ppSpeed: 5
+  _overlayVolume: {fileID: 495256292}
   _fogOn: 1
   _worldFogHeight: 0.51
   _worldSpaceFogWidth: 7.21
@@ -470,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGlobal: 0
+  isGlobal: 1
   priority: 1
   blendDistance: 0
   weight: 1
@@ -948,7 +950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &549641533
 Light:
   m_ObjectHideFlags: 0
@@ -1003,7 +1005,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
+  m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -1587,7 +1589,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &925258288
@@ -1603,7 +1605,6 @@ Transform:
   m_Children:
   - {fileID: 1428947288}
   - {fileID: 495256293}
-  - {fileID: 1951029097}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
@@ -1631,7 +1632,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 1
-  m_Antialiasing: 2
+  m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -1948,7 +1949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _combatCam: {fileID: 1846933420}
   _combatRenderTextureImage: {fileID: 2117178701}
-  _postproLerpSpeed: 2
+  _postproLerpSpeed: 5
   _combatPPVolume: {fileID: 495256292}
   _movementSpeed: 7
   _attackMovementSpeed: 10
@@ -2209,72 +2210,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _treasureCam: {fileID: 1385540996}
   _treasureRenderTextureImage: {fileID: 911777795}
-  _treasurePPVolume: {fileID: 1951029099}
-  _postproLerpSpeed: 2
+  _treasurePPVolume: {fileID: 495256292}
+  _postproLerpSpeed: 5
   _treasureSpawnPoint: {fileID: 182998347}
   _currencyText: {fileID: 589258030}
---- !u!1 &1951029096
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1951029097}
-  - component: {fileID: 1951029099}
-  - component: {fileID: 1951029098}
-  m_Layer: 0
-  m_Name: PostProTreasure
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1951029097
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951029096}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 925258288}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1951029098
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951029096}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1951029099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951029096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 0
-  priority: 1
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 213c3654e7877174b82894887043a0fd, type: 2}
 --- !u!1 &2063683813
 GameObject:
   m_ObjectHideFlags: 0

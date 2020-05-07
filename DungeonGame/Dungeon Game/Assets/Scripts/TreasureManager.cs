@@ -6,8 +6,6 @@ using UnityEngine.Rendering;
 
 public class TreasureManager : MonoBehaviour
 {
-    [SerializeField] private Camera _treasureCam = null;
-    [SerializeField] private RawImage _treasureRenderTextureImage = null;
     private ControlScript _controlScript = null;
     private bool _treasure = false;
     [SerializeField] private Volume _treasurePPVolume = null;
@@ -40,8 +38,6 @@ public class TreasureManager : MonoBehaviour
             PlayerPrefs.SetInt("Currency", 0);
         }
         UpdateText();
-        _treasureCam.enabled = false;
-        _treasureRenderTextureImage.enabled = false;
         _controlScript = ControlScript.Instance;
     }
 
@@ -57,8 +53,6 @@ public class TreasureManager : MonoBehaviour
         _treasure = true;
         _treasureObject = Instantiate(treasurePrefab.TreasurePrefab, _treasureSpawnPoint);
         SetRandomValue(treasurePrefab.MinValue, treasurePrefab.MaxValue);
-        _treasureCam.enabled = true;
-        _treasureRenderTextureImage.enabled = true;
     }
 
     private void SetRandomValue(int min, int max)
@@ -75,7 +69,7 @@ public class TreasureManager : MonoBehaviour
                 PlayerPrefs.SetInt("Currency", PlayerPrefs.GetInt("Currency") + _treasureValue);
                 PlayerPrefs.Save();
                 UpdateText();
-                GetComponentInChildren<Animator>().SetTrigger("Open");
+                _treasureSpawnPoint.GetComponentInChildren<Animator>().SetTrigger("Open");
                 _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Open");
                 _controlScript.CurrentlySelectedTile.ContainsTreasure = false;
                 Invoke("StopTreasure", 1f);
@@ -92,8 +86,6 @@ public class TreasureManager : MonoBehaviour
     private void StopTreasure()
     {
         Destroy(_treasureObject);
-        _treasureCam.enabled = false;
-        _treasureRenderTextureImage.enabled = false;
         _controlScript.enabled = true;
         _treasure = false;
         this.enabled = false;

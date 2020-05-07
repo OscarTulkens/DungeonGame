@@ -9,9 +9,7 @@ public class CombatManagerScript : MonoBehaviour
 {
 
     //general variables
-    [SerializeField] private Camera _combatCam = null;
     private bool _combat = false;
-    [SerializeField] private RawImage _combatRenderTextureImage = null;
     [SerializeField] private float _postproLerpSpeed = 0;
     [SerializeField] private Volume _combatPPVolume = null;
     [SerializeField] private float _movementSpeed = 0;
@@ -42,9 +40,6 @@ public class CombatManagerScript : MonoBehaviour
     private bool _playerAttacked = false;
     private bool _playerHitMonster = false;
 
-    private bool _monsterAttacked = false;
-    private bool _monsterHitPlayer = false;
-
     private void Awake()
     {
         Instance = this;
@@ -55,10 +50,6 @@ public class CombatManagerScript : MonoBehaviour
     void Start()
     {
         _controlScript = ControlScript.Instance;
-        _combatRenderTextureImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.height);
-        _combatRenderTextureImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.height);
-        _combatRenderTextureImage.enabled = false;
-        _combatCam.enabled = false;
     }
 
     // Update is called once per frame
@@ -70,12 +61,10 @@ public class CombatManagerScript : MonoBehaviour
 
     public void StartCombat(MonsterObject monsterobject)
     {
-        _combatCam.enabled = true;
         _monsterHealth = monsterobject.MonsterHealth;
-        _monsterModel = Instantiate(monsterobject.MonsterPrefab, _monsterObject.transform.position, Quaternion.Euler(0,225,0), _monsterObject.transform);
+        _monsterModel = Instantiate(monsterobject.MonsterPrefab, _monsterObject.transform.position, _monsterObject.transform.rotation, _monsterObject.transform);
         _monsterObject.transform.position = _monsterSpawnPoint.position;
         _playerObject.transform.position = _playerSpawnPoint.position;
-        _combatRenderTextureImage.enabled = true;
         _combat = true;
     }
 
@@ -109,12 +98,10 @@ public class CombatManagerScript : MonoBehaviour
             }
             else
             {
-                _combatRenderTextureImage.enabled = false;
                 _slideInDone = false;
                 Destroy(_monsterModel);
                 _monsterObject.transform.position = _monsterSpawnPoint.position;
                 _playerObject.transform.position = _playerSpawnPoint.position;
-                _combatCam.enabled = false;
                 this.enabled = false;
             }
         }
@@ -157,7 +144,7 @@ public class CombatManagerScript : MonoBehaviour
         {
             if (!_playerHitMonster)
             {
-                _playerObject.transform.position += (_monsterObject.transform.position - _playerObject.transform.position).normalized * _attackMovementSpeed*Time.deltaTime;
+                _playerObject.transform.position = Vector3.MoveTowards(_playerObject.transform.position,_monsterFightPoint.position, _attackMovementSpeed*7 *Time.deltaTime);
                 if (Vector3.Distance(_playerObject.transform.position, _monsterObject.transform.position) <= 0.1f)
                 {
                     _monsterObject.GetComponent<Shake>().AddShake(1.5f, _monsterFightPoint.position);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 [ExecuteAlways]
 public class ShaderManager : MonoBehaviour
 {
@@ -11,7 +12,11 @@ public class ShaderManager : MonoBehaviour
     [SerializeField] private float _worldFogHeight = 0;
     [SerializeField] private float _worldSpaceFogWidth = 0;
     [SerializeField] private float _worldSpaceFogStrength = 0;
+    [SerializeField] private Image _eventOverlayImage = null;
+    [SerializeField] private float _eventOverlayAlpha = 0;
+    [SerializeField] private float _alphaLerpSpeed;
 
+    private Color _desiredColor;
     private CombatManagerScript _combatManager;
     private TreasureManager _treasureManager;
 
@@ -33,34 +38,34 @@ public class ShaderManager : MonoBehaviour
 
     private void Update()
     {
-        ManagePostPro();
+        ManageEventColorOverlay();
         AssignInstances();
     }
 
-    void ManagePostPro()
+    void ManageEventColorOverlay()
     {
         if (_combatManager != null && _treasureManager != null)
         {
             if (_combatManager.enabled || _treasureManager.enabled)
             {
-                if (_overlayVolume.weight !=1)
+                if (_eventOverlayImage.color.a != _eventOverlayAlpha)
                 {
-                    _overlayVolume.weight = Mathf.Lerp(_overlayVolume.weight, 1, Time.deltaTime * _ppSpeed);
-                    if (_overlayVolume.weight >= 0.95)
+                    _eventOverlayImage.color = new Color(_eventOverlayImage.color.r, _eventOverlayImage.color.g, _eventOverlayImage.color.b, Mathf.Lerp(_eventOverlayImage.color.a, _eventOverlayAlpha, _alphaLerpSpeed*Time.deltaTime));
+                    if (_eventOverlayImage.color.a >= 0.95)
                     {
-                        _overlayVolume.weight = 1;
+                        _eventOverlayImage.color = new Color(_eventOverlayImage.color.r, _eventOverlayImage.color.g, _eventOverlayImage.color.b, 1);
                     }
                 }
             }
 
             else
             {
-                if(_overlayVolume.weight != 0)
+                if(_eventOverlayImage.color.a != 0)
                 {
-                    _overlayVolume.weight = Mathf.Lerp(_overlayVolume.weight, 0, Time.deltaTime * _ppSpeed);
-                    if (_overlayVolume.weight <=0.05f)
+                    _eventOverlayImage.color = new Color(_eventOverlayImage.color.r, _eventOverlayImage.color.g, _eventOverlayImage.color.b, Mathf.Lerp(_eventOverlayImage.color.a, 0,_alphaLerpSpeed *Time.deltaTime));
+                    if (_eventOverlayImage.color.a <=0.05f)
                     {
-                        _overlayVolume.weight = 0;
+                        _eventOverlayImage.color = new Color(_eventOverlayImage.color.r, _eventOverlayImage.color.g, _eventOverlayImage.color.b, 0);
                     }
                 }
             }

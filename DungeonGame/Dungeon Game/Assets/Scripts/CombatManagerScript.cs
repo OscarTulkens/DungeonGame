@@ -2,16 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 public class CombatManagerScript : MonoBehaviour
 {
 
     //general variables
     private bool _combat = false;
-    [SerializeField] private float _postproLerpSpeed = 0;
-    [SerializeField] private Volume _combatPPVolume = null;
     [SerializeField] private float _movementSpeed = 0;
     [SerializeField] private float _attackMovementSpeed = 0;
     private ControlScript _controlScript = null;
@@ -144,7 +140,7 @@ public class CombatManagerScript : MonoBehaviour
         {
             if (!_playerHitMonster)
             {
-                _playerObject.transform.position = Vector3.MoveTowards(_playerObject.transform.position,_monsterFightPoint.position, _attackMovementSpeed*7 *Time.deltaTime);
+                _playerObject.transform.position = Vector3.MoveTowards(_playerObject.transform.position,_monsterFightPoint.position, _attackMovementSpeed*5 *Time.deltaTime);
                 if (Vector3.Distance(_playerObject.transform.position, _monsterObject.transform.position) <= 0.1f)
                 {
                     _monsterObject.GetComponent<Shake>().AddShake(1.5f, _monsterFightPoint.position);

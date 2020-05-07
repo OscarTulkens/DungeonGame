@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Rendering;
 
 public class TreasureManager : MonoBehaviour
 {
     private ControlScript _controlScript = null;
     private bool _treasure = false;
-    [SerializeField] private Volume _treasurePPVolume = null;
-    [SerializeField] private float _postproLerpSpeed = 0;
 
     //Treasure Spawn Variables
     [Header("TREASURE")]

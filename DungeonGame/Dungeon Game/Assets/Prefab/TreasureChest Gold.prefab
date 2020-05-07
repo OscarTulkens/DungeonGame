@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5348062252849941346}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TreasureChest Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5348062253972975863}
   - component: {fileID: 5021726870366128785}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5348062252668804903}
   - component: {fileID: 1498366038241341699}
   - component: {fileID: 4358191296562771134}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chest Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 5348062252550050466}
   - component: {fileID: 1733601305077931464}
   - component: {fileID: 310097431536287949}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chest Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,6 +330,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gold Inside Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b5a9edd4f959441459221d71e93ef5da,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5a9edd4f959441459221d71e93ef5da, type: 3}

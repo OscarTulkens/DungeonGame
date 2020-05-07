@@ -280,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 182998347}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Treasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1112,7 +1112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 594898795}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -1143,7 +1143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 660745663}
   - component: {fileID: 660745664}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,7 +1281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 866131284}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerFightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -1676,7 +1676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1193591954}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1715,7 +1715,7 @@ GameObject:
   - component: {fileID: 1385540994}
   - component: {fileID: 1385540996}
   - component: {fileID: 1385540995}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Treasure Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1748,7 +1748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
@@ -1798,7 +1798,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2048
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 9d0a1c89013ef38409b22a22c49e050a, type: 2}
   m_TargetDisplay: 0
@@ -1867,7 +1867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1479842371}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MonsterSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -1897,7 +1897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1629391330}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MonsterFightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -1928,7 +1928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771183744}
   - component: {fileID: 1771183743}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CombatManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2021,7 @@ GameObject:
   - component: {fileID: 1846933421}
   - component: {fileID: 1846933420}
   - component: {fileID: 1846933418}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Combat Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2090,7 +2090,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1024
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: da69078f481bd16418f7da3ee7ffd674, type: 2}
   m_TargetDisplay: 0
@@ -2173,7 +2173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1937510904}
   - component: {fileID: 1937510905}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TreasureManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}

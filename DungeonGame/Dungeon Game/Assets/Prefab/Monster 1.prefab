@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2347873886672284029}
   - component: {fileID: 2347873886672284030}
   - component: {fileID: 2347873886672284031}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2347873887362749751}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Monster 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 3133765797639047380}
   - component: {fileID: 339103396181809909}
   - component: {fileID: 4489037834377918165}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 2637398618528879902}
   - component: {fileID: 4741303024822954529}
   - component: {fileID: 7790162706659926733}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 6820022921494787190}
   - component: {fileID: 2575577337278050416}
   - component: {fileID: 5360130045203667102}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 4029621197200536018}
   - component: {fileID: 3922751252132329211}
   - component: {fileID: 4220613335717158102}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4268753616229017700}
   - component: {fileID: 7429383295095778935}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

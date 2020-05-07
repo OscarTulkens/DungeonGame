@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5348062252849941346}
-  m_Layer: 0
-  m_Name: TreasureChest
+  m_Layer: 11
+  m_Name: TreasureChest Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5348062253972975863}
   - component: {fileID: 5021726870366128785}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5348062252668804903}
   - component: {fileID: 1498366038241341699}
   - component: {fileID: 4358191296562771134}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chest Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 5348062252550050466}
   - component: {fileID: 1733601305077931464}
   - component: {fileID: 310097431536287949}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chest Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 5348062253097274404}
   - component: {fileID: 3977145101867740006}
   - component: {fileID: 2023373120861563145}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Crystal Inside Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}

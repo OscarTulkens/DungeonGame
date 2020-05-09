@@ -10,7 +10,7 @@ public class ControlScript : MonoBehaviour
     public TileScript CurrentlySelectedTile = null;
     [SerializeField] private GameObject _camera = null;
     [HideInInspector] public List<Vector3> DesiredPositions= new List<Vector3>();
-    private Animator _anim;
+    //private Animator _anim;
     private Vector2 _touchStart = Vector2.zero;
     private Vector2 _touchEnd = Vector2.zero;
     [SerializeField] private float _minSwipeDistance = 0;
@@ -29,7 +29,7 @@ public class ControlScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _anim = _character.GetComponentInChildren<Animator>();
+        //_anim = _character.GetComponentInChildren<Animator>();
         CurrentlySelectedTile = GameObject.FindGameObjectWithTag("Spawnpoint").GetComponentInChildren<TileScript>();
     }
 
@@ -242,6 +242,6 @@ public class ControlScript : MonoBehaviour
 
     private void PlayJump()
     {
-        _anim.SetTrigger("Jump");
+        //_anim.SetTrigger("Jump");
     }
 }

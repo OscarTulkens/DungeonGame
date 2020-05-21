@@ -712,6 +712,21 @@ namespace AmplifyShaderEditor
 					prefix = addPrefix ? m_subShaders[ subShaderId ].Passes[ passId ].UniquePrefix : string.Empty;
 					return prefix + m_subShaders[ subShaderId ].Passes[ passId ].InterpolatorDataContainer.InterpDataId;
 				}
+				case TemplateModuleDataType.VControl:
+				{
+					prefix = addPrefix ? m_subShaders[ subShaderId ].Passes[ passId ].UniquePrefix : string.Empty;
+					return prefix + m_subShaders[ subShaderId ].Passes[ passId ].TessVControlTag.Id;
+				}
+				case TemplateModuleDataType.ControlData:
+				{
+					prefix = addPrefix ? m_subShaders[ subShaderId ].Passes[ passId ].UniquePrefix : string.Empty;
+					return prefix + m_subShaders[ subShaderId ].Passes[ passId ].TessControlData.Id;
+				}
+				case TemplateModuleDataType.DomainData:
+				{
+					prefix = addPrefix ? m_subShaders[ subShaderId ].Passes[ passId ].UniquePrefix : string.Empty;
+					return prefix + m_subShaders[ subShaderId ].Passes[ passId ].TessDomainData.Id;
+				}
 			}
 			return string.Empty;
 		}
@@ -900,6 +915,24 @@ namespace AmplifyShaderEditor
 				{
 					prefix = m_subShaders[ subShaderId ].Passes[ passId ].UniquePrefix;
 					m_templateIdManager.SetReplacementText( prefix + m_subShaders[ subShaderId ].Passes[ passId ].PassNameContainer.Id, text );
+				}
+				break;
+				case TemplateModuleDataType.VControl:
+				{
+					prefix = m_subShaders[ subShaderId ].Passes[ passId ].UniquePrefix;
+					m_templateIdManager.SetReplacementText( prefix + m_subShaders[ subShaderId ].Passes[ passId ].TessVControlTag.Id, text );
+				}
+				break;
+				case TemplateModuleDataType.ControlData:
+				{
+					prefix = m_subShaders[ subShaderId ].Passes[ passId ].UniquePrefix;
+					m_templateIdManager.SetReplacementText( prefix + m_subShaders[ subShaderId ].Passes[ passId ].TessControlData.Id, text );
+				}
+				break;
+				case TemplateModuleDataType.DomainData:
+				{
+					prefix = m_subShaders[ subShaderId ].Passes[ passId ].UniquePrefix;
+					m_templateIdManager.SetReplacementText( prefix + m_subShaders[ subShaderId ].Passes[ passId ].TessDomainData.Id, text );
 				}
 				break;
 			}

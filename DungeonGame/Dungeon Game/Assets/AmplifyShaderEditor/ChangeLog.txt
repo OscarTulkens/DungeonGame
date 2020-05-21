@@ -1,4 +1,116 @@
 Release Notes:
+v1.8.1 rev 00:
+* New Shader Options:
+    * Added new option called 'DOTS Instancing' that provides initial support for hybrid renderer for URP and HDRP
+        * Works for both latest V1 and V2 (check unity docs)
+        * URP requires shader model 4.5 in order for it to work
+        * Some properties nodes now have a new 'Hybrid Instanced' option when set to property mode
+
+* Improvements:
+    * CBuffer properties are now ordered by datatype for performance reasons
+
+* Fixes:
+    * Fixed issue with tessellation in HDRP where tessellation was not measuring the position correctly when relative camera was ON
+    * Fixed issue with the new 'Field' option type that wasn't reading float values correctly in all situations due to system cultural differences
+    * Fixed typo with the 'Trigonometry Operators' category
+
+v1.8.0 rev 03:
+* New Shader Options:
+    * Added Translucency and Transmission options for URP
+        * Options are based on Built-in renderer ports respectively
+        * New fields are generated for both but can be manipulated as 'Inline Properties' in property panel
+
+* New 'Compare' node:
+    * Replaces all the now deprecated 'Compare XXX' nodes, this node should be easier to work with since it does ternary operations and allows for any kind of vector comparison
+
+* Improvements:
+    * 'Voronoi' node ID port now returns a vector 2 ID instead of a single float value
+
+* Fixes:
+    * Fixed issue with instanced properties marked as auto register not working inside shader functions
+    * Fixed issue with 'Function Switch' node that was causing some nodes to run even if unconnected
+    * Fixed issue with 'Decode Lightmap' node that was not compiling correctly in all situations
+    * Other small changes and fixes to last revision
+
+v1.8.0 rev 02:
+* New Shader Options:
+    * Added Tessellation options for URP and HDRP
+        * Options are based on Built-in renderer options supporting Fixed, Distance-Based, Edge Length and Edge Length With Cull mode, with or without Phong displacement
+        * By default Float fields are generated at the bottom of the materials inspector but can be replaced by 'Inline Properties' allowing for further field customization
+
+* Improvements:
+    * Templates API now supports new 'Field' options that create Int or Float fields that can act when values change
+    * Templates API now support 'SetMaterialProperty' action that allows a 'Field' to interact with the value in the material inspector
+    * Added Q as an alternative panning modifier key (for trackpad users) while Q+Alt zooms (order is important due to Alt being used for other actions)
+
+* Fixes:
+    * Fixed issue with Start Screen icon on MacOS editors
+    * Fixed issue with templates not properly detecting floating values
+    * Fixed issue with log window and palette window producing layout errors
+    * Fixed issue with live editing mode not working properly with shader functions and producing errors
+    * Fixed 'Texel Size' node issue where variable declaration was not respecting the SRP batcher and breaking it in the process
+    * Fixed issue with auto spacing of shader function titles
+    * Fixed/Changed refraction for both URP and Built-in due to issues with webGL version
+
+v1.8.0 rev 01:
+* Improvements:
+    * Now 'Texel Size' and 'Texture Transfom' nodes also contain the 'None' option for consistency
+
+* Fixes:
+    * Fixed issue with start screen window in Unity 5.6
+    * Fixed issue with 'Texture Coordinates' node generating multiple texture references in some occasions
+    * Fixed 'Texture Coordinates' losing it's selected reference option on port connection
+
+v1.8.0 rev 00:
+* New Shader Functions:
+    * Bacteria
+    * Bricks Pattern
+    * Dots Pattern
+    * Grid
+    * Herringbone
+    * Hex Lattice
+    * Houndstooth
+    * Smooth Wave
+    * Spiral
+    * Stripes
+    * Truchet
+    * Whirl
+    * Zig Zag
+
+* Improvements:
+    * Updated some shader functions to expose their internal data
+
+* Fixes:
+    * Fixed default value for start screen option
+    * Fixed context menu showing shader templates not yet imported on first install
+    * Fixed drawing issues with slider in 'Float' node in the new Unity UI
+
+v1.7.9 rev 02:
+* Improvements:
+    * Added Refraction option with respective ports to URP that works like the built-in Refraction port
+    * Added versioning to templates so that they can track changes and import new versions if necessary
+
+* Fixes:
+    * Fixed issue with start screen showing the wrong change log
+    * Fixed issue with start screen not always respecting the selected option
+    * Fixed issue with 'Fresnel' node when loading a shader from an older version of ASE
+    * Fixed loop detection check for 'Get' node in certain situations
+    * Fixed menu listing for templates with duplicated names
+    * Fixed 'VertexID' node for HDRP causing errors due to motion vectors
+    * Fixed inline properties being broken on certain template internal pass ordering
+
+v1.7.9 rev 01:
+* Improvements:
+    * Start screen option is now a dropdown to allow for more control of how it behaves
+    * Added more options to the preference window
+        * Option to prevent automatic import of SRP templates
+        * Option to force the use of Unity's macros for sampling
+        * Option to allow or prevent the use of ASE define symbol
+
+* Fixes:
+    * Included missing files for 'Diffusion Profile' node from last release which prevented the use of the new default inspector option
+    * Fixed issue with 'Gradient Sample' node that was not generating the component channel correctly
+
 v1.7.9 rev 00:
 * New Start Screen:
     * New window that will popup when on a new session starts and/or if a new version is released (can be dismissed)
@@ -16,7 +128,7 @@ v1.7.9 rev 00:
 * Improvements:
     * Removed alpha to coverage alpha test check for consistency between pipeline and setups
     * Added check to custom shader inspector and updated missing features like keywords popups and other small changes that came with unity 2019.3
-    * Added new option to diffusion profile node to be able to create the unity default profile inspector for users that need to share their shaders
+    * Added new option to 'Diffusion Profile' node to be able to create the unity default profile inspector for users that need to share their shaders
     * Changed the color of Int ports to white for proper differentiation between Float and Int
 
 * Fixes:

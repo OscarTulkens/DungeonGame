@@ -79,6 +79,9 @@ namespace AmplifyShaderEditor
 		private static string HDEditorPrefsId = "ASEHDEditorPrefsId";
 		private static string LWEditorPrefsId = "ASELightweigthEditorPrefsId ";
 
+		private static string URPTemplateVersion = "ASEURPtemplate" + Application.productName;
+		private static string HDRPTemplateVersion = "ASEHDRPtemplate" + Application.productName;
+
 		private static string SPKeywordFormat = "ASE_SRP_VERSION {0}";
 		private static ListRequest m_packageListRequest = null;
 		private static UnityEditor.PackageManager.PackageInfo m_lwPackageInfo;
@@ -115,6 +118,9 @@ namespace AmplifyShaderEditor
 
 		private static ASESRPVersions m_currentHDVersion = ASESRPVersions.ASE_SRP_RECENT;
 		private static ASESRPVersions m_currentLWVersion = ASESRPVersions.ASE_SRP_RECENT;
+
+		private static int m_urpTemplateVersion = 4;
+		private static int m_hdrpTemplateVersion = 3;
 
 		private static Dictionary<string, ASESRPVersions> m_srpVersionConverter = new Dictionary<string, ASESRPVersions>()
 		{
@@ -265,6 +271,11 @@ namespace AmplifyShaderEditor
 
 		public static void StartImporting( string packagePath )
 		{
+			if( !Preferences.GlobalAutoSRP )
+			{
+				m_importingPackage = ASEImportState.None;
+				return;
+			}
 			AssetDatabase.importPackageCancelled += CancelledPackageImport;
 			AssetDatabase.importPackageCompleted += CompletedPackageImport;
 			AssetDatabase.importPackageFailed += FailedPackageImport;
@@ -289,6 +300,7 @@ namespace AmplifyShaderEditor
 
 		public static void LateShaderOpener()
 		{
+			Preferences.LoadDefaults();
 			Update();
 			if( IsProcessing )
 			{
@@ -310,6 +322,7 @@ namespace AmplifyShaderEditor
 
 		public static void LateMaterialOpener()
 		{
+			Preferences.LoadDefaults();
 			Update();
 			if( IsProcessing )
 			{
@@ -331,6 +344,7 @@ namespace AmplifyShaderEditor
 
 		public static void LateShaderFunctionOpener()
 		{
+			Preferences.LoadDefaults();
 			Update();
 			if( IsProcessing )
 			{
@@ -423,6 +437,12 @@ namespace AmplifyShaderEditor
 
 							EditorPrefs.SetInt( LWEditorPrefsId, (int)m_currentLWVersion );
 							bool foundNewVersion = oldVersion != m_currentLWVersion;
+
+							int urpVersion = EditorPrefs.GetInt( URPTemplateVersion, m_urpTemplateVersion );
+							if( urpVersion < m_urpTemplateVersion )
+								foundNewVersion = true;
+							EditorPrefs.SetInt( URPTemplateVersion, m_urpTemplateVersion );
+
 							if( !File.Exists( AssetDatabase.GUIDToAssetPath( TemplatesManager.UniversalPBRGUID ) ) ||
 								!File.Exists( AssetDatabase.GUIDToAssetPath( TemplatesManager.UniversalUnlitGUID ) ) ||
 								foundNewVersion
@@ -455,6 +475,12 @@ namespace AmplifyShaderEditor
 
 							EditorPrefs.SetInt( HDEditorPrefsId, (int)m_currentHDVersion );
 							bool foundNewVersion = oldVersion != m_currentHDVersion;
+
+							int hdrpVersion = EditorPrefs.GetInt( HDRPTemplateVersion, m_hdrpTemplateVersion );
+							if( hdrpVersion < m_hdrpTemplateVersion )
+								foundNewVersion = true;
+							EditorPrefs.SetInt( HDRPTemplateVersion, m_hdrpTemplateVersion );
+
 #if UNITY_2019_3_OR_NEWER
 							if( !File.Exists( AssetDatabase.GUIDToAssetPath( TemplatesManager.HDNewLitGUID ) ) ||
 								!File.Exists( AssetDatabase.GUIDToAssetPath( TemplatesManager.HDNewPBRGUID ) ) ||
@@ -484,6 +510,7 @@ namespace AmplifyShaderEditor
 
 		public static void SetSRPInfoOnDataCollector( ref MasterNodeDataCollector dataCollector )
 		{
+			Preferences.LoadDefaults();
 			if( m_requireUpdateList )
 				Update();
 

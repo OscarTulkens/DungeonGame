@@ -3,6 +3,8 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System;
 
 namespace AmplifyShaderEditor
 {
@@ -320,20 +322,38 @@ namespace AmplifyShaderEditor
 
 		public string GetVertexId()
 		{
-			if( m_vertexInputParams != null && m_vertexInputParams.ContainsKey( TemplateSemantics.SV_VertexID ) )
+			var precision = PrecisionType.Float;
+			bool useMasterNodeCategory = true;
+			MasterNodePortCategory customCategory = MasterNodePortCategory.Fragment;
+
+			WirePortDataType type = WirePortDataType.UINT;
+			if( HasInfo( TemplateInfoOnSematics.VERTEXID, useMasterNodeCategory, customCategory ) )
 			{
-				if( m_currentDataCollector.PortCategory == MasterNodePortCategory.Vertex )
-					return m_vertexInputParams[ TemplateSemantics.SV_VertexID ].Name;
+				InterpDataHelper info = GetInfo( TemplateInfoOnSematics.VERTEXID, useMasterNodeCategory, customCategory );
+				return TemplateHelperFunctions.AutoSwizzleData( info.VarName, info.VarType, type, true );
 			}
 			else
 			{
-				RegisterVertexInputParams( WirePortDataType.UINT, PrecisionType.Float, TemplateHelperFunctions.SemanticsDefaultName[ TemplateSemantics.SV_VertexID ], TemplateSemantics.SV_VertexID );
+				MasterNodePortCategory portCategory = useMasterNodeCategory ? m_currentDataCollector.PortCategory : customCategory;
+				string name = "ase_vertexID";
+				return RegisterInfoOnSemantic( portCategory, TemplateInfoOnSematics.VERTEXID, TemplateSemantics.SV_VertexID, name, WirePortDataType.UINT, precision, true );
 			}
 
-			if( m_currentDataCollector.PortCategory != MasterNodePortCategory.Vertex )
-				RegisterCustomInterpolatedData( m_vertexInputParams[ TemplateSemantics.SV_VertexID ].Name, WirePortDataType.INT, PrecisionType.Float, m_vertexInputParams[ TemplateSemantics.SV_VertexID ].Name );
+			// need to review this later
+			//if( m_vertexInputParams != null && m_vertexInputParams.ContainsKey( TemplateSemantics.SV_VertexID ) )
+			//{
+			//	if( m_currentDataCollector.PortCategory == MasterNodePortCategory.Vertex )
+			//		return m_vertexInputParams[ TemplateSemantics.SV_VertexID ].Name;
+			//}
+			//else
+			//{
+			//	RegisterVertexInputParams( WirePortDataType.UINT, PrecisionType.Float, TemplateHelperFunctions.SemanticsDefaultName[ TemplateSemantics.SV_VertexID ], TemplateSemantics.SV_VertexID );
+			//}
 
-			return m_vertexInputParams[ TemplateSemantics.SV_VertexID ].Name;
+			//if( m_currentDataCollector.PortCategory != MasterNodePortCategory.Vertex )
+			//	RegisterCustomInterpolatedData( m_vertexInputParams[ TemplateSemantics.SV_VertexID ].Name, WirePortDataType.INT, PrecisionType.Float, m_vertexInputParams[ TemplateSemantics.SV_VertexID ].Name );
+
+			//return m_vertexInputParams[ TemplateSemantics.SV_VertexID ].Name;
 		}
 #if UNITY_EDITOR_WIN
 		public string GetPrimitiveId()
@@ -1955,6 +1975,22 @@ namespace AmplifyShaderEditor
 			m_fullSrpBatcherPropertiesList.Clear();
 			if( m_srpBatcherPropertiesList.Count > 0 )
 			{
+				var regex = new Regex( @"(\d)\s+\b" );
+				m_srpBatcherPropertiesList.Sort( ( a, b ) =>
+				{
+					var matchA = regex.Match( a.PropertyName );
+					int sizeA = 0;
+					if( matchA.Groups.Count > 1 && matchA.Groups[ 1 ].Value.Length > 0 )
+						sizeA = Convert.ToInt32( matchA.Groups[ 1 ].Value, System.Globalization.CultureInfo.InvariantCulture );
+
+					var matchB = regex.Match( b.PropertyName );
+					int sizeB = 0;
+					if( matchB.Groups.Count > 1 && matchB.Groups[ 1 ].Value.Length > 0 )
+						sizeB = Convert.ToInt32( matchB.Groups[ 1 ].Value, System.Globalization.CultureInfo.InvariantCulture );
+
+					return sizeB.CompareTo( sizeA );
+				} );
+
 				m_fullSrpBatcherPropertiesList.Insert(0, new PropertyDataCollector( nodeId, IOUtils.SRPCBufferPropertiesBegin ));
 				m_fullSrpBatcherPropertiesList.AddRange( m_srpBatcherPropertiesList );
 				m_fullSrpBatcherPropertiesList.Add( new PropertyDataCollector( nodeId, IOUtils.SRPCBufferPropertiesEnd ) );
@@ -2015,5 +2051,6 @@ namespace AmplifyShaderEditor
 		public List<PropertyDataCollector> LateDirectivesList { get { return m_lateDirectivesList; } }
 		public List<PropertyDataCollector> SrpBatcherPropertiesList { get { return m_srpBatcherPropertiesList; } }
 		public List<PropertyDataCollector> FullSrpBatcherPropertiesList { get { return m_fullSrpBatcherPropertiesList; } }
+		public Dictionary<TemplateSemantics, TemplateVertexData> VertexDataDict { get { return m_vertexDataDict; } }
 	}
 }

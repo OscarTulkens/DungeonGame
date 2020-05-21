@@ -24,7 +24,7 @@ namespace AmplifyShaderEditor
 			LOD5
 		}
 
-		private bool m_samplingThroughMacros = false;
+		private static bool m_samplingThroughMacros = false;
 
 		private NodeLOD m_lodLevel = NodeLOD.LOD0;
 		private GUIStyle nodeStyleOff;
@@ -267,6 +267,8 @@ namespace AmplifyShaderEditor
 			{
 				m_bezierReferences.Add( new WireBezierReference() );
 			}
+
+			m_samplingThroughMacros = Preferences.GlobalUseMacros;
 		}
 
 		private void OnUndoRedoCallback()
@@ -3976,7 +3978,7 @@ namespace AmplifyShaderEditor
 		public bool IsHDRP { get { return m_currentSRPType == TemplateSRPType.HD; } }
 		public bool IsLWRP { get { return m_currentSRPType == TemplateSRPType.Lightweight; } }
 		public bool IsStandardSurface { get { return GetNode( m_masterNodeId ) is StandardSurfaceOutputNode; } }
-		public bool SamplingThroughMacros { get { return m_samplingThroughMacros && IsSRP; } }
+		public bool SamplingThroughMacros { get { return m_samplingThroughMacros && IsSRP; } set { m_samplingThroughMacros = value; } }
 		public bool HasLODs { get { return m_lodMultiPassMasterNodes[ 0 ].Count > 0; } }
 		//public bool HasLodMultiPassNodes
 		//{

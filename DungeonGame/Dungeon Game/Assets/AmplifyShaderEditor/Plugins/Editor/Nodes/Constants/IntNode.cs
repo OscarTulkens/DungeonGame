@@ -35,6 +35,7 @@ namespace AmplifyShaderEditor
 			m_insideSize.Set( 50, 10 );
 			m_selectedLocation = PreviewLocation.BottomCenter;
 			m_drawPrecisionUI = false;
+			m_showHybridInstancedUI = true;
 			m_availableAttribs.Add( new PropertyAttributes( "Enum", "[Enum]" ) );
 			m_previewShaderGUID = "0f64d695b6ffacc469f2dd31432a232a";
 			m_srpBatcherCompatible = true;

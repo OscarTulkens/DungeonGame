@@ -34,7 +34,10 @@ namespace AmplifyShaderEditor
 		PassVertexData,
 		PassInterpolatorData,
 		PassNameData,
-		AllModules
+		AllModules,
+		VControl,
+		ControlData,
+		DomainData
 		//EndPass
 	}
 

@@ -194,7 +194,7 @@ namespace AmplifyShaderEditor
 		SurfaceData,
 		Textures,
 		Time,
-		TrignometryOperators,
+		TrigonometryOperators,
 		UVCoordinates,
 		VectorOperators,
 		VertexData
@@ -427,7 +427,7 @@ namespace AmplifyShaderEditor
 			"Surface Data",
 			"Textures",
 			"Time",
-			"Trignometry Operators",
+			"Trigonometry Operators",
 			"UV Coordinates",
 			"Vector Operators",
 			"Vertex Data"
@@ -999,6 +999,8 @@ namespace AmplifyShaderEditor
 			RangedFloatSliderThumbStyle.active.background = null;
 			RangedFloatSliderThumbStyle.hover.background = null;
 			RangedFloatSliderThumbStyle.focused.background = null;
+			RangedFloatSliderThumbStyle.overflow = new RectOffset( 1, 1, -4, 4 );
+			RangedFloatSliderThumbStyle.margin = RectOffsetZero;
 
 			SwitchNodePopUp = new GUIStyle( (GUIStyle)"Popup" );
 			// RectOffset cannot be initiliazed on constructor

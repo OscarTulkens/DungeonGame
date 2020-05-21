@@ -56,19 +56,19 @@ namespace AmplifyShaderEditor
 
 			if( !EditorApplication.isPlayingOrWillChangePlaymode )
 			{
-				bool show = false;
-				if( !EditorPrefs.HasKey( "ASELastSession" ) )
+				Preferences.ShowOption show = Preferences.ShowOption.Never;
+				if( !EditorPrefs.HasKey( Preferences.PrefStartUp ) )
 				{
-					show = true;
-					EditorPrefs.SetBool( "ASELastSession", true );
+					show = Preferences.ShowOption.Always;
+					EditorPrefs.SetInt( Preferences.PrefStartUp, 0 );
 				}
 				else
 				{
 					if( Time.realtimeSinceStartup < 10 )
 					{
-						show = EditorPrefs.GetBool( "ASELastSession", true );
+						show = (Preferences.ShowOption) EditorPrefs.GetInt( Preferences.PrefStartUp, 0 );
 						// check version here
-						if( !show )
+						if( show == Preferences.ShowOption.OnNewVersion )
 						{
 							ASEStartScreen.StartBackgroundTask( StartRequest( ASEStartScreen.ChangelogURL, () =>
 							{
@@ -83,7 +83,7 @@ namespace AmplifyShaderEditor
 					}
 				}
 
-				if( show )
+				if( show == Preferences.ShowOption.Always )
 					ASEStartScreen.Init();
 			}
 		}
@@ -94,7 +94,7 @@ namespace AmplifyShaderEditor
 		{
 			using( www = UnityWebRequest.Get( url ) )
 			{
-#if UNITY_5_6_OR_NEWER
+#if UNITY_2017_2_OR_NEWER
 				yield return www.SendWebRequest();
 #else
 				yield return www.Send();

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Collections.Generic;
 
 namespace AmplifyShaderEditor
 {
@@ -150,15 +151,18 @@ namespace AmplifyShaderEditor
 		public override void OnInputPortConnected( int portId, int otherNodeId, int otherPortId, bool activateNode = true )
         {
             base.OnInputPortConnected( portId, otherNodeId, otherPortId, activateNode );
-            m_inputReferenceNode = m_inputPorts[ 0 ].GetOutputNode() as TexturePropertyNode;
-        }
+            m_inputReferenceNode = m_inputPorts[ 0 ].GetOutputNodeWhichIsNotRelay() as TexturePropertyNode;
+			UpdateTitle();
+
+		}
 
 
         public override void OnInputPortDisconnected( int portId )
         {
             base.OnInputPortDisconnected( portId );
             m_inputReferenceNode = null;
-        }
+			UpdateTitle();
+		}
 
 
         void UpdateTitle()
@@ -180,42 +184,48 @@ namespace AmplifyShaderEditor
 
         public override void DrawProperties()
         {
-            base.DrawProperties();
-            EditorGUI.BeginChangeCheck();
-            string[] arr = UIUtils.TexturePropertyNodeArr();
-            bool guiEnabledBuffer = GUI.enabled;
+			base.DrawProperties();
+			bool guiEnabledBuffer = GUI.enabled;
+			EditorGUI.BeginChangeCheck();
+			List<string> arr = new List<string>( UIUtils.TexturePropertyNodeArr() );
 
-            if( arr != null && arr.Length > 0 )
-            {
-                GUI.enabled = true && ( !m_inputPorts[ 0 ].IsConnected );
-                m_referenceSamplerId = EditorGUILayoutPopup( Constants.AvailableReferenceStr, m_referenceSamplerId, arr );
-            }
-            else
-            {
-                m_referenceSamplerId = -1;
-                GUI.enabled = false;
-                m_referenceSamplerId = EditorGUILayoutPopup( Constants.AvailableReferenceStr, m_referenceSamplerId, Dummy );
-            }
-            
-            GUI.enabled = guiEnabledBuffer;
+			if( arr != null && arr.Count > 0 )
+			{
+				arr.Insert( 0, "None" );
+				GUI.enabled = true && ( !m_inputPorts[ 0 ].IsConnected );
+				m_referenceSamplerId = EditorGUILayoutPopup( Constants.AvailableReferenceStr, m_referenceSamplerId + 1, arr.ToArray() ) - 1;
+			}
+			else
+			{
+				m_referenceSamplerId = -1;
+				GUI.enabled = false;
+				EditorGUILayoutPopup( Constants.AvailableReferenceStr, m_referenceSamplerId, Dummy );
+			}
 
-            if( EditorGUI.EndChangeCheck() )
-            {
-                m_referenceNode = UIUtils.GetTexturePropertyNode( m_referenceSamplerId );
-                m_referenceNodeId = m_referenceNode.UniqueId;
-                UpdateTitle();
-            }
+			GUI.enabled = guiEnabledBuffer;
+			if( EditorGUI.EndChangeCheck() )
+			{
+				m_referenceNode = UIUtils.GetTexturePropertyNode( m_referenceSamplerId );
+				if( m_referenceNode != null )
+				{
+					m_referenceNodeId = m_referenceNode.UniqueId;
+				}
+				else
+				{
+					m_referenceNodeId = -1;
+					m_referenceSamplerId = -1;
+				}
+				UpdateTitle();
+			}
 
 			m_instanced = EditorGUILayoutToggle( InstancedLabelStr, m_instanced );
         }
 
         public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
         {
-			
 			if( !m_outputPorts[ 0 ].IsLocalValue( dataCollector.PortCategory ) )
 			{
 				base.GenerateShaderForOutput( outputId, ref dataCollector, ignoreLocalvar );
-				m_inputPorts[ 0 ].GeneratePortInstructions( ref dataCollector );
 				string texTransform = string.Empty;
 
 				if( m_inputPorts[ 0 ].IsConnected )
@@ -264,44 +274,46 @@ namespace AmplifyShaderEditor
 			return m_outputPorts[ outputId ].LocalValue( dataCollector.PortCategory );
         }
 
-        public override void Draw( DrawInfo drawInfo )
-        {
-            base.Draw( drawInfo );
+		public override void Draw( DrawInfo drawInfo )
+		{
+			base.Draw( drawInfo );
 
-            EditorGUI.BeginChangeCheck();
-            {
-                string[] arr = UIUtils.TexturePropertyNodeArr();
-                bool guiEnabledBuffer = GUI.enabled;
+			EditorGUI.BeginChangeCheck();
+			{
+				List<string> arr = new List<string>( UIUtils.TexturePropertyNodeArr() );
+				bool guiEnabledBuffer = GUI.enabled;
 
-                if( arr != null && arr.Length > 0 )
-                {
-                    GUI.enabled = true && ( !m_inputPorts[ 0 ].IsConnected );
-                    m_referenceSamplerId = m_upperLeftWidget.DrawWidget( this, m_referenceSamplerId, arr );
-                }
-                else
-                {
-                    m_referenceSamplerId = -1;
-                    GUI.enabled = false;
-                    m_referenceSamplerId = m_upperLeftWidget.DrawWidget( this, m_referenceSamplerId, Dummy );
-                }
-                GUI.enabled = guiEnabledBuffer;
-            }
-            if( EditorGUI.EndChangeCheck() )
-            {
-                m_referenceNode = UIUtils.GetTexturePropertyNode( m_referenceSamplerId );
-                m_referenceNodeId = m_referenceNode.UniqueId;
-                UpdateTitle();
-            }
+				if( arr != null && arr.Count > 0 )
+				{
+					arr.Insert( 0, "None" );
+					GUI.enabled = true && ( !m_inputPorts[ 0 ].IsConnected );
+					m_referenceSamplerId = m_upperLeftWidget.DrawWidget( this, m_referenceSamplerId + 1, arr.ToArray() ) - 1;
+				}
+				else
+				{
+					m_referenceSamplerId = -1;
+					GUI.enabled = false;
+					m_upperLeftWidget.DrawWidget( this, m_referenceSamplerId, Dummy );
+				}
+				GUI.enabled = guiEnabledBuffer;
+			}
+			if( EditorGUI.EndChangeCheck() )
+			{
+				m_referenceNode = UIUtils.GetTexturePropertyNode( m_referenceSamplerId );
+				if( m_referenceNode != null )
+				{
+					m_referenceNodeId = m_referenceNode.UniqueId;
+				}
+				else
+				{
+					m_referenceNodeId = -1;
+					m_referenceSamplerId = -1;
+				}
+				UpdateTitle();
+			}
+		}
 
-            if( m_referenceNode == null && m_referenceNodeId > -1 )
-            {
-                m_referenceNodeId = -1;
-                m_referenceSamplerId = -1;
-                UpdateTitle();
-            }
-        }
-
-        public override void RefreshExternalReferences()
+		public override void RefreshExternalReferences()
         {
             base.RefreshExternalReferences();
             m_referenceNode = UIUtils.GetNode( m_referenceNodeId ) as TexturePropertyNode;

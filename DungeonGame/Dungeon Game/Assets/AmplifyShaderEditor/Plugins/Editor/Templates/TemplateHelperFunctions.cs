@@ -75,7 +75,8 @@ namespace AmplifyShaderEditor
 		INSTANCE_ID,
 		OTHER,
 		VFACE,
-		SHADOWCOORDS
+		SHADOWCOORDS,
+		VERTEXID
 	}
 
 	public enum TemplateShaderPropertiesIdx
@@ -529,6 +530,7 @@ namespace AmplifyShaderEditor
 			{WirePortDataType.FLOAT4x4,0 },
 			{WirePortDataType.COLOR,4 },
 			{WirePortDataType.INT,1 },
+			{WirePortDataType.UINT,1 },
 			{WirePortDataType.SAMPLER1D,0 },
 			{WirePortDataType.SAMPLER2D,0 },
 			{WirePortDataType.SAMPLER3D,0 },
@@ -588,7 +590,8 @@ namespace AmplifyShaderEditor
 		{
 			{"p"    ,TemplateInfoOnSematics.POSITION },
 			{"sp"   ,TemplateInfoOnSematics.CLIP_POS },
-			{"spn"   ,TemplateInfoOnSematics.SCREEN_POSITION_NORMALIZED },
+			{"spu"  ,TemplateInfoOnSematics.SCREEN_POSITION },
+			{"spn"  ,TemplateInfoOnSematics.SCREEN_POSITION_NORMALIZED },
 			{"c"    ,TemplateInfoOnSematics.COLOR },
 			{"uv0"  ,TemplateInfoOnSematics.TEXTURE_COORDINATES0 },
 			{"uv1"  ,TemplateInfoOnSematics.TEXTURE_COORDINATES1 },
@@ -614,6 +617,7 @@ namespace AmplifyShaderEditor
 		{
 			{TemplateInfoOnSematics.POSITION ,"ASE_NEEDS_FRAG_POSITION"},
 			{TemplateInfoOnSematics.CLIP_POS ,"ASE_NEEDS_FRAG_CLIP_POS"},
+			{TemplateInfoOnSematics.SCREEN_POSITION,"ASE_NEEDS_FRAG_SCREEN_POSITION" },
 			{TemplateInfoOnSematics.SCREEN_POSITION_NORMALIZED,"ASE_NEEDS_FRAG_SCREEN_POSITION_NORMALIZED" },
 			{TemplateInfoOnSematics.COLOR, "ASE_NEEDS_FRAG_COLOR"},
 			{TemplateInfoOnSematics.TEXTURE_COORDINATES0,"ASE_NEEDS_FRAG_TEXTURE_COORDINATES0" },
@@ -640,6 +644,7 @@ namespace AmplifyShaderEditor
 		{
 			{TemplateInfoOnSematics.POSITION ,"ASE_NEEDS_VERT_POSITION"},
 			{TemplateInfoOnSematics.CLIP_POS ,"ASE_NEEDS_VERT_CLIP_POS"},
+			{TemplateInfoOnSematics.SCREEN_POSITION,"ASE_NEEDS_VERT_SCREEN_POSITION" },
 			{TemplateInfoOnSematics.SCREEN_POSITION_NORMALIZED,"ASE_NEEDS_VERT_SCREEN_POSITION_NORMALIZED" },
 			{TemplateInfoOnSematics.COLOR, "ASE_NEEDS_VERT_COLOR"},
 			{TemplateInfoOnSematics.TEXTURE_COORDINATES0,"ASE_NEEDS_VERT_TEXTURE_COORDINATES0" },
@@ -889,6 +894,8 @@ namespace AmplifyShaderEditor
 
 		public static readonly string LocalVarPattern = @"\/\*ase_local_var[:]*(\w*)\*\/\s*(\w*)\s+(\w*)";
 
+		public static readonly string InlinePattern = @"\/\*ase_inline_begin\*\/(.*?)\/\*ase_inline_end\*\/";
+
 		public static readonly string SubShaderLODPattern = @"\sLOD\s+(\d+)";
 
 		public static readonly string PassNamePattern = "Name\\s+\\\"([\\w\\+\\-\\*\\/\\(\\) ]*)\\\"";
@@ -906,7 +913,7 @@ namespace AmplifyShaderEditor
 		//public static readonly string PropertiesPatternE = "(\\/\\/\\s*)*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
 		//public static readonly string PropertiesPatternF = "^(\\/\\/)*\\s*(\\[[\\[\\]\\w\\s\\(\\)\\_\\,]*\\])*\\s*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
 		//public static readonly string PropertiesPatternG = "^(\\s*)(\\[[\\[\\]\\w\\s\\(\\)\\_\\,]*\\])*\\s*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
-		public static readonly string PropertiesPatternG = "^(\\s*)(\\[[\\[\\]\\w\\s\\(\\)_,\\.]*\\])*\\s*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}]*";
+		public static readonly string PropertiesPatternG = "^(\\s*)(\\[[\\[\\]\\w\\s\\(\\)_,\\.]*\\])*\\s*(\\w*)\\s*\\(\\s*\"([\\w\\(\\)\\+\\-\\\\* ]*)\"\\s*\\,\\s*(\\w*)\\s*.*\\)\\s*=\\s*[\\w,()\" {}\\.]*";
 		public static readonly string CullModePattern = @"^\s*Cull\s+(\[*\w+\]*)";
 		public static readonly string ColorMaskPattern = @"^\s*ColorMask\s+([\d\w\[\]]+)(\s*\d)*";
 		//public static readonly string BlendModePattern = @"\s*Blend\s+(\w+)\s+(\w+)(?:[\s,]+(\w+)\s+(\w+)|)";
@@ -1641,6 +1648,19 @@ namespace AmplifyShaderEditor
 						}
 
 					}
+				}
+			}
+		}
+
+		public static void FetchInlineVars( string body, ref TemplateIdManager idManager )
+		{
+			foreach( Match match in Regex.Matches( body, InlinePattern ) )
+			{
+				if( match.Success && match.Groups.Count == 2 )
+				{
+					string id = match.Groups[ 0 ].Value;
+					string prop = match.Groups[ 1 ].Value;
+					idManager.RegisterTag( id, prop );
 				}
 			}
 		}

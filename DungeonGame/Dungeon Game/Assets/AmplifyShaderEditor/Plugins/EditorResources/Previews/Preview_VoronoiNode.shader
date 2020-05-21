@@ -165,12 +165,12 @@
 			}
 
 			//x - Out y - Cells
-			float2 UnityVoronoi (float2 UV, float AngleOffset, float CellDensity)
+			float3 UnityVoronoi (float2 UV, float AngleOffset, float CellDensity)
 			{
 				float2 g = floor (UV * CellDensity);
 				float2 f = frac (UV * CellDensity);
 				float t = 8.0;
-				float2 res = float2(8.0, 0.0);
+				float3 res = float3(8.0, 0.0, 0.0);
 
 				for (int y = -1; y <= 1; y++)
 				{
@@ -194,11 +194,11 @@
 				float2 uvValue = tex2D(_A, i.uv).rg;
 				float angleOffset = tex2D(_B, i.uv).r;
 				float cellDensity = tex2D(_C, i.uv).r;
-				float2 voronoiVal = UnityVoronoi( uvValue, angleOffset , cellDensity );
+				float3 voronoiVal = UnityVoronoi( uvValue, angleOffset , cellDensity );
 				if( _PreviewID == 1 )
-					return float4( voronoiVal.yyy, 1 );
+					return float4( voronoiVal.yz, 0, 1 );
 				else
-					return float4(voronoiVal.xxx, 1);
+					return float4( voronoiVal.xxx, 1);
 			}
 			ENDCG
 		}
@@ -222,7 +222,7 @@
 				if (_Octaves == 1)
 				{
 					if( _PreviewID == 1)
-						return float4( id.xxx, 1 );
+						return float4( id, 0, 1 );
 					else
 						return float4(voronoiVal.xxx, 1);
 				}
@@ -240,7 +240,7 @@
 					}
 					voroi /= rest;
 					if( _PreviewID == 1 )
-						return float4( id.xxx, 1 );
+						return float4( id, 0, 1 );
 					else
 						return float4(voroi.xxx, 1);
 				}

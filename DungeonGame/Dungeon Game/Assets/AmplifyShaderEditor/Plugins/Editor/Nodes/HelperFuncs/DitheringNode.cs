@@ -233,7 +233,7 @@ namespace AmplifyShaderEditor
 						bool sampleThroughMacros = UIUtils.CurrentWindow.OutsideGraph.SamplingThroughMacros;
 
 						string noiseTex = m_inputPorts[ 1 ].GeneratePortInstructions( ref dataCollector );
-						dataCollector.AddToUniforms( UniqueId, "uniform float4 " + noiseTex + "_TexelSize;" );
+						dataCollector.AddToUniforms( UniqueId, "float4 " + noiseTex + "_TexelSize;", dataCollector.IsSRP );
 						if( sampleThroughMacros )
 						{
 							dataCollector.AddToUniforms( UniqueId, string.Format( Constants.SamplerDeclarationSRPMacros[ TextureType.Texture2D ], noiseTex ) );

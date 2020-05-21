@@ -409,6 +409,8 @@ namespace AmplifyShaderEditor
 				ConfigureOutputPorts();
 				//ResizeNodeToPreview();
 			}
+
+			UpdateTitle();
 		}
 
 		public override void OnInputPortDisconnected( int portId )
@@ -428,6 +430,8 @@ namespace AmplifyShaderEditor
 				ConfigureOutputPorts();
 				//ResizeNodeToPreview();
 			}
+
+			UpdateTitle();
 		}
 
 		private void ForceInputPortsChange()
@@ -529,6 +533,17 @@ namespace AmplifyShaderEditor
 				m_outputPorts[ m_colorPort.PortId + 1 ].ChangeProperties( "X", WirePortDataType.FLOAT, false );
 				m_outputPorts[ m_colorPort.PortId + 2 ].ChangeProperties( "Y", WirePortDataType.FLOAT, false );
 				m_outputPorts[ m_colorPort.PortId + 3 ].ChangeProperties( "Z", WirePortDataType.FLOAT, false );
+			}
+
+			m_sizeIsDirty = true;
+		}
+
+		void UpdateTitle()
+		{
+			if( m_referenceType == TexReferenceType.Object )
+			{
+				SetTitleText( m_propertyInspectorName );
+				SetAdditonalTitleText( string.Format( Constants.PropertyValueLabel, GetPropertyValStr() ) );
 			}
 
 			m_sizeIsDirty = true;

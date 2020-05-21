@@ -357,7 +357,7 @@ namespace AmplifyShaderEditor
 				m_normalType = (NormalType)Enum.Parse( typeof( NormalType ), GetCurrentParam( ref nodeParams ) );
 				m_viewType = (ViewType)Enum.Parse( typeof( ViewType ), GetCurrentParam( ref nodeParams ) );
 				m_normalizeVectors = Convert.ToBoolean( GetCurrentParam( ref nodeParams ) );
-				if( UIUtils.CurrentShaderVersion() > 15702 )
+				if( UIUtils.CurrentShaderVersion() > 17502 )
 					m_safePower = Convert.ToBoolean( GetCurrentParam( ref nodeParams ) );
 			}
 			else

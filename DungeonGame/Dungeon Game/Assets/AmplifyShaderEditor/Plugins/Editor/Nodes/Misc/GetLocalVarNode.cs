@@ -149,7 +149,7 @@ namespace AmplifyShaderEditor
 
 		void CheckForLoops()
 		{
-			if( UIUtils.DetectNodeLoopsFrom( CurrentSelected, new Dictionary<int, int>() ) )
+			if( CurrentSelected != null && UIUtils.DetectNodeLoopsFrom( CurrentSelected, new Dictionary<int, int>() ) )
 			{
 				CurrentSelected = UIUtils.GetLocalVarNode( m_prevReferenceId );
 				if( CurrentSelected == null || UIUtils.DetectNodeLoopsFrom( CurrentSelected, new Dictionary<int, int>() ) )

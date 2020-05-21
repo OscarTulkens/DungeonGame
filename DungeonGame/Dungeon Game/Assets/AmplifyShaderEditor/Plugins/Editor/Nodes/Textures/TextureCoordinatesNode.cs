@@ -95,6 +95,7 @@ namespace AmplifyShaderEditor
 				m_inputReferenceNode = m_texPort.GetOutputNodeWhichIsNotRelay() as TexturePropertyNode;
 				UpdatePorts();
 			}
+			UpdateTitle();
 		}
 
 		public override void OnInputPortDisconnected( int portId )
@@ -105,6 +106,7 @@ namespace AmplifyShaderEditor
 				m_inputReferenceNode = null;
 				UpdatePorts();
 			}
+			UpdateTitle();
 		}
 
 		void UpdateTitle()
@@ -115,7 +117,6 @@ namespace AmplifyShaderEditor
 			}
 			else if( m_referenceArrayId > -1 && m_referenceNode != null )
 			{
-				m_referenceNode = UIUtils.GetTexturePropertyNode( m_referenceArrayId );
 				m_additionalContent.text = string.Format( "Value( {0} )", m_referenceNode.PropertyInspectorName );
 			}
 			else
@@ -149,12 +150,11 @@ namespace AmplifyShaderEditor
 			bool guiEnabledBuffer = GUI.enabled;
 
 			EditorGUI.BeginChangeCheck();
-			List<string> arr = ( m_inputReferenceNode != null ) ? null : new List<string>( UIUtils.TexturePropertyNodeArr() );
-
+			List<string> arr = new List<string>( UIUtils.TexturePropertyNodeArr() );
 			if( arr != null && arr.Count > 0 )
 			{
 				arr.Insert( 0, "None" );
-				GUI.enabled = true;
+				GUI.enabled = true && ( !m_texPort.IsConnected );
 				m_referenceArrayId = EditorGUILayoutPopup( Constants.AvailableReferenceStr, m_referenceArrayId + 1, arr.ToArray() ) - 1;
 			}
 			else
@@ -396,9 +396,10 @@ namespace AmplifyShaderEditor
 
 			string portProperty = string.Empty;
 			if( m_texPort.IsConnected )
+			{
 				portProperty = m_texPort.GeneratePortInstructions( ref dataCollector );
-
-			if( m_referenceArrayId > -1 )
+			}
+			else if( m_referenceArrayId > -1 )
 			{
 				TexturePropertyNode temp = UIUtils.GetTexturePropertyNode( m_referenceArrayId );
 				if( temp != null )

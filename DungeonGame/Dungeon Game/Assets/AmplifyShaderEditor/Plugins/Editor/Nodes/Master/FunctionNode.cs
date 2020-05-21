@@ -98,20 +98,7 @@ namespace AmplifyShaderEditor
 
 			if( Function.FunctionName.Length > 1 )
 			{
-				bool lastIsUpper = Char.IsUpper( Function.FunctionName, 0 );
-				System.Text.StringBuilder title = new System.Text.StringBuilder();
-				title.Append( Function.FunctionName[ 0 ] );
-				for( int i = 1; i < Function.FunctionName.Length; i++ )
-				{
-					bool currIsUpper = Char.IsUpper( Function.FunctionName, i );
-					if( currIsUpper && !lastIsUpper && Char.IsLetter( Function.FunctionName[ i - 1 ] ))
-					{
-						title.Append( " " );
-					}
-					lastIsUpper = currIsUpper;
-					title.Append( Function.FunctionName[ i ] );
-					SetTitleText( title.ToString() );
-				}
+				SetTitleText( GraphContextMenu.AddSpacesToSentence( Function.FunctionName ) );
 			}
 			else
 			{

@@ -99,6 +99,8 @@ namespace AmplifyShaderEditor
 		private List<PropertyDataCollector> m_customInputList;
 		private List<PropertyDataCollector> m_propertiesList;
 		private List<PropertyDataCollector> m_instancedPropertiesList;
+		private List<PropertyDataCollector> m_dotsPropertiesList;
+		private List<PropertyDataCollector> m_dotsDefinesList;
 		private List<PropertyDataCollector> m_uniformsList;
 		private List<PropertyDataCollector> m_includesList;
 		private List<PropertyDataCollector> m_additionalDirectivesList;
@@ -124,6 +126,7 @@ namespace AmplifyShaderEditor
 		private Dictionary<string, PropertyDataCollector> m_customInputDict;
 		private Dictionary<string, PropertyDataCollector> m_propertiesDict;
 		private Dictionary<string, PropertyDataCollector> m_instancedPropertiesDict;
+		private Dictionary<string, PropertyDataCollector> m_dotsPropertiesDict;
 		private Dictionary<string, PropertyDataCollector> m_uniformsDict;
 		private Dictionary<string, PropertyDataCollector> m_softRegisteredUniformsDict;
 		private Dictionary<string, PropertyDataCollector> m_includesDict;
@@ -243,6 +246,8 @@ namespace AmplifyShaderEditor
 			m_customInputList = new List<PropertyDataCollector>();
 			m_propertiesList = new List<PropertyDataCollector>();
 			m_instancedPropertiesList = new List<PropertyDataCollector>();
+			m_dotsPropertiesList = new List<PropertyDataCollector>();
+			m_dotsDefinesList = new List<PropertyDataCollector>();
 			m_uniformsList = new List<PropertyDataCollector>();
 			m_includesList = new List<PropertyDataCollector>();
 			m_additionalDirectivesList = new List<PropertyDataCollector>();
@@ -269,6 +274,7 @@ namespace AmplifyShaderEditor
 
 			m_propertiesDict = new Dictionary<string, PropertyDataCollector>();
 			m_instancedPropertiesDict = new Dictionary<string, PropertyDataCollector>();
+			m_dotsPropertiesDict = new Dictionary<string, PropertyDataCollector>();
 			m_uniformsDict = new Dictionary<string, PropertyDataCollector>();
 			m_softRegisteredUniformsDict = new Dictionary<string, PropertyDataCollector>();
 			m_includesDict = new Dictionary<string, PropertyDataCollector>();
@@ -599,6 +605,26 @@ namespace AmplifyShaderEditor
 			if( m_dirtyInstancedProperties )
 			{
 				m_instancedProperties = string.Format( IOUtils.InstancedPropertiesBeginTabs, blockName ) + m_instancedProperties + IOUtils.InstancedPropertiesEndTabs;
+			}
+		}
+
+		public void AddToDotsProperties( WirePortDataType dataType, int nodeId, string value, int orderIndex, PrecisionType precision )
+		{
+			if( string.IsNullOrEmpty( value ) )
+				return;
+
+			string prop = string.Format( IOUtils.DotsInstancedPropertiesData, UIUtils.PrecisionWirePortToCgType( precision, dataType ), value );
+			string define = string.Format( IOUtils.DotsInstancedDefinesData, UIUtils.PrecisionWirePortToCgType( precision, dataType ), value );
+
+			if( !m_dotsPropertiesDict.ContainsKey( value ) )
+			{
+				PropertyDataCollector dataColl = new PropertyDataCollector( nodeId, prop, orderIndex );
+				dataColl.DataType = dataType;
+				m_dotsPropertiesDict.Add( value, dataColl );
+				m_dotsPropertiesList.Add( dataColl );
+
+				dataColl = new PropertyDataCollector( nodeId, define, orderIndex );
+				m_dotsDefinesList.Add( dataColl );
 			}
 		}
 
@@ -1548,6 +1574,12 @@ namespace AmplifyShaderEditor
 			m_instancedPropertiesList.Clear();
 			m_instancedPropertiesList = null;
 
+			m_dotsPropertiesList.Clear();
+			m_dotsPropertiesList = null;
+
+			m_dotsDefinesList.Clear();
+			m_dotsDefinesList = null;
+
 			m_uniformsList.Clear();
 			m_uniformsList = null;
 
@@ -1613,6 +1645,9 @@ namespace AmplifyShaderEditor
 
 			m_propertiesDict.Clear();
 			m_propertiesDict = null;
+
+			m_dotsPropertiesDict.Clear();
+			m_dotsPropertiesDict = null;
 
 			m_instancedPropertiesDict.Clear();
 			m_instancedPropertiesDict = null;
@@ -1952,6 +1987,8 @@ namespace AmplifyShaderEditor
 		public List<PropertyDataCollector> CustomInputList { get { return m_customInputList; } }
 		public List<PropertyDataCollector> PropertiesList { get { return m_propertiesList; } }
 		public List<PropertyDataCollector> InstancedPropertiesList { get { return m_instancedPropertiesList; } }
+		public List<PropertyDataCollector> DotsPropertiesList { get { return m_dotsPropertiesList; } }
+		public List<PropertyDataCollector> DotsDefinesList { get { return m_dotsDefinesList; } }
 		public List<PropertyDataCollector> UniformsList { get { return m_uniformsList; } }
 		public List<PropertyDataCollector> MiscList { get { return m_additionalDirectivesList; } }
 		public List<PropertyDataCollector> BeforeNativeDirectivesList { get { return m_additionalDirectivesList.FindAll( obj => obj.OrderIndex < 0 ); } }

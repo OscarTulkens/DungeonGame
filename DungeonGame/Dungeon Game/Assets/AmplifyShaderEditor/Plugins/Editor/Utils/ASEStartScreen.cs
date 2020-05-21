@@ -20,16 +20,6 @@ namespace AmplifyShaderEditor
 			window.Show();
 		}
 
-		//[MenuItem( "Window/Amplify Shader Editor/delete Key", false, 1998 )]
-		//public static void DeleteKey()
-		//{
-		//	EditorPrefs.DeleteKey( "ASELastSession" );
-		// a player define do ASE
-		// sampling macros
-		// auto import de SRP
-		// splash window
-		//}
-
 		private static readonly string ChangeLogGUID = "580cccd3e608b7f4cac35ea46d62d429";
 		private static readonly string ResourcesGUID = "c0a0a980c9ba86345bc15411db88d34f";
 		private static readonly string BuiltInGUID = "e00e6f90ab8233e46a41c5e33917c642";
@@ -72,7 +62,7 @@ namespace AmplifyShaderEditor
 #endif
 
 		Vector2 m_scrollPosition = Vector2.zero;
-		bool m_startup = false;
+		Preferences.ShowOption m_startup = Preferences.ShowOption.Never;
 		bool m_showLWRP = false;
 		bool m_showHDRP = false;
 
@@ -127,7 +117,7 @@ namespace AmplifyShaderEditor
 			rt = new RenderTexture( 16, 16, 0 );
 			rt.Create();
 
-			m_startup = EditorPrefs.GetBool( "ASELastSession", false );
+			m_startup = (Preferences.ShowOption)EditorPrefs.GetInt( Preferences.PrefStartUp, 0 );
 
 			if( textIcon == null )
 			{
@@ -203,7 +193,7 @@ namespace AmplifyShaderEditor
 				StartBackgroundTask( StartRequest( ChangelogURL, () =>
 				{
 					var temp = ChangeLogInfo.CreateFromJSON( www.downloadHandler.text );
-					if( temp != null )
+					if( temp != null && temp.Version >= m_changeLog.Version )
 					{
 						m_changeLog = temp;
 					}
@@ -413,10 +403,13 @@ namespace AmplifyShaderEditor
 			{
 				GUILayout.FlexibleSpace();
 				EditorGUI.BeginChangeCheck();
-				m_startup = EditorGUILayout.ToggleLeft( "Show At Startup", m_startup, GUILayout.Width( 115 ) );
+				var cache = EditorGUIUtility.labelWidth;
+				EditorGUIUtility.labelWidth = 100;
+				m_startup = (Preferences.ShowOption)EditorGUILayout.EnumPopup( "Show At Startup", m_startup, GUILayout.Width( 220 ) );
+				EditorGUIUtility.labelWidth = cache;
 				if( EditorGUI.EndChangeCheck() )
 				{
-					EditorPrefs.SetBool( "ASELastSession", m_startup );
+					EditorPrefs.SetInt( Preferences.PrefStartUp, (int)m_startup );
 				}
 			}
 			EditorGUILayout.EndHorizontal();
@@ -440,7 +433,7 @@ namespace AmplifyShaderEditor
 		{
 			using( www = UnityWebRequest.Get( url ) )
 			{
-#if UNITY_5_6_OR_NEWER
+#if UNITY_2017_2_OR_NEWER
 				yield return www.SendWebRequest();
 #else
 				yield return www.Send();

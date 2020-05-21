@@ -164,7 +164,7 @@ namespace AmplifyShaderEditor
 			string time = m_inputPorts[ 1 ].GeneratePortInstructions( ref dataCollector );
 
 			string functionResult =	dataCollector.AddFunctions( m_functionHeader, m_functionBody, gradient, time );
-			return functionResult;
+			return GetOutputVectorItem( 0, outputId, functionResult );
 		}
 
 		void GenerateGradientSampler( bool isSrp )

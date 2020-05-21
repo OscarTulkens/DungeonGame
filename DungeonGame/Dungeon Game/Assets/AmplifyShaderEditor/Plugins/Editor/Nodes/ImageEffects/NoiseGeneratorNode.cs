@@ -12,7 +12,8 @@ namespace AmplifyShaderEditor
 	{
 		Simplex2D,
 		Simplex3D,
-		Gradient
+		Gradient,
+		Simple
 	};
 
 	[Serializable]
@@ -21,9 +22,52 @@ namespace AmplifyShaderEditor
 	{
 		private const string TypeLabelStr = "Type";
 		private const string SetTo01RangeOpStr = "{0} = {0}*0.5 + 0.5;";
+		private const string SetToMinus1To1RangeOpStr = "{0} = {0}*2 - 1;";
 		private const string SetTo01RangeLabel = "0-1 Range";
 		private const string SetTo01RangePreviewId = "_To01Range";
 		private const string UseUnityVersionLabel = "Use Unity Version";
+
+		// Simple
+		private const string SimpleNoiseRandomValueFunc = "inline float noise_randomValue (float2 uv) { return frac(sin(dot(uv, float2(12.9898, 78.233)))*43758.5453); }";
+		private const string SimpleNoiseInterpolateFunc = "inline float noise_interpolate (float a, float b, float t) { return (1.0-t)*a + (t*b); }";
+		private const string SimpleValueNoiseHeader = "inline float valueNoise (float2 uv)";
+		private readonly string[] SimpleValueNoiseBody = {   "inline float valueNoise (float2 uv)\n",
+														"{\n",
+														"\tfloat2 i = floor(uv);\n",
+														"\tfloat2 f = frac( uv );\n",
+														"\tf = f* f * (3.0 - 2.0 * f);\n",
+														"\tuv = abs( frac(uv) - 0.5);\n",
+														"\tfloat2 c0 = i + float2( 0.0, 0.0 );\n",
+														"\tfloat2 c1 = i + float2( 1.0, 0.0 );\n",
+														"\tfloat2 c2 = i + float2( 0.0, 1.0 );\n",
+														"\tfloat2 c3 = i + float2( 1.0, 1.0 );\n",
+														"\tfloat r0 = noise_randomValue( c0 );\n",
+														"\tfloat r1 = noise_randomValue( c1 );\n",
+														"\tfloat r2 = noise_randomValue( c2 );\n",
+														"\tfloat r3 = noise_randomValue( c3 );\n",
+														"\tfloat bottomOfGrid = noise_interpolate( r0, r1, f.x );\n",
+														"\tfloat topOfGrid = noise_interpolate( r2, r3, f.x );\n",
+														"\tfloat t = noise_interpolate( bottomOfGrid, topOfGrid, f.y );\n",
+														"\treturn t;\n",
+														"}\n"};
+
+		private const string SimpleNoiseHeader = "float SimpleNoise(float2 UV, float Scale)";
+		private const string SimpleNoiseFunc = "SimpleNoise( {0} )";
+		private readonly string[] SimpleNoiseBody = {   "float SimpleNoise(float2 UV)\n",
+														"{\n",
+														"\tfloat t = 0.0;\n",
+														"\tfloat freq = pow( 2.0, float( 0 ) );\n",
+														"\tfloat amp = pow( 0.5, float( 3 - 0 ) );\n",
+														"\tt += valueNoise( UV/freq )*amp;\n",
+														"\tfreq = pow(2.0, float(1));\n",
+														"\tamp = pow(0.5, float(3-1));\n",
+														"\tt += valueNoise( UV/freq )*amp;\n",
+														"\tfreq = pow(2.0, float(2));\n",
+														"\tamp = pow(0.5, float(3-2));\n",
+														"\tt += valueNoise( UV/freq )*amp;\n",
+														"\treturn t;\n",
+														"}\n"};
+
 		// Simplex 2D
 		private const string Simplex2DFloat3Mod289Func = "float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }";
 		private const string Simplex2DFloat2Mod289Func = "float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }";
@@ -279,6 +323,12 @@ namespace AmplifyShaderEditor
 					m_previewMaterialPassId = m_unityVersion ? 3 : 2;
 				}
 				break;
+				case NoiseGeneratorType.Simple:
+				{
+					m_inputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT2, false );
+					m_previewMaterialPassId = 4;
+				}
+				break;
 			}
 			PreviewIsDirty = true;
 		}
@@ -353,9 +403,34 @@ namespace AmplifyShaderEditor
 					RegisterLocalVariable( 0, string.Format( func, size, scale ), ref dataCollector, ( "gradientNoise" + OutputId ) );
 				}
 				break;
+
+				case NoiseGeneratorType.Simple:
+				{
+					string randomValue = ( dataCollector.IsTemplate ) ? SimpleNoiseRandomValueFunc : "\t\t" + SimpleNoiseRandomValueFunc;
+					dataCollector.AddFunction( SimpleNoiseRandomValueFunc, randomValue );
+
+					string interpolate = ( dataCollector.IsTemplate ) ? SimpleNoiseInterpolateFunc : "\t\t" + SimpleNoiseInterpolateFunc;
+					dataCollector.AddFunction( SimpleNoiseInterpolateFunc, interpolate );
+
+					dataCollector.AddFunction( SimpleValueNoiseHeader, SimpleValueNoiseBody, false );
+
+					dataCollector.AddFunction( SimpleNoiseHeader, SimpleNoiseBody, false );
+
+					if( m_inputPorts[ 1 ].IsConnected || m_inputPorts[ 1 ].FloatInternalData != 1.0f )
+					{
+						size = string.Format( "{0}*{1}", size, scale );
+					}
+					RegisterLocalVariable( 0, string.Format( SimpleNoiseFunc, size ), ref dataCollector, ( "simpleNoise" + OutputId ) );
+				}
+				break;
 			}
 
-			if( m_setTo01Range )
+			if( m_type == NoiseGeneratorType.Simple && !m_setTo01Range )
+			{
+				dataCollector.AddLocalVariable( outputId, string.Format( SetToMinus1To1RangeOpStr, m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory ) ) );
+			}
+
+			if( m_setTo01Range && m_type != NoiseGeneratorType.Simple )
 			{
 				dataCollector.AddLocalVariable( outputId, string.Format( SetTo01RangeOpStr, m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory ) ) );
 			}

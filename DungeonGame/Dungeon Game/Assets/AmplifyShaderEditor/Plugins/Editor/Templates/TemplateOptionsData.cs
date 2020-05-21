@@ -36,13 +36,18 @@ namespace AmplifyShaderEditor
 	public enum AseOptionsUIWidget
 	{
 		Dropdown,
-		Toggle
+		Toggle,
+		Float,
+		FloatRange,
+		Int,
+		IntRange
 	}
 
 	public enum AseOptionsType
 	{
 		Option,
-		Port
+		Port,
+		Field
 	}
 
 
@@ -68,7 +73,8 @@ namespace AmplifyShaderEditor
 		IncludePass,
 		SetPropertyOnPass,
 		SetPropertyOnSubShader,
-		SetShaderProperty
+		SetShaderProperty,
+		SetMaterialProperty
 	}
 
 	public enum PropertyActionsEnum
@@ -201,6 +207,19 @@ namespace AmplifyShaderEditor
 		public string[] DisplayOptions = null;
 		public int DisableIdx = -1;
 
+		[SerializeField]
+		private float m_defaultFieldValue;
+
+		public float FieldMin;
+		public float FieldMax;
+
+		public bool FieldInline;
+		public string FieldInlineName;
+		public string FieldInlineOutput = string.Empty;
+
+		[SerializeField]
+		public InlineProperty FieldValue = new InlineProperty();
+
 		public TemplateActionItemGrid ActionsPerOption = null;
 
 		public int Count = 0;
@@ -246,6 +265,17 @@ namespace AmplifyShaderEditor
 			}
 		}
 
+		public float DefaultFieldValue
+		{
+			get
+			{
+				return m_defaultFieldValue;
+			}
+			set
+			{
+				m_defaultFieldValue = value;
+			}
+		}
 	}
 
 	[Serializable]
@@ -302,8 +332,8 @@ namespace AmplifyShaderEditor
 	{
 		//public const string PassOptionsMainPattern = @"\/\*ase_pass_options:([\w:= ]*)[\n]([\w: \t;\n&|,_\+-]*)\*\/";
 		//public const string SubShaderOptionsMainPattern = @"\/\*ase_subshader_options:([\w:= ]*)[\n]([\w: \t;\n&|,_\+-]*)\*\/";
-		public const string PassOptionsMainPattern = "\\/\\*ase_pass_options:([\\w:= ]*)[\n]([\\w: \t;\n&|,_\\+\\-\\(\\)\\[\\]\\\"\\=\\/]*)\\*\\/";
-		public const string SubShaderOptionsMainPattern = "\\/\\*ase_subshader_options:([\\w:= ]*)[\n]([\\w: \t;\n&|,_\\+\\-\\(\\)\\[\\]\\\"\\=\\/]*)\\*\\/";
+		public const string PassOptionsMainPattern = "\\/\\*ase_pass_options:([\\w:= ]*)[\n]([\\w: \t;\n&|,_\\+\\-\\(\\)\\[\\]\\\"\\=\\/\\.]*)\\*\\/";
+		public const string SubShaderOptionsMainPattern = "\\/\\*ase_subshader_options:([\\w:= ]*)[\n]([\\w: \t;\n&|,_\\+\\-\\(\\)\\[\\]\\\"\\=\\/\\.]*)\\*\\/";
 		public static readonly char OptionsDataSeparator = ',';
 		public static Dictionary<string, AseOptionsSetup> AseOptionsSetupDict = new Dictionary<string, AseOptionsSetup>()
 		{
@@ -334,7 +364,8 @@ namespace AmplifyShaderEditor
 			{"IncludePass", AseOptionsActionType.IncludePass },
 			{"SetPropertyOnPass", AseOptionsActionType.SetPropertyOnPass },
 			{"SetPropertyOnSubShader", AseOptionsActionType.SetPropertyOnSubShader },
-			{"SetShaderProperty", AseOptionsActionType.SetShaderProperty }
+			{"SetShaderProperty", AseOptionsActionType.SetShaderProperty },
+			{"SetMaterialProperty", AseOptionsActionType.SetMaterialProperty }
 		};
 
 		public static Dictionary<string, AseOptionItemSetup> AseOptionItemSetupDict = new Dictionary<string, AseOptionItemSetup>
@@ -536,6 +567,59 @@ namespace AmplifyShaderEditor
 									optionItemsList.Add( currentOption );
 								}
 								break;
+								case "Field":
+								{
+									//Fills previous option with its actions
+									//actionItemsList is cleared over here
+									FillOptionAction( currentOption, ref actionItemsList );
+
+									optionItemToIndex.Clear();
+									currentOption = new TemplateOptionsItem();
+									currentOption.Type = AseOptionsType.Field;
+									
+									currentOption.Id = optionItems[ 1 ];
+									currentOption.Name = optionItems[ 1 ];
+
+									currentOption.UIWidget = AseOptionsUIWidget.Float;
+									if( optionItems[ 2 ].Equals( "Int" ) )
+										currentOption.UIWidget = AseOptionsUIWidget.Int;
+
+									if( optionItems.Length >= 3 )
+									{
+										currentOption.DefaultFieldValue = Convert.ToSingle( optionItems[ 3 ], System.Globalization.CultureInfo.InvariantCulture );
+									}
+
+									if( optionItems.Length >= 6 )
+									{
+										if( currentOption.UIWidget == AseOptionsUIWidget.Int )
+											currentOption.UIWidget = AseOptionsUIWidget.Int;
+										else
+											currentOption.UIWidget = AseOptionsUIWidget.FloatRange;
+
+										currentOption.FieldMin = Convert.ToSingle( optionItems[ 4 ], System.Globalization.CultureInfo.InvariantCulture );
+										currentOption.FieldMax = Convert.ToSingle( optionItems[ 5 ], System.Globalization.CultureInfo.InvariantCulture );
+									}
+
+									if( optionItems.Length == 5 || optionItems.Length == 7 )
+									{
+										currentOption.FieldInline = true;
+										currentOption.FieldInlineName = optionItems[ optionItems.Length - 1 ];
+									}
+
+									currentOption.Options = new string[] { "Change", "Inline", "disable" };
+
+									optionItemToIndex.Add( currentOption.Options[ 0 ], 0 );
+									optionItemToIndex.Add( currentOption.Options[ 1 ], 1 );
+									optionItemToIndex.Add( currentOption.Options[ 2 ], 2 );
+									currentOption.DisableIdx = 2;
+
+									actionItemsList.Add( new List<TemplateActionItem>() );
+									actionItemsList.Add( new List<TemplateActionItem>() );
+									actionItemsList.Add( new List<TemplateActionItem>() );
+
+									optionItemsList.Add( currentOption );
+								}
+								break;
 								default:
 								{
 									if( optionItemToIndex.ContainsKey( optionItems[ 0 ] ) )
@@ -692,6 +776,15 @@ namespace AmplifyShaderEditor
 							actionItem.ActionBuffer = optionItems[ optionsIdx ].Substring( optIndex + 1, optionItems[ optionsIdx ].Length - optIndex - 1);
 						}
 					}break;
+					case AseOptionsActionType.SetMaterialProperty:
+					{
+						int optIndex = optionItems[ optionsIdx ].IndexOf( OptionsDataSeparator );
+						if( optIndex > -1 )
+						{
+							actionItem.ActionData = optionItems[ optionsIdx ].Substring( 0, optIndex );
+						}
+					}
+					break;
 					case AseOptionsActionType.SetPropertyOnPass:
 					case AseOptionsActionType.SetPropertyOnSubShader:
 					{

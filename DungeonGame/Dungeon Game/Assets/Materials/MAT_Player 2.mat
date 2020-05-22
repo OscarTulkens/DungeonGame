@@ -69,8 +69,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FogEndPos: 0
-    - _FogGradientStrength: 0
-    - _FogHeight: 0
+    - _FogGradientStrength: 0.28
+    - _FogHeight: 0.73
     - _FogStartPos: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5

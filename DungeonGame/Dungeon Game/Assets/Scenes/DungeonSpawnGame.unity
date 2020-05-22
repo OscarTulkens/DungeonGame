@@ -312,7 +312,7 @@ Transform:
   m_GameObject: {fileID: 182998346}
   m_LocalRotation: {x: 0.05221697, y: -0.9392279, z: 0.29613736, w: -0.16561115}
   m_LocalPosition: {x: 0.028120995, y: -0.2529776, z: 5.553026}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 925258288}
   m_RootOrder: 1
@@ -1367,7 +1367,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 160
+  m_FocalLength: 196.19826
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1376,8 +1376,8 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 75
-  field of view: 32
-  orthographic: 1
+  field of view: 16.3
+  orthographic: 0
   orthographic size: 5
   m_Depth: 1
   m_CullingMask:
@@ -1456,7 +1456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 798474897}
-  _camOffset: {x: -17, y: 17, z: -17}
+  _camOffset: {x: -17, y: 20, z: -17}
   _cameraSpeed: 2
   _pointToLookAt: {fileID: 5143203698967320731}
 --- !u!1 &1053407961
@@ -1484,8 +1484,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053407961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 6.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1193591954}
   - {fileID: 594898795}
@@ -2082,6 +2082,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1906156610}
     m_Modifications:
+    - target: {fileID: 867516156, guid: 4a9791229f068d84e8055ef04f23e31f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1066591158, guid: 4a9791229f068d84e8055ef04f23e31f, type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
       value: 1
@@ -2120,6 +2124,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1775075121, guid: 4a9791229f068d84e8055ef04f23e31f, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274902673033807129, guid: 4a9791229f068d84e8055ef04f23e31f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2922767671800320483, guid: 4a9791229f068d84e8055ef04f23e31f,
@@ -2196,6 +2205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008244930348183322, guid: 4a9791229f068d84e8055ef04f23e31f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8777253165537692357, guid: 4a9791229f068d84e8055ef04f23e31f,
         type: 3}

@@ -7,7 +7,5 @@ public class TreasureObject : ScriptableObject
 {
     public GameObject TreasurePrefab;
     public string Name;
-    public float Rarity;
-    public int MinValue;
-    public int MaxValue;
+    public TreasurePoolObject TreasurePool;
 }

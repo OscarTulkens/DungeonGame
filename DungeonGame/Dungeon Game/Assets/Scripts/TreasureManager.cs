@@ -49,7 +49,7 @@ public class TreasureManager : MonoBehaviour
         _claimed = false;
         _treasure = true;
         _treasureObject = Instantiate(treasurePrefab.TreasurePrefab, _treasureSpawnPoint);
-        SetRandomValue(treasurePrefab.MinValue, treasurePrefab.MaxValue);
+        SetRandomValue(treasurePrefab.TreasurePool.MinCoins, treasurePrefab.TreasurePool.MaxCoins);
     }
 
     private void SetRandomValue(int min, int max)

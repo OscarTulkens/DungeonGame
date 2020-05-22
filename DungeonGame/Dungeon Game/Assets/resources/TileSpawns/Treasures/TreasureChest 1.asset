@@ -15,6 +15,4 @@ MonoBehaviour:
   TreasurePrefab: {fileID: 5348062252849941347, guid: 34be175f4f914784c9999d0e54b01848,
     type: 3}
   Name: Treasure Chest
-  Rarity: 0
-  MinValue: 2
-  MaxValue: 5
+  TreasurePool: {fileID: 11400000, guid: 1aeab82dc809f9b45b1d7ab75fbd6e36, type: 2}

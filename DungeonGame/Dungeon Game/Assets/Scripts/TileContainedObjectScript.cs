@@ -69,6 +69,8 @@ public class TileContainedObjectScript : MonoBehaviour
         SetMovementPoint(_monsterMovementPoint);
         ControlScript.Instance.AddDesiredPosition(_monsterMovementPoint.position);
         Invoke("StartCombat", 0.3f);
+        ControlScript.Instance.enabled = false;
+        CombatManagerScript.Instance.enabled = true;
     }
 
     void ActivateTreasureSpawn()
@@ -81,6 +83,8 @@ public class TileContainedObjectScript : MonoBehaviour
         SetMovementPoint(_treasureMovementPoint);
         ControlScript.Instance.AddDesiredPosition(_treasureMovementPoint.position);
         Invoke("StartTreasure", 0.3f);
+        ControlScript.Instance.enabled = false;
+        TreasureManager.Instance.enabled = true;
     }
 
     void ActivateNormalSpawn()
@@ -95,14 +99,10 @@ public class TileContainedObjectScript : MonoBehaviour
     {
         if (_tile.ContainsMonster)
         {
-            ControlScript.Instance.enabled = false;
-            CombatManagerScript.Instance.enabled = true;
             ActivateMonsterSpawn();
         }
         else if (_tile.ContainsTreasure)
         {
-            ControlScript.Instance.enabled = false;
-            TreasureManager.Instance.enabled = true;
             ActivateTreasureSpawn();
         }
         else

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,9 @@ public class TreasureManager : MonoBehaviour
     private GameObject _treasureObject = null;
     private int _treasureValue = 0;
     private bool _claimed = false;
-
-    //Currency Variables
-    [SerializeField] private Text _currencyText = null;
+    private TreasurePoolObject _treasurePool = null;
+    private int _amountOfTreasures = 0;
+    private bool _firstTreasure = true;
 
     //Singleton
     public static TreasureManager Instance = null;
@@ -30,11 +31,6 @@ public class TreasureManager : MonoBehaviour
     }
     void Start()
     {
-        if (!PlayerPrefs.HasKey("Currency"))
-        {
-            PlayerPrefs.SetInt("Currency", 0);
-        }
-        UpdateText();
         _controlScript = ControlScript.Instance;
     }
 
@@ -46,45 +42,112 @@ public class TreasureManager : MonoBehaviour
 
     public void StartTreasure(TreasureObject treasurePrefab)
     {
-        _claimed = false;
-        _treasure = true;
+        //Instantiate Treasure Prefab
         _treasureObject = Instantiate(treasurePrefab.TreasurePrefab, _treasureSpawnPoint);
-        SetRandomValue(treasurePrefab.TreasurePool.MinCoins, treasurePrefab.TreasurePool.MaxCoins);
-    }
 
-    private void SetRandomValue(int min, int max)
-    {
-        _treasureValue = Random.Range(min, max + 1);
+        //Get TreasurePool
+        _treasurePool = treasurePrefab.TreasurePool;
+
+        //Get random amount of treasure
+        _amountOfTreasures = GetRandomValue(1, _treasurePool.MaxAmountOfTreasures);
     }
 
     private void HandleTreasure()
     {
-        if (_treasure)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0) && _claimed == false)
+            if (_amountOfTreasures>0)
             {
-                PlayerPrefs.SetInt("Currency", PlayerPrefs.GetInt("Currency") + _treasureValue);
-                PlayerPrefs.Save();
-                UpdateText();
-                _treasureSpawnPoint.GetComponentInChildren<Animator>().SetTrigger("Open");
-                _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Open");
+                GenerateTreasure(RandomTreasureType(_treasurePool.ItemChance, _treasurePool.TileChance));
+                if (_firstTreasure)
+                {
+                    _treasureSpawnPoint.GetComponentInChildren<Animator>().SetTrigger("Open");
+                    _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Open");
+                    _firstTreasure = false;
+                }
+                else
+                {
+                    _treasureSpawnPoint.GetComponentInChildren<Animator>().SetTrigger("Extra Treasure");
+                    _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Extra Treasure");
+                }
+            }
+            else
+            {
                 _controlScript.CurrentlySelectedTile.ContainsTreasure = false;
-                Invoke("StopTreasure", 1f);
+                _treasureSpawnPoint.GetComponentInChildren<Animator>().SetTrigger("Disappear");
+                _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Disappear");
                 _claimed = true;
+                Invoke("StopTreasure", 1f);
             }
         }
     }
 
-    private void UpdateText()
-    {
-        _currencyText.text = PlayerPrefs.GetInt("Currency").ToString();
-    }
-
+    //Stop the treasure Code
     private void StopTreasure()
     {
         Destroy(_treasureObject);
-        _controlScript.enabled = true;
-        _treasure = false;
+        Destroy(_controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn);
+        ControlScript.Instance.enabled = true;
         this.enabled = false;
+    }
+
+    //Get a random Int between min and max
+    private int GetRandomValue(int min, int max)
+    {
+        return UnityEngine.Random.Range(min, max + 1);
+    }
+
+    //Return which type of treasure the next one will be
+    private TreasureType RandomTreasureType(int chanceForItem, int chanceForTiles)
+    {
+        int itemCalc = UnityEngine.Random.Range(1, 101);
+        int tilesCalc = UnityEngine.Random.Range(1, 101);
+        if (chanceForItem >= itemCalc)
+        {
+            return TreasureType.Item;
+        }
+        else if (chanceForTiles >= tilesCalc)
+        {
+            return TreasureType.Tiles;
+        }
+        else
+        {
+            return TreasureType.Coins;
+        }
+    }
+
+    public enum TreasureType
+    {
+        Item,
+        Coins,
+        Tiles
+    }
+
+    private void GenerateTreasure(TreasureType type)
+    {
+        switch (type)
+        {
+            case TreasureType.Item:
+                InventoryManager.Instance.AddItem(RandomTreasureItem(_treasurePool));
+                Debug.Log("Rewarded Item");
+                break;
+            case TreasureType.Coins:
+                InventoryManager.Instance.ModifyCurrency(GetRandomValue(_treasurePool.MinAmountOfCoins, _treasurePool.MaxAmountOfCoins));
+                Debug.Log("Rewarded Coins");
+                break;
+            case TreasureType.Tiles:
+                InventoryManager.Instance.ModifyTileCount(GetRandomValue(_treasurePool.MinAmountOfTiles, _treasurePool.MaxAmountOfTiles));
+                Debug.Log("Rewarded Tiles");
+                break;
+            default:
+                break;
+        }
+        //Reduce amount of treasure left
+        _amountOfTreasures -= 1;
+    }
+
+    private TreasureItemObject RandomTreasureItem(TreasurePoolObject treasurePoolObject)
+    {
+        return treasurePoolObject.PossibleTreasures[UnityEngine.Random.Range(0, treasurePoolObject.PossibleTreasures.Count)];
     }
 }

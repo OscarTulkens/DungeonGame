@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//These are scriptableobjects for TreasureItems. These are the items the player can collect from treasurepools.
 [CreateAssetMenu(fileName = "TreasureItemObject", menuName = "Inventory/TreasureItem", order = 1)]
 public class TreasureItemObject : ScriptableObject
 {

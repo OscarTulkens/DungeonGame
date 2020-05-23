@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 149981174}
   - component: {fileID: 149981173}
   - component: {fileID: 149981175}
+  - component: {fileID: 149981176}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -252,7 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ppSpeed: 5
   _overlayVolume: {fileID: 0}
-  _fogOn: 1
+  _fogOn: 0
   _worldFogHeight: 0.51
   _worldSpaceFogWidth: 7.21
   _worldSpaceFogStrength: 6.64
@@ -286,7 +287,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _treasureSpawnPoint: {fileID: 182998347}
-  _currencyText: {fileID: 589258030}
+--- !u!114 &149981176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149981172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3f1e5ab4c67c43b8c84568e2d7147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInventoryObject: {fileID: 11400000, guid: cbb97668d4bbefc47a3ec82c5383f172,
+    type: 2}
 --- !u!1 &182998346
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,6 +483,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 521138761, guid: dfc0b53ad5987b7478a9c5d30e2c3584, type: 3}
+      propertyPath: _chanceAtTreasure
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 521138761, guid: dfc0b53ad5987b7478a9c5d30e2c3584, type: 3}
+      propertyPath: _chanceAtMonsterPercentage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 190500497118510289, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
         type: 3}
       propertyPath: m_StaticEditorFlags

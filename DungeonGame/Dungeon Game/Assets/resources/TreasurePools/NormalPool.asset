@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65fd1bb46ca8c1428e70e59090bc0ad, type: 3}
   m_Name: NormalPool
   m_EditorClassIdentifier: 
-  AmountOfTreasures: 0
+  MaxAmountOfTreasures: 5
+  ItemChance: 20
   PossibleTreasures:
   - {fileID: 11400000, guid: bea14d8cfc00c7343942dd4202d56126, type: 2}
-  MinTiles: 0
-  MaxTiles: 0
-  MinCoins: 0
-  MaxCoins: 0
+  - {fileID: 11400000, guid: b0b22c4ce979cc2449c58cca3077d327, type: 2}
+  - {fileID: 11400000, guid: 0f3de75b846eaa54b9ecc13b313b6017, type: 2}
+  - {fileID: 11400000, guid: b17c58a513e4df045a6962ef09e3c826, type: 2}
+  TileChance: 30
+  MinAmountOfTiles: 1
+  MaxAmountOfTiles: 5
+  MinAmountOfCoins: 1
+  MaxAmountOfCoins: 5

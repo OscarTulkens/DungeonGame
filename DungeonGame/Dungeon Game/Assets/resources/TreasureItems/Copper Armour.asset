@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Copper Armour
   m_EditorClassIdentifier: 
   Name: Copper Armour
-  InventoryImage: {fileID: 0}
+  InventoryImage: {fileID: 21300000, guid: b1b5c8ddba9bafd49b93293ca35f60f8, type: 3}
   Model: {fileID: 0}
   ItemType: 2
   Value: 10

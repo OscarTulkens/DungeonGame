@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Copper Helmet
   m_EditorClassIdentifier: 
   Name: Copper Helmet
-  InventoryImage: {fileID: 0}
+  InventoryImage: {fileID: 21300000, guid: 5bbd73539a346984d95e5569ad811aaa, type: 3}
   Model: {fileID: 0}
   ItemType: 1
   Value: 5

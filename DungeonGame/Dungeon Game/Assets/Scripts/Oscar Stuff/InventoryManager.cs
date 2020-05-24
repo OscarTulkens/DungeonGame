@@ -5,8 +5,6 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryObject _playerInventoryObject;
-    private int _currencyValue = 0;
-    private int _tileCount = 0;
 
     public static InventoryManager Instance { get; private set; }
 
@@ -45,21 +43,6 @@ public class InventoryManager : MonoBehaviour
     public void RemoveItem(TreasureItemObject treasureToRemove, InventoryObject inventoryToChange)
     {
         inventoryToChange.TreasureList.Remove(treasureToRemove);
-    }
-
-
-    //Change Currency
-    public void ModifyCurrency(int amount)
-    {
-        _currencyValue += amount;
-
-    }
-
-
-    //Change TileCount
-    public void ModifyTileCount(int amount)
-    {
-        _tileCount += amount;
     }
 
 }

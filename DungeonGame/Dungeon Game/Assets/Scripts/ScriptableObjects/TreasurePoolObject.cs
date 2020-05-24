@@ -20,8 +20,20 @@ public class TreasurePoolObject : ScriptableObject
     public int TileChance;
     public int MinAmountOfTiles;
     public int MaxAmountOfTiles;
+    public List<ImageValue> TileImageMilestones = new List<ImageValue>();
     [Space]
     [Header("Coins")]
     public int MinAmountOfCoins;
     public int MaxAmountOfCoins;
+    public List<ImageValue> CoinImageMilestones = new List<ImageValue>();
+
+
+}
+
+[System.Serializable]
+public struct ImageValue
+{
+    public string Name;
+    public Sprite Image;
+    public int ValueMileStone;
 }

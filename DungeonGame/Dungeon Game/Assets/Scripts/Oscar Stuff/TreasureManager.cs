@@ -14,7 +14,6 @@ public class TreasureManager : MonoBehaviour
     [SerializeField] private Transform _treasureSpawnPoint = null;
     private GameObject _treasureObject = null;
     private int _treasureValue = 0;
-    private bool _claimed = false;
     private TreasurePoolObject _treasurePool = null;
     private int _amountOfTreasures = 0;
     private bool _firstTreasure = true;
@@ -25,6 +24,7 @@ public class TreasureManager : MonoBehaviour
     public static TreasureManager Instance = null;
 
     //Events
+
     public event EventHandler<OnGetTreasureItemEventArgs> OnGetTreasureItem;
     public class OnGetTreasureItemEventArgs : EventArgs
     {
@@ -34,7 +34,7 @@ public class TreasureManager : MonoBehaviour
     }
 
     public event EventHandler OnEndTreasure;
-
+    public event EventHandler OnStartTreasure;
 
 
     private void Awake()
@@ -53,16 +53,21 @@ public class TreasureManager : MonoBehaviour
         DoTapTimer();
     }
 
-    public void StartTreasure(TreasureObject treasurePrefab)
+    public void StartTreasure(TreasureObject treasureObject)
     {
         //Instantiate Treasure Prefab
-        _treasureObject = Instantiate(treasurePrefab.TreasurePrefab, _treasureSpawnPoint);
+        _treasureObject = Instantiate(treasureObject.TreasurePrefab, _treasureSpawnPoint);
 
         //Get TreasurePool
-        _treasurePool = treasurePrefab.TreasurePool;
+        _treasurePool = treasureObject.TreasurePool;
 
         //Get random amount of treasure
         _amountOfTreasures = GetRandomValue(1, _treasurePool.MaxAmountOfTreasures);
+
+        //Invoke Start Event
+        OnStartTreasure?.Invoke(this, EventArgs.Empty);
+
+        AddTimeToTapTimer(0.3f);
     }
 
     private void HandleTreasure()
@@ -93,10 +98,11 @@ public class TreasureManager : MonoBehaviour
                     _controlScript.CurrentlySelectedTile.ContainsTreasure = false;
                     _treasureSpawnPoint.GetComponentInChildren<Animator>().SetTrigger("Disappear");
                     _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Disappear");
-                    _claimed = true;
                     OnEndTreasure?.Invoke(this, EventArgs.Empty);
-                    Invoke("StopTreasure", 0.5f);
-                    AddTimeToTapTimer(1);
+                    Destroy(_treasureObject);
+                    Destroy(_controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn);
+                    ControlScript.Instance.enabled = true;
+                    this.enabled = false;
                 }
             }
         }
@@ -132,15 +138,6 @@ public class TreasureManager : MonoBehaviour
     private void AddTimeToTapTimer()
     {
         _timeRemaining += _defaultAddTime;
-    }
-
-    //Stop the treasure Code
-    private void StopTreasure()
-    {
-        Destroy(_treasureObject);
-        Destroy(_controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn);
-        ControlScript.Instance.enabled = true;
-        this.enabled = false;
     }
 
     //Get a random Int between min and max

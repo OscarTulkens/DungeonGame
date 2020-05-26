@@ -1,27 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.UI;
+
 [ExecuteAlways]
 public class ShaderManager : MonoBehaviour
 {
-    [SerializeField] private float _ppSpeed = 0;
-    [SerializeField] private Volume _overlayVolume = null;
+    [Header("FOG SETTINGS")]
     [SerializeField] private bool _fogOn = false;
     [SerializeField] private float _worldFogHeight = 0;
     [SerializeField] private float _worldSpaceFogWidth = 0;
     [SerializeField] private float _worldSpaceFogStrength = 0;
-    [SerializeField] private Image _eventOverlayImage = null;
-    [SerializeField] private float _eventOverlayAlpha = 0;
-    [SerializeField] private float _alphaLerpSpeed;
 
-    private Color _desiredColor;
-    private CombatManagerScript _combatManager;
-    private TreasureManager _treasureManager;
+    [Header("EVENT OVERLAY SETTINGS")]
+    [SerializeField] private RectTransform _eventOverlayImage = null;
+    [SerializeField] private float _eventOverlayAlphaValue = 0;
+    [SerializeField] private float _eventOverlayFadeDuration;
+
+    private int _doOverlayID;
+    private int _disableOverlayID;
 
     private void Start()
     {
+        TreasureManager.Instance.OnEndTreasure += DisableOverlay;
+        TreasureManager.Instance.OnStartTreasure += DoOverlay;
+        
         if (_fogOn)
         {
             Shader.SetGlobalFloat("WorldFogHeight", _worldFogHeight);
@@ -36,59 +40,17 @@ public class ShaderManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void DoOverlay(object sender, EventArgs e)
     {
-        ManageEventColorOverlay();
-        AssignInstances();
+        LeanTween.cancel(_disableOverlayID);
+        _doOverlayID = LeanTween.alpha(_eventOverlayImage, _eventOverlayAlphaValue, _eventOverlayFadeDuration).setEaseOutQuart().id;
     }
 
-    void ManageEventColorOverlay()
+    private void DisableOverlay(object sender, EventArgs e)
     {
-        if (_combatManager != null && _treasureManager != null)
-        {
-            if (_combatManager.enabled || _treasureManager.enabled)
-            {
-                if (_eventOverlayImage.color.a != _eventOverlayAlpha)
-                {
-                    _eventOverlayImage.color = new Color(_eventOverlayImage.color.r, _eventOverlayImage.color.g, _eventOverlayImage.color.b, Mathf.Lerp(_eventOverlayImage.color.a, _eventOverlayAlpha, _alphaLerpSpeed*Time.deltaTime));
-                    if (_eventOverlayImage.color.a >= 0.95)
-                    {
-                        _eventOverlayImage.color = new Color(_eventOverlayImage.color.r, _eventOverlayImage.color.g, _eventOverlayImage.color.b, 1);
-                    }
-                }
-            }
-
-            else
-            {
-                if(_eventOverlayImage.color.a != 0)
-                {
-                    _eventOverlayImage.color = new Color(_eventOverlayImage.color.r, _eventOverlayImage.color.g, _eventOverlayImage.color.b, Mathf.Lerp(_eventOverlayImage.color.a, 0,_alphaLerpSpeed *Time.deltaTime));
-                    if (_eventOverlayImage.color.a <=0.05f)
-                    {
-                        _eventOverlayImage.color = new Color(_eventOverlayImage.color.r, _eventOverlayImage.color.g, _eventOverlayImage.color.b, 0);
-                    }
-                }
-            }
-        }
+        LeanTween.cancel(_doOverlayID);
+        _disableOverlayID = LeanTween.alpha(_eventOverlayImage, 0, _eventOverlayFadeDuration).setEaseOutQuart().id;
     }
 
-    void AssignInstances()
-    {
-        if (_combatManager == null)
-        {
-            if (CombatManagerScript.Instance)
-            {
-                _combatManager = CombatManagerScript.Instance;
-            }
-        }
-
-        if (_treasureManager == null)
-        {
-            if (TreasureManager.Instance)
-            {
-                _treasureManager = TreasureManager.Instance;
-            }
-        }
-    }
 
 }

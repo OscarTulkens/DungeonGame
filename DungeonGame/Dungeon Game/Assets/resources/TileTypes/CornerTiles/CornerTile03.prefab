@@ -1057,32 +1057,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    - target: {fileID: 8667137367456155879, guid: 0aa3ff6d451e49247b3391be7de95fc6,
-        type: 3}
-      propertyPath: _tileMoveUpSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667137367456155879, guid: 0aa3ff6d451e49247b3391be7de95fc6,
-        type: 3}
-      propertyPath: _modelSpawnOffset.y
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667137367456155879, guid: 0aa3ff6d451e49247b3391be7de95fc6,
-        type: 3}
-      propertyPath: Model
-      value: 
-      objectReference: {fileID: 7535467664902497644}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0aa3ff6d451e49247b3391be7de95fc6, type: 3}
 --- !u!4 &8232968113067195257 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3676858930413218585, guid: 0aa3ff6d451e49247b3391be7de95fc6,
-    type: 3}
-  m_PrefabInstance: {fileID: 4703925524588417120}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7535467664902497644 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3014289949870060812, guid: 0aa3ff6d451e49247b3391be7de95fc6,
     type: 3}
   m_PrefabInstance: {fileID: 4703925524588417120}
   m_PrefabAsset: {fileID: 0}
@@ -1769,6 +1748,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: fdf9712d6781cfd45b958e997d37900a, type: 2}
+    - target: {fileID: -1504981713932161579, guid: d748a4ae067968046a3e66ff6546e765,
+        type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d46faf2137f425438848affae43e9dc, type: 2}
     - target: {fileID: -927199367670048503, guid: d748a4ae067968046a3e66ff6546e765,
         type: 3}
       propertyPath: m_Name

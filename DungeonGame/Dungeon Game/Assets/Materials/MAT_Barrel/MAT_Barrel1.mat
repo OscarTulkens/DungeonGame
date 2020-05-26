@@ -86,4 +86,4 @@ Material:
     - _ObjectFogColor: {r: 0, g: 0, b: 0, a: 0}
     - _RightColor: {r: 0.667, g: 0.5550219, b: 0.4138321, a: 1}
     - _TopColor: {r: 0.546, g: 0.4356383, b: 0.29623404, a: 1}
-    - _WorldFogColor: {r: 0, g: 0, b: 0, a: 0}
+    - _WorldFogColor: {r: 0.7647059, g: 0.9411765, b: 0.9490196, a: 0}

@@ -11,9 +11,7 @@ public class TileContainedObjectScript : MonoBehaviour
     private List<TreasureObject> _treasures = new List<TreasureObject>();
     private TreasureObject _chosenTreasure;
 
-    [SerializeField] private GameObject _normalSpawnPoint = null;
-    [SerializeField] private GameObject _monsterSpawnPoints = null;
-    [SerializeField] private GameObject _treasureSpawnPoints = null;
+    [SerializeField] private GameObject _specialObjectSpawnPoint = null;
 
     public Transform MovementPoint;
     private TileScript _tile = null;
@@ -26,9 +24,7 @@ public class TileContainedObjectScript : MonoBehaviour
 
     private void Awake()
     {
-        DeactivateAllSpawnPoints();
         _tile = GetComponentInParent<TileScript>();
-
     }
 
     // Start is called before the first frame update
@@ -43,7 +39,7 @@ public class TileContainedObjectScript : MonoBehaviour
         }
         else
         {
-            SetMovementPoint(_normalSpawnPoint.transform);
+            SetMovementPoint(MovementPoint.transform);
         }
     }
 
@@ -61,13 +57,10 @@ public class TileContainedObjectScript : MonoBehaviour
 
     void ActivateMonsterSpawn()
     {
-        _monsterSpawnPoints.SetActive(true);
-        Transform _monsterPoint = _monsterSpawnPoints.transform.Find("MonsterPoint");
-        Transform _monsterMovementPoint = _monsterSpawnPoints.transform.Find("MovePoint");
-        GameObject _instantiatedMonster = Instantiate(RandomMonster().MonsterPrefab, _monsterPoint.position, _monsterPoint.rotation, Model.transform);
+        GameObject _instantiatedMonster = Instantiate(RandomMonster().MonsterPrefab, _specialObjectSpawnPoint.transform.position, _specialObjectSpawnPoint.transform.rotation, Model.transform);
         SpecialSpawn = _instantiatedMonster;
-        SetMovementPoint(_monsterMovementPoint);
-        ControlScript.Instance.AddDesiredPosition(_monsterMovementPoint.position);
+        SetMovementPoint(MovementPoint);
+        ControlScript.Instance.AddDesiredPosition(MovementPoint.position);
         Invoke("StartCombat", 0.3f);
         ControlScript.Instance.enabled = false;
         CombatManagerScript.Instance.enabled = true;
@@ -75,13 +68,10 @@ public class TileContainedObjectScript : MonoBehaviour
 
     void ActivateTreasureSpawn()
     {
-        _treasureSpawnPoints.SetActive(true);
-        Transform _treasurepoint = _treasureSpawnPoints.transform.Find("TreasurePoint").transform;
-        Transform _treasureMovementPoint = _treasureSpawnPoints.transform.Find("MovePoint").transform;
-        GameObject _instantiatedTreasure = Instantiate(RandomTreasure().TreasurePrefab, _treasurepoint.position, _treasurepoint.rotation, Model.transform);
+        GameObject _instantiatedTreasure = Instantiate(RandomTreasure().TreasurePrefab, _specialObjectSpawnPoint.transform.position, _specialObjectSpawnPoint.transform.rotation, Model.transform);
         SpecialSpawn = _instantiatedTreasure;
-        SetMovementPoint(_treasureMovementPoint);
-        ControlScript.Instance.AddDesiredPosition(_treasureMovementPoint.position);
+        SetMovementPoint(MovementPoint);
+        ControlScript.Instance.AddDesiredPosition(MovementPoint.position);
         Invoke("StartTreasure", 0.3f);
         ControlScript.Instance.enabled = false;
         TreasureManager.Instance.enabled = true;
@@ -89,10 +79,9 @@ public class TileContainedObjectScript : MonoBehaviour
 
     void ActivateNormalSpawn()
     {
-        Transform _movementPoint = _normalSpawnPoint.transform;
-        _normalSpawnPoint.SetActive(true);
-        MovementPoint = _normalSpawnPoint.transform;
-        ControlScript.Instance.AddDesiredPosition(_movementPoint.position);
+        Transform _movementPoint = MovementPoint.transform;
+        MovementPoint = MovementPoint.transform;
+        ControlScript.Instance.AddDesiredPosition(MovementPoint.position);
     }
 
     void ActivateTileSpawnPoints()
@@ -114,16 +103,6 @@ public class TileContainedObjectScript : MonoBehaviour
     void SetMovementPoint(Transform chosenSpawnPoint)
     {
         MovementPoint = chosenSpawnPoint;
-    }
-
-    void DeactivateAllSpawnPoints()
-    {
-        if (!OverrideDeactivateSpawnPoints)
-        {
-            _treasureSpawnPoints.SetActive(false);
-            _monsterSpawnPoints.SetActive(false);
-            _normalSpawnPoint.SetActive(false);
-        }
     }
 
     void SetModelPosition()

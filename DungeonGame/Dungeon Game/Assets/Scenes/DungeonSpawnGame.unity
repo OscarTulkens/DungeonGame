@@ -327,15 +327,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f819f7c0f956ba6419f7fbca7e3f96b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ppSpeed: 5
-  _overlayVolume: {fileID: 0}
   _fogOn: 1
   _worldFogHeight: 0.51
   _worldSpaceFogWidth: 7.21
   _worldSpaceFogStrength: 6.64
-  _eventOverlayImage: {fileID: 1589170423}
-  _eventOverlayAlpha: 0.95
-  _alphaLerpSpeed: 5
+  _eventOverlayImage: {fileID: 1589170422}
+  _eventOverlayAlphaValue: 0.95
+  _eventOverlayFadeDuration: 1
 --- !u!4 &149981174
 Transform:
   m_ObjectHideFlags: 0
@@ -363,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _treasureSpawnPoint: {fileID: 182998347}
-  _defaultAddTime: 0.8
+  _defaultAddTime: 0.5
 --- !u!114 &149981176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2062,7 +2060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.89411765}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

@@ -36,126 +36,114 @@ public class CombatManagerScript : MonoBehaviour
     private bool _playerAttacked = false;
     private bool _playerHitMonster = false;
 
+    private List<int> _ongoingTweens = new List<int>();
+
+
     private void Awake()
     {
         Instance = this;
         enabled = false;
     }
 
+    private Action ActionOnSlideInDone;
+    private Action ActionOnSlideOutDone;
+    private Action ActionOnAttackHitDone;
+    private Action ActionOnAttackRecallDone;
+
+    public event EventHandler OnStartCombat;
+    public event EventHandler OnEndCombat;
+
     // Start is called before the first frame update
     void Start()
     {
+        ActionOnSlideInDone += SlideInDone;
+        ActionOnSlideOutDone += SlideOutDone;
+        ActionOnAttackHitDone += OnAttackComplete;
+        ActionOnAttackRecallDone += SlideOut;
         _controlScript = ControlScript.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        SlideInCombat();
-        ManageCombat();
+        CheckInput();
     }
 
     public void StartCombat(MonsterObject monsterobject)
     {
+        Destroy(_monsterModel);
         _monsterHealth = monsterobject.MonsterHealth;
         _monsterModel = Instantiate(monsterobject.MonsterPrefab, _monsterObject.transform.position, _monsterObject.transform.rotation, _monsterObject.transform);
         _monsterObject.transform.position = _monsterSpawnPoint.position;
         _playerObject.transform.position = _playerSpawnPoint.position;
         _combat = true;
+        SlideIn();
+        OnStartCombat?.Invoke(this, EventArgs.Empty);
     }
 
-    private void SlideInCombat()
+    private void SlideIn()
     {
-        if (_combat && !_slideInDone)
-        {
-            if (Vector3.Distance(_playerObject.transform.position, _playerFightPoint.transform.position) >= 0.02f)
-            {
-                _playerObject.transform.position = Vector3.Lerp(_playerObject.transform.position, _playerFightPoint.position, Time.deltaTime * _movementSpeed);
-            }
-            if (Vector3.Distance(_monsterObject.transform.position, _monsterFightPoint.transform.position) >= 0.02f)
-            {
-                _monsterObject.transform.position = Vector3.Lerp(_monsterObject.transform.position, _monsterFightPoint.position, Time.deltaTime * _movementSpeed);
-            }
-            else
-            {
-                _slideInDone = true;
-            }
-        }
+        _ongoingTweens.Add(LeanTween.move(_monsterObject, _monsterFightPoint.transform, 1).setEaseOutQuint().id);
+        _ongoingTweens.Add(LeanTween.move(_playerObject, _playerFightPoint.transform, 0.75f).setEaseOutQuint().setOnComplete(ActionOnSlideInDone).id);
+    }
 
-        else if (!_combat && _slideInDone)
+    private void SlideInDone()
+    {
+        _slideInDone = true;
+    }
+
+    private void SlideOut()
+    {
+        if (_monsterHealth <= 0)
         {
-            if (Vector3.Distance(_playerObject.transform.position, _playerSpawnPoint.transform.position) >= 0.02f)
-            {
-                _playerObject.transform.position = Vector3.Lerp(_playerObject.transform.position, _playerSpawnPoint.position, Time.deltaTime * _movementSpeed);
-            }
-            if (Vector3.Distance(_monsterObject.transform.position, _monsterSpawnPoint.transform.position) >= 0.02f)
-            {
-                _monsterObject.transform.position = Vector3.Lerp(_monsterObject.transform.position, _monsterSpawnPoint.position, Time.deltaTime * _movementSpeed);
-            }
-            else
-            {
-                _slideInDone = false;
-                Destroy(_monsterModel);
-                _monsterObject.transform.position = _monsterSpawnPoint.position;
-                _playerObject.transform.position = _playerSpawnPoint.position;
-                this.enabled = false;
-            }
+            _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Disappear");
+            _controlScript.CurrentlySelectedTile.ContainsMonster = false;
+            CancelAllTweensInList();
+            _ongoingTweens.Add(LeanTween.move(_monsterObject, _monsterSpawnPoint.transform, 1).setEaseOutQuint().id);
+            _ongoingTweens.Add(LeanTween.move(_playerObject, _playerSpawnPoint.transform, 0.5f).setEaseOutQuint().setOnComplete(ActionOnSlideOutDone).id);
+            OnEndCombat?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    private void SlideOutDone()
+    {
+        _slideInDone = false;
+        EndCombat();
     }
 
     private void EndCombat()
     {
-        _controlScript.enabled = true;
+        Destroy(_monsterModel);
         _combat = false;
-        _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Disappear");
-        _controlScript.CurrentlySelectedTile.ContainsMonster = false;
+        _controlScript.enabled = true;
     }
 
-    private void ManageCombat()
+    private void DoAttackMovement()
     {
-        if (_combat)
+        CancelAllTweensInList();
+        _ongoingTweens.Add(LeanTween.move(_playerObject, _monsterFightPoint.transform, 0.1f).setOnComplete(OnAttackComplete).id);
+    }
+
+    private void OnAttackComplete()
+    {
+        _ongoingTweens.Add(LeanTween.move(_playerObject, _playerFightPoint.transform, 0.2f).setEaseOutQuint().setOnComplete(ActionOnAttackRecallDone).id);
+        _monsterHealth -= 1;
+        _monsterObject.GetComponent<Shake>().AddShake(1.5f, _monsterFightPoint.position);
+    }
+
+    private void CheckInput()
+    {
+        if (Input.GetMouseButtonDown(0) && _slideInDone&& _monsterHealth>0)
         {
-            InputPlayerAttack();
-            DoPlayerAttack();
+            DoAttackMovement();
         }
     }
 
-    private void InputPlayerAttack()
+    private void CancelAllTweensInList()
     {
-        if (Input.GetMouseButtonDown(0) && _slideInDone && _monsterHealth>0)
+        foreach (int tween in _ongoingTweens)
         {
-            _playerHitMonster = false;
-            _playerAttacked = true;
-            _monsterHealth -= 1;
-        }
-        else if (_monsterHealth<=0 && !_playerAttacked)
-        {
-            EndCombat();
-        }
-    }
-
-    private void DoPlayerAttack()
-    {
-        if (_playerAttacked)
-        {
-            if (!_playerHitMonster)
-            {
-                _playerObject.transform.position = Vector3.MoveTowards(_playerObject.transform.position,_monsterFightPoint.position, _attackMovementSpeed*5 *Time.deltaTime);
-                if (Vector3.Distance(_playerObject.transform.position, _monsterObject.transform.position) <= 0.1f)
-                {
-                    _monsterObject.GetComponent<Shake>().AddShake(1.5f, _monsterFightPoint.position);
-                    _playerHitMonster = true;
-                }
-            }
-            else if (_playerHitMonster)
-            {
-                _playerObject.transform.position = Vector3.Lerp(_playerObject.transform.position, _playerFightPoint.position, _attackMovementSpeed * Time.deltaTime);
-                if (Vector3.Distance(_playerObject.transform.position, _playerFightPoint.position) <= 0.1f)
-                {
-                    _playerObject.transform.position = _playerFightPoint.position;
-                    _playerAttacked = false;
-                }
-            }
+            LeanTween.cancel(tween);
         }
     }
 }

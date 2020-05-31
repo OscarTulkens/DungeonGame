@@ -703,12 +703,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 521138761, guid: dfc0b53ad5987b7478a9c5d30e2c3584, type: 3}
-      propertyPath: _chanceAtTreasure
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 521138761, guid: dfc0b53ad5987b7478a9c5d30e2c3584, type: 3}
       propertyPath: _chanceAtMonsterPercentage
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 190500497118510289, guid: dfc0b53ad5987b7478a9c5d30e2c3584,
         type: 3}

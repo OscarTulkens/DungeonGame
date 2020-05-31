@@ -12,12 +12,10 @@ public class TileAttributes
         _type = tileType;
     }
 
-    /*
     public Attributes.TileType GetTileType()
     {
         return _type;
     }
-    */
 
     public bool IsTileType(Attributes.TileType tileType)
     {

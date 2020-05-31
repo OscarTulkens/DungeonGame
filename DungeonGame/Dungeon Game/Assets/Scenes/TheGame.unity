@@ -151,15 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f819f7c0f956ba6419f7fbca7e3f96b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ppSpeed: 5
-  _overlayVolume: {fileID: 0}
   _fogOn: 0
   _worldFogHeight: 0.51
   _worldSpaceFogWidth: 7.21
   _worldSpaceFogStrength: 6.64
   _eventOverlayImage: {fileID: 0}
-  _eventOverlayAlpha: 0.95
-  _alphaLerpSpeed: 5
+  _eventOverlayAlphaValue: 0
+  _eventOverlayFadeDuration: 0
 --- !u!4 &149981174
 Transform:
   m_ObjectHideFlags: 0
@@ -187,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _treasureSpawnPoint: {fileID: 0}
-  _currencyText: {fileID: 0}
+  _defaultAddTime: 0
 --- !u!1 &925258285
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,6 +312,7 @@ GameObject:
   - component: {fileID: 1729158551}
   - component: {fileID: 1729158553}
   - component: {fileID: 1729158552}
+  - component: {fileID: 1729158554}
   m_Layer: 0
   m_Name: Interpreters
   m_TagString: Untagged
@@ -361,6 +360,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f921e8e3d36fd7a4c9fd57987cf10c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1729158554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729158550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0862b100676ec69469a167c2e403ab6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1765491289
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +384,7 @@ GameObject:
   - component: {fileID: 1765491290}
   - component: {fileID: 1765491292}
   - component: {fileID: 1765491293}
+  - component: {fileID: 1765491294}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -432,4 +444,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1e73d96079dfb438d8145a4e28ad2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsOfInterest: 010000000200000001000000
+  _pointsOfInterest: 040000000400000004000000
+--- !u!114 &1765491294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765491289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c600ebbf885b139418d73354d6b485b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Points:
+  - {x: 10, y: 10}
+  - {x: -12, y: -12}
+  - {x: 15, y: -7}
+  - {x: -2, y: 13}

@@ -23,10 +23,16 @@ public class ShaderManager : MonoBehaviour
 
     private void Start()
     {
-        CombatManagerScript.Instance.OnStartCombat += DoOverlay;
-        CombatManagerScript.Instance.OnEndCombat += DisableOverlay;
-        TreasureManager.Instance.OnEndTreasure += DisableOverlay;
-        TreasureManager.Instance.OnStartTreasure += DoOverlay;
+        if (CombatManagerScript.Instance != null)
+        {
+            CombatManagerScript.Instance.OnStartCombat += DoOverlay;
+            CombatManagerScript.Instance.OnEndCombat += DisableOverlay;
+        }
+        if (TreasureManager.Instance != null)
+        {
+            TreasureManager.Instance.OnEndTreasure += DisableOverlay;
+            TreasureManager.Instance.OnStartTreasure += DoOverlay;
+        }
 
         if (_fogOn)
         {

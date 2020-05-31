@@ -82,8 +82,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0.37254903, g: 0.6784314, b: 0.4039216, a: 0}
-    - _FrontColor: {r: 0.525, g: 0.38849995, b: 0.21349998, a: 1}
+    - _FrontColor: {r: 0.3679245, g: 0.25782916, b: 0.11627802, a: 1}
     - _ObjectFogColor: {r: 0, g: 0, b: 0, a: 0}
-    - _RightColor: {r: 0.305, g: 0.24644001, b: 0.17324, a: 1}
+    - _RightColor: {r: 0.2735849, g: 0.2024179, b: 0.11227306, a: 1}
     - _TopColor: {r: 0.41799998, g: 0.32951823, b: 0.21052553, a: 1}
     - _WorldFogColor: {r: 0, g: 0, b: 0, a: 0}

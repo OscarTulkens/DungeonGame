@@ -23,9 +23,9 @@ public class ShaderManager : MonoBehaviour
 
     private void Start()
     {
-        //TreasureManager.Instance.OnEndTreasure += DisableOverlay;
-        //TreasureManager.Instance.OnStartTreasure += DoOverlay;
-        
+        TreasureManager.Instance.OnEndTreasure += DisableOverlay;
+        TreasureManager.Instance.OnStartTreasure += DoOverlay;
+
         if (_fogOn)
         {
             Shader.SetGlobalFloat("WorldFogHeight", _worldFogHeight);

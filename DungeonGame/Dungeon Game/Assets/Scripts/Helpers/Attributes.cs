@@ -4,19 +4,21 @@ using UnityEngine;
 
 public static class Attributes
 {
-    static Dictionary<string, int> _attributes = new Dictionary<string, int>();
-    static int _attributeCount = 0;
-
-    public static void AddAttribute(string attribute)
+    public enum TileType
     {
-#if LOG_ATTRIBUTES
-        Debug.Log("[ATTRIBUTES]: Attribute added: \"" + attribute + "\" at index: " + _attributeCount.ToString());
-#endif
-        _attributes.Add(attribute, _attributeCount++);
+        EMPTY = 0,
+        STARTING_TILE = 1,
+        REGULAR = 2,
+        POINT_OF_INTEREST = 3
     }
 
-    public static int GetAttribute(string attribute)
+    public enum OpenDirections
     {
-        return _attributes[attribute];
+        NONE = 0,
+        LEFT = 1 << 0,
+        RIGHT = 1 << 1,
+        UP = 1 << 2,
+        DOWN = 1 << 3,
+        ALL = ~0
     }
 }

@@ -14,7 +14,7 @@ public class FirstTileInterpreter : TileInterpreter
     public override void InterpretAttributes(KeyValuePair<Vector2Int, TileAttributes> attributes)
     {
 #if LOG_INTERPRETATION
-        if (!attributes.Value.HasAttribute(Attributes.GetAttribute("first tile")))
+        if (!attributes.Value.IsTileType(Attributes.TileType.STARTING_TILE))
         {
             Debug.LogWarning("[INTERPRETATION]: Attempted to interpret first tile attribute when first tile attribute was not present!");
             return;

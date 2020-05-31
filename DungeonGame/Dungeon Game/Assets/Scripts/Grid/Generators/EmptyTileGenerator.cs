@@ -6,8 +6,6 @@ public class EmptyTileGenerator : Generator
 {
     public override void Generate(GridMaintaner gridMaintaner)
     {
-        Attributes.AddAttribute("empty");
-
         LogSuccess("empty tiles");
     }
 

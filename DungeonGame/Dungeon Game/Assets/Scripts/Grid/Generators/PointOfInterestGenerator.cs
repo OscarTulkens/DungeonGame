@@ -6,8 +6,6 @@ public class PointOfInterestGenerator : Generator
 {
     public override void Generate(GridMaintaner gridMaintaner)
     {
-        Attributes.AddAttribute("point of interest");
-
         LogSuccess("points of interest");
     }
 

@@ -4,15 +4,48 @@ using UnityEngine;
 
 public class TileAttributes
 {
-    private List<int> _attributes = new List<int>();
+    Attributes.TileType _type = Attributes.TileType.EMPTY;
+    Attributes.OpenDirections _openDirections = Attributes.OpenDirections.NONE;
 
-    public void AddAttribute(int attribute)
+    public void SetTileType(Attributes.TileType tileType)
     {
-        _attributes.Add(attribute);
+        _type = tileType;
     }
 
-    public bool HasAttribute(int attribute)
+    /*
+    public Attributes.TileType GetTileType()
     {
-        return _attributes.Contains(attribute);
+        return _type;
+    }
+    */
+
+    public bool IsTileType(Attributes.TileType tileType)
+    {
+        return _type == tileType;
+    }
+
+    public void SetOpenDirections(Attributes.OpenDirections openDirections)
+    {
+        _openDirections = openDirections;
+    }
+
+    public void AddOpenDirections(Attributes.OpenDirections openDirections)
+    {
+        _openDirections |= openDirections;
+    }
+
+    public void RemoveOpenDirections(Attributes.OpenDirections openDirections)
+    {
+        _openDirections &= ~openDirections;
+    }
+
+    public Attributes.OpenDirections GetOpenDirections()
+    {
+        return _openDirections;
+    }
+
+    public bool IsOpenAt(Attributes.OpenDirections openDirections)
+    {
+        return (_openDirections & openDirections) != 0;
     }
 }

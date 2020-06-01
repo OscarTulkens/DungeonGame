@@ -26,6 +26,7 @@ public class CombatManagerScript : MonoBehaviour
     [SerializeField] private GameObject _monsterObject = null;
     private GameObject _monsterModel = null;
     private int _monsterHealth = 0;
+    private TreasureObject _pickedTreasure;
 
     //Singleton
     public static CombatManagerScript Instance = null;
@@ -79,6 +80,7 @@ public class CombatManagerScript : MonoBehaviour
         _combat = true;
         SlideIn();
         OnStartCombat?.Invoke(this, EventArgs.Empty);
+        _pickedTreasure = pickTreasure(monsterobject);
     }
 
     private void SlideIn()
@@ -102,6 +104,8 @@ public class CombatManagerScript : MonoBehaviour
             _ongoingTweens.Add(LeanTween.move(_monsterObject, _monsterSpawnPoint.transform, 1).setEaseOutQuint().id);
             _ongoingTweens.Add(LeanTween.move(_playerObject, _playerSpawnPoint.transform, 0.5f).setEaseOutQuint().setOnComplete(ActionOnSlideOutDone).id);
             OnEndCombat?.Invoke(this, EventArgs.Empty);
+            TreasureManager.Instance.enabled = true;
+            TreasureManager.Instance.StartTreasure(_pickedTreasure);
         }
     }
 
@@ -115,7 +119,6 @@ public class CombatManagerScript : MonoBehaviour
     {
         Destroy(_monsterModel);
         _combat = false;
-        _controlScript.enabled = true;
     }
 
     private void DoAttackMovement()
@@ -145,5 +148,10 @@ public class CombatManagerScript : MonoBehaviour
         {
             LeanTween.cancel(tween);
         }
+    }
+
+    private TreasureObject pickTreasure(MonsterObject monsterObject)
+    {
+        return monsterObject._treasureObjects[UnityEngine.Random.Range(0, monsterObject._treasureObjects.Count)];
     }
 }

@@ -16,7 +16,7 @@ public class ShaderManager : MonoBehaviour
     [Header("EVENT OVERLAY SETTINGS")]
     [SerializeField] private RectTransform _eventOverlayImage = null;
     [SerializeField] private float _eventOverlayAlphaValue = 0;
-    [SerializeField] private float _eventOverlayFadeDuration;
+    [SerializeField] private float _eventOverlayFadeDuration =0 ;
 
     private int _doOverlayID;
     private int _disableOverlayID;

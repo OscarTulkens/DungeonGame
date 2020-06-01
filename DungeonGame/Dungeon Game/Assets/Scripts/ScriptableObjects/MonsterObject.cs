@@ -10,4 +10,5 @@ public class MonsterObject : ScriptableObject
     public int MonsterHealth;
     public int MonsterAttack;
     public int difficultyLevel;
+    public List<TreasureObject> _treasureObjects;
 }

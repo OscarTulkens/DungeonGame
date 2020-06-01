@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class ControlScript : MonoBehaviour
 {
@@ -56,8 +57,9 @@ public class ControlScript : MonoBehaviour
 
         #region EDITOR
 #if UNITY_EDITOR
-        if ((Input.GetMouseButtonDown(0)))
+        if ((Input.GetMouseButtonDown(0))& !EventSystem.current.IsPointerOverGameObject())
         {
+
             if (CurrentlySelectedTile.LeftPoint)
             {
                 if (clickPos.x < islandPos.x && clickPos.y < islandPos.y)

@@ -6,14 +6,9 @@ public class FirstTileGenerator : Generator
 {
     public override void Generate(GridMaintaner gridMaintaner)
     {
-        Attributes.AddAttribute("left open");
-        Attributes.AddAttribute("right open");
-        Attributes.AddAttribute("up open");
-        Attributes.AddAttribute("down open");
-        Attributes.AddAttribute("first tile");
-
         TileAttributes tile = gridMaintaner.GetTileAt(Vector2Int.zero);
-        tile.AddAttribute(Attributes.GetAttribute("first tile"));
+        tile.SetTileType(Attributes.TileType.STARTING_TILE);
+        tile.SetOpenDirections(Attributes.OpenDirections.ALL);
 
         LogSuccess("first tile");
     }

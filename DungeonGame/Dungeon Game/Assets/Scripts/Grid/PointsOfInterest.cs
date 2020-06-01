@@ -7,8 +7,8 @@ public class PointsOfInterest : MonoBehaviour
     public enum POIType
     {
         NONE = 0,
-        VILLAGE = 1,
-        FILET_MIGNON = 2
+        VILLAGE = Attributes.TileType.POINT_OF_INTEREST,
+        DEAD_END,
     }
 
     [SerializeField] private List<POIType> _pointsOfInterest = null;

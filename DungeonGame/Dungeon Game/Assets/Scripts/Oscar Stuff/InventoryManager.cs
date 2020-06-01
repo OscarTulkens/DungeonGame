@@ -6,6 +6,8 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryObject _playerInventoryObject;
 
+    public InventoryObject PlayerInventoryObject { get { return _playerInventoryObject; }}
+
     public static InventoryManager Instance { get; private set; }
 
     private void Awake()

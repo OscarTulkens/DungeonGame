@@ -16,15 +16,23 @@ public class ShaderManager : MonoBehaviour
     [Header("EVENT OVERLAY SETTINGS")]
     [SerializeField] private RectTransform _eventOverlayImage = null;
     [SerializeField] private float _eventOverlayAlphaValue = 0;
-    [SerializeField] private float _eventOverlayFadeDuration;
+    [SerializeField] private float _eventOverlayFadeDuration =0 ;
 
     private int _doOverlayID;
     private int _disableOverlayID;
 
     private void Start()
     {
-        TreasureManager.Instance.OnEndTreasure += DisableOverlay;
-        TreasureManager.Instance.OnStartTreasure += DoOverlay;
+        if (CombatManagerScript.Instance != null)
+        {
+            CombatManagerScript.Instance.OnStartCombat += DoOverlay;
+            CombatManagerScript.Instance.OnEndCombat += DisableOverlay;
+        }
+        if (TreasureManager.Instance != null)
+        {
+            TreasureManager.Instance.OnEndTreasure += DisableOverlay;
+            TreasureManager.Instance.OnStartTreasure += DoOverlay;
+        }
 
         if (_fogOn)
         {

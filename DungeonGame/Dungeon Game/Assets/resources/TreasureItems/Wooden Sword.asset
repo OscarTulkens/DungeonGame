@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Wooden Sword
   InventoryImage: {fileID: 21300000, guid: 09c351bce9e931b48822c58a44f8eae2, type: 3}
-  Model: {fileID: 0}
+  Model: {fileID: 6851288699136791423, guid: 2e2b4ae039352934b920c8574077acc2, type: 3}
   ItemType: 3
   Value: 2
   Rarity: 0

@@ -5,8 +5,10 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryObject _playerInventoryObject;
+    [SerializeField] private BoxCollider2D _inventoryEquipPanel;
 
     public InventoryObject PlayerInventoryObject { get { return _playerInventoryObject; }}
+    public BoxCollider2D InventoryEquipPanel { get { return _inventoryEquipPanel; } }
 
     public static InventoryManager Instance { get; private set; }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4795765189435314050}
   - component: {fileID: 8053319613611074049}
   m_Layer: 5
-  m_Name: Image
+  m_Name: InventorySlotPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +99,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 200, y: 200}
   m_EdgeRadius: 0
 --- !u!114 &8053319613611074049
 MonoBehaviour:
@@ -113,4 +113,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a456c2ed198b0ce44ae45eae4bfb2ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slotImage: {fileID: 0}
+  SlotNumber: 0
+  BeingDragged: 0

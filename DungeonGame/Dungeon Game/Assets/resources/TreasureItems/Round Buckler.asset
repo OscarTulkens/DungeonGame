@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Round Buckler
   InventoryImage: {fileID: 21300000, guid: 5f7c9d6b1f20df94a9418a0180db74e1, type: 3}
-  Model: {fileID: 0}
+  Model: {fileID: 1170898205988882061, guid: 1172d9c0b51830043b3e79f7083a4ec7, type: 3}
   ItemType: 4
   Value: 2
   Rarity: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Copper Armour
   InventoryImage: {fileID: 21300000, guid: b1b5c8ddba9bafd49b93293ca35f60f8, type: 3}
-  Model: {fileID: 0}
+  Model: {fileID: 7769541384106652836, guid: 1e2833765136eee44b30afcdebe07fba, type: 3}
   ItemType: 2
   Value: 10
   Rarity: 0

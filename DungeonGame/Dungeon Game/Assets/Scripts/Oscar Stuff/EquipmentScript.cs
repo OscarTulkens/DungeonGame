@@ -26,13 +26,8 @@ public class EquipmentScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EquipmentManager.Instance.OnChangeEquipment += SetArmorModel;
         SetStartModels();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void SetArmorModel(object sender, EquipmentManager.OnChangeEquipmentArgs e)
@@ -42,36 +37,36 @@ public class EquipmentScript : MonoBehaviour
             case ItemType.Default:
                 break;
             case ItemType.Helmet:
-                SetModel(e.itemModel, _shieldModel, _shieldPoint);
+                Destroy(_helmetModel);
+                _helmetModel = SetModel(e.itemModel, _helmetPoint);
                 break;
             case ItemType.Armor:
-                SetModel(e.itemModel, _chestplateModel, _chestplatePoint);
+                Destroy(_chestplateModel);
+                _chestplateModel = SetModel(e.itemModel, _chestplatePoint);
                 break;
             case ItemType.Weapon:
-                SetModel(e.itemModel, _weaponModel, _weaponPoint);
+                Destroy(_weaponModel);
+                _weaponModel = SetModel(e.itemModel, _weaponPoint);
                 break;
             case ItemType.Offhand:
-                SetModel(e.itemModel, _shieldModel, _shieldPoint);
+                Destroy(_shieldModel);
+                _shieldModel = SetModel(e.itemModel, _shieldPoint);
                 break;
             default:
                 break;
         }
     }
 
-    private void SetModel(GameObject newModel, GameObject oldModel, Transform transform)
+    private GameObject SetModel(GameObject newModel, Transform transform)
     {
-        if (oldModel!=null)
-        {
-            Destroy(oldModel);
-        }
-        oldModel = Instantiate(newModel, transform);
+        return Instantiate(newModel, transform);
     }
 
     private void SetStartModels()
     {
-        SetModel(_startChestplateModel, _chestplateModel, _chestplatePoint);
-        SetModel(_startHelmetModel, _helmetModel, _helmetPoint);
-        SetModel(_startWeaponModel, _weaponModel, _weaponPoint);
-        SetModel(_startShieldModel, _shieldModel, _shieldPoint);
+        _chestplateModel = SetModel(_startChestplateModel, _chestplatePoint);
+        _helmetModel = SetModel(_startHelmetModel, _helmetPoint);
+        _weaponModel = SetModel(_startWeaponModel, _weaponPoint);
+        _shieldModel = SetModel(_startShieldModel, _shieldPoint);
     }
 }

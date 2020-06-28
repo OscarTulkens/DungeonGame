@@ -33,6 +33,11 @@ public class ShaderManager : MonoBehaviour
             TreasureManager.Instance.OnEndTreasure += DisableOverlay;
             TreasureManager.Instance.OnStartTreasure += DoOverlay;
         }
+        if (InventoryOpenCloseScript.Instance != null)
+        {
+            InventoryOpenCloseScript.Instance.OnOpenInventory += DoOverlay;
+            InventoryOpenCloseScript.Instance.OnCloseInventory += DisableOverlay;
+        }
 
         if (_fogOn)
         {

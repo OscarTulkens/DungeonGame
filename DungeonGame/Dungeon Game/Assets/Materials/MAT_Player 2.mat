@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: c6404c83db809c047b7852a0a044d5b1, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -97,6 +97,6 @@ Material:
     - _FogColor: {r: 0.6792453, g: 0.06728373, b: 0.58520174, a: 0}
     - _FrontColor: {r: 0.45256317, g: 0.6411863, b: 0.8490566, a: 1}
     - _ObjectFogColor: {r: 0.06278926, g: 0.61540556, b: 0.7830189, a: 0}
-    - _RightColor: {r: 0.380429, g: 0.5719524, b: 0.7830189, a: 1}
-    - _TopColor: {r: 0.47592562, g: 0.6668986, b: 0.8773585, a: 1}
+    - _RightColor: {r: 0.30891773, g: 0.512021, b: 0.735849, a: 1}
+    - _TopColor: {r: 0.5740477, g: 0.74975723, b: 0.9433962, a: 1}
     - _WorldFogColor: {r: 0, g: 0, b: 0, a: 0}

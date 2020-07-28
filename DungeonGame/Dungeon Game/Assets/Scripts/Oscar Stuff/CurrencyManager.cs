@@ -20,22 +20,6 @@ public class CurrencyManager : MonoBehaviour
 
     public static CurrencyManager Instance;
 
-    public event EventHandler<OnChangeCurrencyUIArgs> OnChangeCurrencyUI;
-
-    public class OnChangeCurrencyUIArgs : EventArgs
-    {
-        public int CurrencyValue;
-        public float Time;
-    }
-
-    public event EventHandler<OnChangeTileUIArgs> OnChangeTileUI;
-
-    public class OnChangeTileUIArgs : EventArgs
-    {
-        public int TileValue;
-        public float Time;
-    }
-
     private void Awake()
     {
         Instance = this;
@@ -63,8 +47,8 @@ public class CurrencyManager : MonoBehaviour
             _tileCount = _desiredTileCount;
         }
 
-        OnChangeTileUI?.Invoke(this, new OnChangeTileUIArgs { TileValue = _tileCount, Time = _timeBetweenTriggers });
-        OnChangeCurrencyUI?.Invoke(this, new OnChangeCurrencyUIArgs { CurrencyValue = _currencyCount, Time = _timeBetweenTriggers });
+        EventManager.instance.ChangeTileUI(_tileCount, _timeBetweenTriggers);
+        EventManager.instance.ChangeCurrencyUI(_currencyCount, _timeBetweenTriggers);
     }
 
     //Change Currency
@@ -115,13 +99,13 @@ public class CurrencyManager : MonoBehaviour
     private void UpdateCurrencyCount(int changeAmount)
     {
         _currencyCount += changeAmount;
-        OnChangeCurrencyUI?.Invoke(this, new OnChangeCurrencyUIArgs { CurrencyValue = _currencyCount, Time =_timeBetweenTriggers});
+        EventManager.instance.ChangeCurrencyUI(_currencyCount, _timeBetweenTriggers);
     }
 
     private void UpdateTileCount(int changeAmount)
     {
         _tileCount += changeAmount;
-        OnChangeTileUI?.Invoke(this, new OnChangeTileUIArgs { TileValue = _tileCount, Time = _timeBetweenTriggers });
+        EventManager.instance.ChangeTileUI(_tileCount, _timeBetweenTriggers);
     }
 
     private bool Timer()

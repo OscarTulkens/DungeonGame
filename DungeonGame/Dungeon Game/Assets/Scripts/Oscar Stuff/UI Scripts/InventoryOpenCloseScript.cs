@@ -27,8 +27,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
     private Vector3 _playerModelStartPosition = new Vector3(0, 0, 0);
 
     public static InventoryOpenCloseScript Instance = null;
-    public event EventHandler OnOpenInventory;
-    public event EventHandler OnCloseInventory;
+
 
     public void Awake()
     {

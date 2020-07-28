@@ -1,0 +1,2 @@
+C:\Users\Oscar\Desktop\Dungeon Game\DungeonGame\Dungeon Game\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\Oscar\Desktop\Dungeon Game\DungeonGame\Dungeon Game\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

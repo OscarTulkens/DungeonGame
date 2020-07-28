@@ -26,7 +26,7 @@ public class EquipmentScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EquipmentManager.Instance.OnChangeEquipment += SetArmorModel;
+        EventManager.instance.OnChangeEquipment += SetArmorModel;
         SetStartModels();
     }
 

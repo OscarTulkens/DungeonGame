@@ -10,13 +10,6 @@ public class EquipmentManager : MonoBehaviour
     private TreasureItemObject _weapon;
     private TreasureItemObject _offhand;
 
-    public event EventHandler<OnChangeEquipmentArgs> OnChangeEquipment;
-    public class OnChangeEquipmentArgs: EventArgs
-    {
-        public ItemType itemtype;
-        public GameObject itemModel;
-    }
-
     public static EquipmentManager Instance = null;
 
     private void Awake()
@@ -50,6 +43,6 @@ public class EquipmentManager : MonoBehaviour
     private void SetEquipment(TreasureItemObject itemToEquip, TreasureItemObject equipedItem)
     {
         equipedItem = itemToEquip;
-        OnChangeEquipment?.Invoke(this, new OnChangeEquipmentArgs { itemtype = itemToEquip.ItemType, itemModel = itemToEquip.Model });
+        EventManager.instance.ChangeEquipment(itemToEquip.ItemType, itemToEquip.Model);
     }
 }

@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryObject _playerInventoryObject;
     [SerializeField] private BoxCollider2D _inventoryEquipPanel;
+    [SerializeField] private GameObject _inventoryFullPopUp;
 
     public InventoryObject PlayerInventoryObject { get { return _playerInventoryObject; }}
     public BoxCollider2D InventoryEquipPanel { get { return _inventoryEquipPanel; } }
@@ -32,7 +33,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            //Code for delete item popup
+            EventManager.Instance.OnDoPopUpNeg += Instantiate(_inventoryFullPopUp, GameObject.Find("Canvas Main").transform).GetComponent<PopUpChoiceScript>().ClosePopUp;
         }
     }
 

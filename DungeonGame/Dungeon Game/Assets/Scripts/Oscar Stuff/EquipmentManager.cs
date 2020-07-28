@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    private TreasureItemObject _helmet;
-    private TreasureItemObject _armor;
-    private TreasureItemObject _weapon;
-    private TreasureItemObject _offhand;
+    private TreasureItemObject _helmet = null;
+    private TreasureItemObject _armor = null;
+    private TreasureItemObject _weapon = null;
+    private TreasureItemObject _offhand = null;
 
     public static EquipmentManager Instance = null;
 
@@ -43,6 +43,6 @@ public class EquipmentManager : MonoBehaviour
     private void SetEquipment(TreasureItemObject itemToEquip, TreasureItemObject equipedItem)
     {
         equipedItem = itemToEquip;
-        EventManager.instance.ChangeEquipment(itemToEquip.ItemType, itemToEquip.Model);
+        EventManager.Instance.ChangeEquipment(itemToEquip.ItemType, itemToEquip.Model);
     }
 }

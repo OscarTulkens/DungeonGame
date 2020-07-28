@@ -11,18 +11,18 @@ public class CurrencyVisualUIScript : MonoBehaviour
 
     private void Start()
     {
-        CurrencyManager.Instance.OnChangeCurrencyUI += UpdateCurrencyUI;
-        CurrencyManager.Instance.OnChangeTileUI += UpdateTileUI;
+        EventManager.Instance.OnChangeCurrencyUI += UpdateCurrencyUI;
+        EventManager.Instance.OnChangeTileUI += UpdateTileUI;
     }
 
 
-    private void UpdateCurrencyUI(object sender, CurrencyManager.OnChangeCurrencyUIArgs e)
+    private void UpdateCurrencyUI(object sender, EventManager.OnChangeCurrencyUIArgs e)
     {
         _currencyText.text = e.CurrencyValue.ToString();
         LeanTween.move(_currencyText.gameObject, _currencyText.rectTransform.position, e.Time).setEaseInOutBack();
     }
 
-    private void UpdateTileUI(object sender, CurrencyManager.OnChangeTileUIArgs e)
+    private void UpdateTileUI(object sender, EventManager.OnChangeTileUIArgs e)
     {
         _tileText.text = e.TileValue.ToString();
         LeanTween.move(_tileText.gameObject, _tileText.rectTransform.position, e.Time).setEaseInOutBack();

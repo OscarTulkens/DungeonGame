@@ -19,15 +19,15 @@ public class TreasureVisualUIScript : MonoBehaviour
     {
         _startPosition = _treasureImage.rectTransform.position;
         _treasureImage.rectTransform.localScale = new Vector3(0, 0, 0);
-        TreasureManager.Instance.OnGetTreasureItem += PopUpNewItemTreasure;
-        TreasureManager.Instance.OnEndTreasure += ResetTreasureUI;
+        EventManager.Instance.OnGetTreasureItem += PopUpNewItemTreasure;
+        EventManager.Instance.OnEndTreasure += ResetTreasureUI;
     }
 
-    private void PopUpNewItemTreasure(object sender, TreasureManager.OnGetTreasureItemEventArgs e)
+    private void PopUpNewItemTreasure(object sender, EventManager.OnGetTreasureItemEventArgs e)
     {
-        Debug.Log(e.name + e.image + e.subtext);
+        Debug.Log(e.Name + e.Image + e.Subtext);
         ResetTreasureUI(sender, e);
-        SetTreasureVariables(e.image, e.name, e.subtext);
+        SetTreasureVariables(e.Image, e.Name, e.Subtext);
         NormalTreasureLeanTween();
     }
 

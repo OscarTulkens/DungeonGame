@@ -9,7 +9,7 @@ public class InventorySlotScript : MonoBehaviour
     public int SlotNumber;
     private BoxCollider2D _boxCollider2D;
     private ScrollRect _scrollrect;
-    [SerializeField] private GameObject _draggedItemPrefab;
+    [SerializeField] private GameObject _draggedItemPrefab = null;
 
     private void Start()
     {

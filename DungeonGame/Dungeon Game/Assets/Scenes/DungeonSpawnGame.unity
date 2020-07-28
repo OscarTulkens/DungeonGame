@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 144361994}
   - component: {fileID: 144361993}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,6 +438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 149981174}
+  - component: {fileID: 149981179}
   - component: {fileID: 149981173}
   - component: {fileID: 149981175}
   - component: {fileID: 149981176}
@@ -512,6 +513,8 @@ MonoBehaviour:
   _playerInventoryObject: {fileID: 11400000, guid: cbb97668d4bbefc47a3ec82c5383f172,
     type: 2}
   _inventoryEquipPanel: {fileID: 2038387019}
+  _inventoryFullPopUp: {fileID: 6954161809031123474, guid: 5c51ff71084e44d4f88f13b8addd9c22,
+    type: 3}
 --- !u!114 &149981177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,6 +540,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 094e2ae3dbeade042a53903447809751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &149981179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149981172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 013e0fc43318049409287a37612a9feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &182998346

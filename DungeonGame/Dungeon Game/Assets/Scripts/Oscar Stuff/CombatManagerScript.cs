@@ -51,8 +51,7 @@ public class CombatManagerScript : MonoBehaviour
     private Action ActionOnAttackHitDone;
     private Action ActionOnAttackRecallDone;
 
-    public event EventHandler OnStartCombat;
-    public event EventHandler OnEndCombat;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +78,7 @@ public class CombatManagerScript : MonoBehaviour
         _playerObject.transform.position = _playerSpawnPoint.position;
         _combat = true;
         SlideIn();
-        OnStartCombat?.Invoke(this, EventArgs.Empty);
+        EventManager.Instance.StartCombat();
         _pickedTreasure = pickTreasure(monsterobject);
     }
 
@@ -103,7 +102,7 @@ public class CombatManagerScript : MonoBehaviour
             CancelAllTweensInList();
             _ongoingTweens.Add(LeanTween.move(_monsterObject, _monsterSpawnPoint.transform, 1).setEaseOutQuint().id);
             _ongoingTweens.Add(LeanTween.move(_playerObject, _playerSpawnPoint.transform, 0.5f).setEaseOutQuint().setOnComplete(ActionOnSlideOutDone).id);
-            OnEndCombat?.Invoke(this, EventArgs.Empty);
+            EventManager.Instance.EndCombat();
             TreasureManager.Instance.enabled = true;
             TreasureManager.Instance.StartTreasure(_pickedTreasure);
         }

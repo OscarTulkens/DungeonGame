@@ -26,31 +26,31 @@ public class EquipmentScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.instance.OnChangeEquipment += SetArmorModel;
+        EventManager.Instance.OnChangeEquipment += SetArmorModel;
         SetStartModels();
     }
 
-    private void SetArmorModel(object sender, EquipmentManager.OnChangeEquipmentArgs e)
+    private void SetArmorModel(object sender, EventManager.OnChangeEquipmentArgs e)
     {
-        switch (e.itemtype)
+        switch (e.ItemType)
         {
             case ItemType.Default:
                 break;
             case ItemType.Helmet:
                 Destroy(_helmetModel);
-                _helmetModel = SetModel(e.itemModel, _helmetPoint);
+                _helmetModel = SetModel(e.ItemModel, _helmetPoint);
                 break;
             case ItemType.Armor:
                 Destroy(_chestplateModel);
-                _chestplateModel = SetModel(e.itemModel, _chestplatePoint);
+                _chestplateModel = SetModel(e.ItemModel, _chestplatePoint);
                 break;
             case ItemType.Weapon:
                 Destroy(_weaponModel);
-                _weaponModel = SetModel(e.itemModel, _weaponPoint);
+                _weaponModel = SetModel(e.ItemModel, _weaponPoint);
                 break;
             case ItemType.Offhand:
                 Destroy(_shieldModel);
-                _shieldModel = SetModel(e.itemModel, _shieldPoint);
+                _shieldModel = SetModel(e.ItemModel, _shieldPoint);
                 break;
             default:
                 break;

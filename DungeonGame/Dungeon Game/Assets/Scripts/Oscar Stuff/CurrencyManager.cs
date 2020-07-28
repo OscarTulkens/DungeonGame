@@ -19,7 +19,7 @@ public class CurrencyManager : MonoBehaviour
 
 
     public static CurrencyManager Instance;
-
+    
     private void Awake()
     {
         Instance = this;
@@ -47,8 +47,8 @@ public class CurrencyManager : MonoBehaviour
             _tileCount = _desiredTileCount;
         }
 
-        EventManager.instance.ChangeTileUI(_tileCount, _timeBetweenTriggers);
-        EventManager.instance.ChangeCurrencyUI(_currencyCount, _timeBetweenTriggers);
+        EventManager.Instance.ChangeTileUI(_tileCount, _timeBetweenTriggers);
+        EventManager.Instance.ChangeCurrencyUI(_currencyCount, _timeBetweenTriggers);
     }
 
     //Change Currency
@@ -99,13 +99,13 @@ public class CurrencyManager : MonoBehaviour
     private void UpdateCurrencyCount(int changeAmount)
     {
         _currencyCount += changeAmount;
-        EventManager.instance.ChangeCurrencyUI(_currencyCount, _timeBetweenTriggers);
+        EventManager.Instance.ChangeCurrencyUI(_currencyCount, _timeBetweenTriggers);
     }
 
     private void UpdateTileCount(int changeAmount)
     {
         _tileCount += changeAmount;
-        EventManager.instance.ChangeTileUI(_tileCount, _timeBetweenTriggers);
+        EventManager.Instance.ChangeTileUI(_tileCount, _timeBetweenTriggers);
     }
 
     private bool Timer()

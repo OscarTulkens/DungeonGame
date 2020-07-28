@@ -26,33 +26,25 @@ public class InventoryOpenCloseScript : MonoBehaviour
     public GameObject PlayerModel = null;
     private Vector3 _playerModelStartPosition = new Vector3(0, 0, 0);
 
-    public static InventoryOpenCloseScript Instance = null;
-
-
-    public void Awake()
-    {
-        Instance = this;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        if (GetComponentInChildren<InventoryVisualManagerScript>()!=null)
+        if (GetComponentInChildren<InventoryVisualManagerScript>() != null)
         {
             _visualInventoryManager = GetComponentInChildren<InventoryVisualManagerScript>();
         }
 
         //StartInventoryEventBind
-        if (CombatManagerScript.Instance != null)
+        if (EventManager.Instance != null)
         {
-            CombatManagerScript.Instance.OnStartCombat += CloseInventory;
-            CombatManagerScript.Instance.OnStartCombat += DisableButton;
+            EventManager.Instance.OnStartCombat += CloseInventory;
+            EventManager.Instance.OnStartCombat += DisableButton;
         }
-        if (TreasureManager.Instance != null)
+        if (EventManager.Instance != null)
         {
-            TreasureManager.Instance.OnStartTreasure += CloseInventory;
-            TreasureManager.Instance.OnStartTreasure += DisableButton;
-            TreasureManager.Instance.OnEndTreasure += EnableButton;
+            EventManager.Instance.OnStartTreasure += CloseInventory;
+            EventManager.Instance.OnStartTreasure += DisableButton;
+            EventManager.Instance.OnEndTreasure += EnableButton;
         }
 
         _startPositionInventoryButton = InventoryButton.transform.position;
@@ -182,7 +174,8 @@ public class InventoryOpenCloseScript : MonoBehaviour
             OpenPlayerModelScreen();
             ControlScriptOn(false);
             _inventoryOpened = true;
-            OnOpenInventory?.Invoke(this, EventArgs.Empty);
+            EventManager.Instance.OpenInventory();
+
         }
 
         else if (_inventoryOpened)
@@ -193,7 +186,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
             ClosePlayerModelScreen();
             ControlScriptOn(true);
             _inventoryOpened = false;
-            OnCloseInventory?.Invoke(this, EventArgs.Empty);
+            EventManager.Instance.CloseInventory();
         }
     }
     #endregion
@@ -210,7 +203,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
     private void ClosePlayerModelScreen()
     {
         _onGoingTweens.Add(LeanTween.move(PlayerModelScreen, new Vector3(Screen.width + 10, 0), InventoryOpenTime).setEaseOutQuint().id);
-        _onGoingTweens.Add(LeanTween.moveLocal(PlayerModel, _playerModelStartPosition +new Vector3(1.15f *(Screen.width/828),0), InventoryOpenTime).setEaseOutQuint().id);
+        _onGoingTweens.Add(LeanTween.moveLocal(PlayerModel, _playerModelStartPosition + new Vector3(1.15f * (Screen.width / 828), 0), InventoryOpenTime).setEaseOutQuint().id);
     }
 
     #endregion

@@ -23,19 +23,7 @@ public class TreasureManager : MonoBehaviour
     //Singleton
     public static TreasureManager Instance = null;
 
-    //Events
-
-    public event EventHandler<OnGetTreasureItemEventArgs> OnGetTreasureItem;
-    public class OnGetTreasureItemEventArgs : EventArgs
-    {
-        public string name;
-        public Sprite image;
-        public string subtext;
-    }
-
-    public event EventHandler OnEndTreasure;
-    public event EventHandler OnStartTreasure;
-
+    [HideInInspector] public bool PopUpActive = false;
 
     private void Awake()
     {
@@ -65,14 +53,14 @@ public class TreasureManager : MonoBehaviour
         _amountOfTreasures = GetRandomValue(1, _treasurePool.MaxAmountOfTreasures);
 
         //Invoke Start Event
-        OnStartTreasure?.Invoke(this, EventArgs.Empty);
+        EventManager.Instance.StartTreasure();
 
         AddTimeToTapTimer(0.3f);
     }
 
     private void HandleTreasure()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && PopUpActive == false)
         {
             if (CheckTapTimer())
             {
@@ -98,7 +86,7 @@ public class TreasureManager : MonoBehaviour
                     _controlScript.CurrentlySelectedTile.ContainsTreasure = false;
                     _treasureSpawnPoint.GetComponentInChildren<Animator>().SetTrigger("Disappear");
                     _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Disappear");
-                    OnEndTreasure?.Invoke(this, EventArgs.Empty);
+                    EventManager.Instance.EndTreasure();
                     Destroy(_treasureObject);
                     Destroy(_controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn);
                     ControlScript.Instance.enabled = true;
@@ -179,7 +167,7 @@ public class TreasureManager : MonoBehaviour
             case TreasureType.Item:
                 TreasureItemObject _randomTreasureItem = RandomTreasureItem(_treasurePool);
                 InventoryManager.Instance.AddItem(_randomTreasureItem);
-                OnGetTreasureItem.Invoke(this, new OnGetTreasureItemEventArgs { image = _randomTreasureItem.InventoryImage, name = _randomTreasureItem.name, subtext = _randomTreasureItem.Description});
+                EventManager.Instance.GetTreasureItem(_randomTreasureItem.name, _randomTreasureItem.InventoryImage, _randomTreasureItem.Description);
                 break;
 
 
@@ -202,7 +190,7 @@ public class TreasureManager : MonoBehaviour
                         break;
                     }
                 }
-                OnGetTreasureItem.Invoke(this, new OnGetTreasureItemEventArgs { image = coinImage, name = coinName, subtext = _randomCurrencyAmount.ToString()});
+                EventManager.Instance.GetTreasureItem(coinName, coinImage, _randomCurrencyAmount.ToString());
                 break;
 
 
@@ -225,7 +213,7 @@ public class TreasureManager : MonoBehaviour
                         break;
                     }
                 }
-                OnGetTreasureItem.Invoke(this, new OnGetTreasureItemEventArgs { image = tileImage, name = tileName, subtext = _randomTileAmount.ToString() });
+                EventManager.Instance.GetTreasureItem(tileName, tileImage, _randomTileAmount.ToString());
                 break;
 
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NormalPool
   m_EditorClassIdentifier: 
   MaxAmountOfTreasures: 4
-  ItemChance: 30
+  ItemChance: 15
   PossibleTreasures:
   - {fileID: 11400000, guid: bea14d8cfc00c7343942dd4202d56126, type: 2}
   - {fileID: 11400000, guid: b0b22c4ce979cc2449c58cca3077d327, type: 2}

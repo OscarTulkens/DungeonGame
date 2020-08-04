@@ -6,12 +6,15 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryObject _playerInventoryObject;
     [SerializeField] private BoxCollider2D _inventoryEquipPanel;
-    [SerializeField] private GameObject _inventoryFullPopUp;
+    [SerializeField] private GameObject _inventoryFullPopUpPrefab;
 
     public InventoryObject PlayerInventoryObject { get { return _playerInventoryObject; }}
     public BoxCollider2D InventoryEquipPanel { get { return _inventoryEquipPanel; } }
 
     public static InventoryManager Instance { get; private set; }
+
+    public bool Replace = false;
+    public TreasureItemObject _tempItemObject = null;
 
     private void Awake()
     {
@@ -33,7 +36,8 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            EventManager.Instance.OnDoPopUpNeg += Instantiate(_inventoryFullPopUp, GameObject.Find("Canvas Main").transform).GetComponent<PopUpChoiceScript>().ClosePopUp;
+            _tempItemObject = treasureItemObject;
+            Instantiate(_inventoryFullPopUpPrefab, GameObject.Find("Canvas Main").transform).GetComponent<InventoryFullPopUpScript>();
         }
     }
 
@@ -48,6 +52,12 @@ public class InventoryManager : MonoBehaviour
     public void RemoveItem(TreasureItemObject treasureToRemove, InventoryObject inventoryToChange)
     {
         inventoryToChange.TreasureList.Remove(treasureToRemove);
+    }
+
+    public void ReplaceItem(int indexOfItemToRemove, TreasureItemObject treasureToAdd)
+    {
+        _playerInventoryObject.TreasureList[indexOfItemToRemove] = treasureToAdd;
+        EventManager.Instance.UpdateInventory();
     }
 
 }

@@ -20,11 +20,12 @@ public class InventoryVisualManagerScript : MonoBehaviour
         _inventorySlideBarRectTransform = GetComponent<RectTransform>();
         _inventoryHorizontalLayoutGroup = GetComponent<HorizontalLayoutGroup>();
         CreateInventorySlots();
+        EventManager.Instance.OnUpdateInventory += UpdateInventory;
     }
 
     private void SetScrollBarSize()
     {
-        _inventorySlideBarRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (transform.childCount * Size) + (_inventoryHorizontalLayoutGroup.padding.left + _inventoryHorizontalLayoutGroup.padding.right) + ((transform.childCount-1)*_inventoryHorizontalLayoutGroup.spacing));
+        _inventorySlideBarRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (_slotList.Count * Size) + (_inventoryHorizontalLayoutGroup.padding.left + _inventoryHorizontalLayoutGroup.padding.right) + ((_slotList.Count-1)*_inventoryHorizontalLayoutGroup.spacing));
     }
 
     public void CreateInventorySlots()
@@ -45,5 +46,19 @@ public class InventoryVisualManagerScript : MonoBehaviour
             Destroy(slot);
         }
         _slotList.Clear();
+    }
+
+    public void UpdateInventory(object sender, EventArgs e)
+    {
+        foreach (GameObject slot in _slotList)
+        {
+            slot.GetComponent<InventorySlotScript>().SetSlotImage();
+        }
+    }
+
+    public void RegenerateInventory()
+    {
+        DeleteInventorySlots();
+        CreateInventorySlots();
     }
 }

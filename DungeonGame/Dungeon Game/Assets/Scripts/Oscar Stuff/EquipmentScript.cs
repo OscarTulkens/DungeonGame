@@ -23,6 +23,9 @@ public class EquipmentScript : MonoBehaviour
     [SerializeField] private Transform _weaponPoint;
     [SerializeField] private Transform _shieldPoint;
 
+
+    [SerializeField] private float _scaleIncreaseMultiplier;
+    [SerializeField] private float _scaleIncreaseTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,18 +42,22 @@ public class EquipmentScript : MonoBehaviour
             case ItemType.Helmet:
                 Destroy(_helmetModel);
                 _helmetModel = SetModel(e.ItemModel, _helmetPoint);
+                PunchTweanModel(_helmetModel);
                 break;
             case ItemType.Armor:
                 Destroy(_chestplateModel);
                 _chestplateModel = SetModel(e.ItemModel, _chestplatePoint);
+                PunchTweanModel(_chestplateModel);
                 break;
             case ItemType.Weapon:
                 Destroy(_weaponModel);
                 _weaponModel = SetModel(e.ItemModel, _weaponPoint);
+                PunchTweanModel(_weaponModel);
                 break;
             case ItemType.Offhand:
                 Destroy(_shieldModel);
                 _shieldModel = SetModel(e.ItemModel, _shieldPoint);
+                PunchTweanModel(_shieldModel);
                 break;
             default:
                 break;
@@ -68,5 +75,11 @@ public class EquipmentScript : MonoBehaviour
         _helmetModel = SetModel(_startHelmetModel, _helmetPoint);
         _weaponModel = SetModel(_startWeaponModel, _weaponPoint);
         _shieldModel = SetModel(_startShieldModel, _shieldPoint);
+    }
+
+    private void PunchTweanModel(GameObject _model)
+    {
+        Vector3 _startsize = _model.transform.localScale;
+        LeanTween.scale(_model, _startsize * _scaleIncreaseMultiplier, _scaleIncreaseTime).setEasePunch();
     }
 }

@@ -8,7 +8,7 @@ public class InventoryDraggedItemHandlerScript : MonoBehaviour
     private InventorySlotScript _linkedSlot;
     private Image _draggedItemImage;
     private BoxCollider2D _boxCollider2D;
-
+    [SerializeField] private float _scaleIncreaseMultiplier;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +16,7 @@ public class InventoryDraggedItemHandlerScript : MonoBehaviour
         _draggedItemImage = GetComponent<Image>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
         SetDraggedItemImage();
+        Bounce();
     }
 
     // Update is called once per frame
@@ -56,5 +57,11 @@ public class InventoryDraggedItemHandlerScript : MonoBehaviour
         }
         Destroy(this.gameObject);
         _linkedSlot.StopDragHandler();
+    }
+
+    private void Bounce()
+    {
+        Vector3 _startSize = transform.localScale;
+        LeanTween.scale(gameObject, _startSize * _scaleIncreaseMultiplier, 0.5f).setEasePunch();
     }
 }

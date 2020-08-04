@@ -21,6 +21,12 @@ public class EventManager : MonoBehaviour
         OnCloseInventory?.Invoke(this, EventArgs.Empty);
     }
 
+    //Inventory Update
+    public event EventHandler OnUpdateInventory;
+    public void UpdateInventory()
+    {
+        OnUpdateInventory?.Invoke(this, EventArgs.Empty);
+    }
 
     //Change Equipment
     public event EventHandler<OnChangeEquipmentArgs> OnChangeEquipment;
@@ -106,21 +112,27 @@ public class EventManager : MonoBehaviour
         OnEndCombat?.Invoke(this, EventArgs.Empty);
     }
 
+    //PopUp Events
 
-    // PopUp events
-    public event EventHandler OnDoPopUpPos;
-    public void DoPopUpPos()
+    public event EventHandler OnCloseInventoryFullPopUp;
+    public void CloseInventoryFullPopUp()
     {
-        OnDoPopUpPos?.Invoke(this, EventArgs.Empty);
+        OnCloseInventoryFullPopUp?.Invoke(this, EventArgs.Empty);
     }
 
+    //Inventory Item Wheel Events
 
-    public event EventHandler OnDoPopUpNeg;
-    public void DoPopUpNeg()
+    public event EventHandler OnOpenItemWheel;
+    public void OpenItemWheel()
     {
-        OnDoPopUpNeg?.Invoke(this, EventArgs.Empty);
+        OnOpenItemWheel?.Invoke(this, EventArgs.Empty);
     }
 
+    public event EventHandler OnCloseItemWheel;
+    public void CloseItemWheel()
+    {
+        OnCloseItemWheel?.Invoke(this, EventArgs.Empty);
+    }
     // Start is called before the first frame update
     void Awake()
     {

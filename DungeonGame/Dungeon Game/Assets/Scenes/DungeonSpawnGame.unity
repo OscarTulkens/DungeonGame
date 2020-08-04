@@ -261,7 +261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000014792855, y: 0}
   m_SizeDelta: {x: 984.19, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &44347164
@@ -498,6 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _treasureSpawnPoint: {fileID: 182998347}
   _defaultAddTime: 0.5
+  PopUpActive: 0
 --- !u!114 &149981176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,8 +514,10 @@ MonoBehaviour:
   _playerInventoryObject: {fileID: 11400000, guid: cbb97668d4bbefc47a3ec82c5383f172,
     type: 2}
   _inventoryEquipPanel: {fileID: 2038387019}
-  _inventoryFullPopUp: {fileID: 6954161809031123474, guid: 5c51ff71084e44d4f88f13b8addd9c22,
+  _inventoryFullPopUpPrefab: {fileID: 6954161809031123474, guid: 5c51ff71084e44d4f88f13b8addd9c22,
     type: 3}
+  Replace: 0
+  _tempItemObject: {fileID: 0}
 --- !u!114 &149981177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,7 +817,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: pure trash
+  m_Text: Wooden Sword
 --- !u!222 &397902239
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2192,7 +2195,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 0
   m_Viewport: {fileID: 1177898823}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}

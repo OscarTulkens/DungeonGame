@@ -150,6 +150,8 @@ MonoBehaviour:
   _helmetPoint: {fileID: 4217691158101118572}
   _weaponPoint: {fileID: 2747848345666722196}
   _shieldPoint: {fileID: 41235068012292567}
+  _scaleIncreaseMultiplier: 1.4
+  _scaleIncreaseTime: 0.5
 --- !u!1 &8526616186565319208
 GameObject:
   m_ObjectHideFlags: 0

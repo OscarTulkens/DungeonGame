@@ -39,12 +39,13 @@ public class InventoryOpenCloseScript : MonoBehaviour
         {
             EventManager.Instance.OnStartCombat += CloseInventory;
             EventManager.Instance.OnStartCombat += DisableButton;
-        }
-        if (EventManager.Instance != null)
-        {
             EventManager.Instance.OnStartTreasure += CloseInventory;
             EventManager.Instance.OnStartTreasure += DisableButton;
             EventManager.Instance.OnEndTreasure += EnableButton;
+            EventManager.Instance.OnOpenInventory += OpenInventory;
+            EventManager.Instance.OnCloseInventory += CloseInventory;
+            EventManager.Instance.OnOpenItemWheel += OpenItemWheel;
+            EventManager.Instance.OnCloseItemWheel += CloseItemWheel;
         }
 
         _startPositionInventoryButton = InventoryButton.transform.position;
@@ -54,7 +55,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
         _actionOnInventoryCloseDone += DeactivateItemWheel;
         _playerModelStartPosition = PlayerModel.transform.localPosition;
 
-        CloseItemWheel();
+        CloseItemWheel(this, EventArgs.Empty);
         EnableButton();
         ClosePlayerModelScreen();
     }
@@ -63,15 +64,11 @@ public class InventoryOpenCloseScript : MonoBehaviour
 
     public void OpenInventory(object sender, EventArgs e)
     {
-        CancelOnGoingTweens();
-        OpenItemWheel();
         OpenPlayerModelScreen();
     }
 
     public void CloseInventory(object sender, EventArgs e)
     {
-        CancelOnGoingTweens();
-        CloseItemWheel();
         ClosePlayerModelScreen();
     }
 
@@ -86,20 +83,20 @@ public class InventoryOpenCloseScript : MonoBehaviour
 
     private void DeactivateItemWheel()
     {
-        _visualInventoryManager.DeleteInventorySlots();
+        //possible code to come
     }
 
-    public void OpenItemWheel()
+    public void OpenItemWheel(object sender, EventArgs e)
     {
         _inventoryScrollRect.enabled = true;
         _onGoingTweens.Add(LeanTween.move(transform.gameObject, new Vector3(0, 0), InventoryOpenTime).setEaseOutQuint().setOnComplete(_actionOnInventoryOpenDone).id);
         if (_visualInventoryManager != null)
         {
-            _visualInventoryManager.CreateInventorySlots();
+            _visualInventoryManager.RegenerateInventory();
         }
     }
 
-    public void CloseItemWheel()
+    public void CloseItemWheel(object sender, EventArgs e)
     {
         _inventoryScrollRect.enabled = false;
         _onGoingTweens.Add(LeanTween.move(transform.gameObject, new Vector3(0, -MovementDistance), InventoryOpenTime).setOnComplete(_actionOnInventoryCloseDone).setEaseOutQuint().id);
@@ -169,7 +166,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
         if (!_inventoryOpened)
         {
             CancelOnGoingTweens();
-            OpenItemWheel();
+            OpenItemWheel(this, EventArgs.Empty);
             MoveButton();
             OpenPlayerModelScreen();
             ControlScriptOn(false);
@@ -181,7 +178,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
         else if (_inventoryOpened)
         {
             CancelOnGoingTweens();
-            CloseItemWheel();
+            CloseItemWheel(this, EventArgs.Empty);
             MoveButton();
             ClosePlayerModelScreen();
             ControlScriptOn(true);

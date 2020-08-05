@@ -13,8 +13,10 @@ public class InventoryManager : MonoBehaviour
 
     public static InventoryManager Instance { get; private set; }
 
-    public bool Replace = false;
-    public TreasureItemObject _tempItemObject = null;
+    [HideInInspector] public bool Replace = false;
+    [HideInInspector] public TreasureItemObject _tempItemObject = null;
+
+    public BoxCollider2D DeleteIconCollider = null;
 
     private void Awake()
     {
@@ -54,10 +56,15 @@ public class InventoryManager : MonoBehaviour
         inventoryToChange.TreasureList.Remove(treasureToRemove);
     }
 
+    public void RemoveItem(int itemNumber)
+    {
+        _playerInventoryObject.TreasureList.RemoveAt(itemNumber);
+    }
+
     public void ReplaceItem(int indexOfItemToRemove, TreasureItemObject treasureToAdd)
     {
         _playerInventoryObject.TreasureList[indexOfItemToRemove] = treasureToAdd;
-        EventManager.Instance.UpdateInventory();
+        EventManager.Instance.UpdateInventoryVisuals();
     }
 
 }

@@ -14,6 +14,12 @@ public class TreasureItemObject : ScriptableObject
     public Rarity Rarity;
     [TextArea(15,20)]
     public string Description;
+
+    [Space]
+    [Header("COMBATSTATS")]
+    public float Damage;
+    public float Health;
+    public float SpecialPower;
 }
 
 public enum ItemType

@@ -15,7 +15,6 @@ public class InventoryOpenCloseScript : MonoBehaviour
 
     private List<int> _onGoingTweens = new List<int>();
 
-    private InventoryVisualManagerScript _visualInventoryManager;
 
     private bool _inventoryOpened = false;
 
@@ -26,14 +25,12 @@ public class InventoryOpenCloseScript : MonoBehaviour
     public GameObject PlayerModel = null;
     private Vector3 _playerModelStartPosition = new Vector3(0, 0, 0);
 
+    public GameObject DeleteSlot = null;
+    private Vector3 _deleteSlotStartPosition = new Vector3(0, 0, 0);
+
     // Start is called before the first frame update
     void Start()
     {
-        if (GetComponentInChildren<InventoryVisualManagerScript>() != null)
-        {
-            _visualInventoryManager = GetComponentInChildren<InventoryVisualManagerScript>();
-        }
-
         //StartInventoryEventBind
         if (EventManager.Instance != null)
         {
@@ -46,8 +43,11 @@ public class InventoryOpenCloseScript : MonoBehaviour
             EventManager.Instance.OnCloseInventory += CloseInventory;
             EventManager.Instance.OnOpenItemWheel += OpenItemWheel;
             EventManager.Instance.OnCloseItemWheel += CloseItemWheel;
+            EventManager.Instance.OnStartCombat += DisableDeleteSlot;
+            EventManager.Instance.OnStartTreasure += DisableDeleteSlot;
         }
 
+        _deleteSlotStartPosition = DeleteSlot.GetComponent<RectTransform>().position;
         _startPositionInventoryButton = InventoryButton.transform.position;
         _inventoryScrollRect = GetComponent<ScrollRect>();
         _inventoryScrollRect.enabled = false;
@@ -55,8 +55,9 @@ public class InventoryOpenCloseScript : MonoBehaviour
         _actionOnInventoryCloseDone += DeactivateItemWheel;
         _playerModelStartPosition = PlayerModel.transform.localPosition;
 
+        DisableDeleteSlot(this, EventArgs.Empty);
         CloseItemWheel(this, EventArgs.Empty);
-        EnableButton();
+        EnableButton(this, EventArgs.Empty);
         ClosePlayerModelScreen();
     }
 
@@ -90,10 +91,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
     {
         _inventoryScrollRect.enabled = true;
         _onGoingTweens.Add(LeanTween.move(transform.gameObject, new Vector3(0, 0), InventoryOpenTime).setEaseOutQuint().setOnComplete(_actionOnInventoryOpenDone).id);
-        if (_visualInventoryManager != null)
-        {
-            _visualInventoryManager.RegenerateInventory();
-        }
+        EventManager.Instance.UpdateInventoryItems();
     }
 
     public void CloseItemWheel(object sender, EventArgs e)
@@ -104,14 +102,9 @@ public class InventoryOpenCloseScript : MonoBehaviour
 
     #endregion
 
-    #region Change Button
+    #region Change Inventory Open-Close-Button
 
     public void DisableButton(object sender, EventArgs e)
-    {
-        DisableButton();
-    }
-
-    public void DisableButton()
     {
         _onGoingTweens.Add(LeanTween.move(InventoryButton, new Vector3(InventoryButton.transform.position.x, -MovementDistance), InventoryOpenTime / 2).setEaseOutExpo().id);
         InventoryButton.GetComponent<Button>().interactable = false;
@@ -119,16 +112,11 @@ public class InventoryOpenCloseScript : MonoBehaviour
 
     public void EnableButton(object sender, EventArgs e)
     {
-        EnableButton();
-    }
-
-    public void EnableButton()
-    {
         _onGoingTweens.Add(LeanTween.move(InventoryButton, _startPositionInventoryButton, InventoryOpenTime).setEaseOutExpo().id);
         InventoryButton.GetComponent<Button>().interactable = true;
     }
 
-    private void MoveButton()
+    private void MoveButtons()
     {
         if (!_inventoryOpened)
         {
@@ -142,6 +130,25 @@ public class InventoryOpenCloseScript : MonoBehaviour
     }
 
     #endregion
+
+    #region Change Delete Item Slot
+    public void EnableDeleteSlot(object sender, EventArgs e)
+    {
+            Debug.Log("enabled delete slot");
+            _onGoingTweens.Add(LeanTween.move(DeleteSlot.GetComponent<RectTransform>(), new Vector3(0, MovementDistance), InventoryOpenTime).setEaseOutExpo().id);
+            DeleteSlot.GetComponent<BoxCollider2D>().enabled = true;
+    }
+
+    public void DisableDeleteSlot(object sender, EventArgs e)
+    {
+            Debug.Log("disabled delete slot");
+            _onGoingTweens.Add(LeanTween.move(DeleteSlot.GetComponent<RectTransform>(), new Vector3(-(_deleteSlotStartPosition.x + DeleteSlot.GetComponent<RectTransform>().sizeDelta.x), MovementDistance), InventoryOpenTime / 2).setEaseOutExpo().id);
+            DeleteSlot.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+
+    #endregion
+
 
     #region Miscellaneous 
 
@@ -167,9 +174,10 @@ public class InventoryOpenCloseScript : MonoBehaviour
         {
             CancelOnGoingTweens();
             OpenItemWheel(this, EventArgs.Empty);
-            MoveButton();
+            MoveButtons();
             OpenPlayerModelScreen();
             ControlScriptOn(false);
+            EnableDeleteSlot(this, EventArgs.Empty);
             _inventoryOpened = true;
             EventManager.Instance.OpenInventory();
 
@@ -179,9 +187,10 @@ public class InventoryOpenCloseScript : MonoBehaviour
         {
             CancelOnGoingTweens();
             CloseItemWheel(this, EventArgs.Empty);
-            MoveButton();
+            MoveButtons();
             ClosePlayerModelScreen();
             ControlScriptOn(true);
+            DisableDeleteSlot(this, EventArgs.Empty);
             _inventoryOpened = false;
             EventManager.Instance.CloseInventory();
         }

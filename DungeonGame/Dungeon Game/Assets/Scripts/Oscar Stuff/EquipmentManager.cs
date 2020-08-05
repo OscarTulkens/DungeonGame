@@ -10,39 +10,65 @@ public class EquipmentManager : MonoBehaviour
     private TreasureItemObject _weapon = null;
     private TreasureItemObject _offhand = null;
 
-    public static EquipmentManager Instance = null;
+    private float _damageStat = 0;
+    private float _healthStat = 0;
+    private float _specialPowerStat = 0;
 
-    private void Awake()
+    private void Start()
     {
-        Instance = this;
+        EventManager.Instance.OnChangeEquipment += EquipItem;
     }
 
-    public void EquipItem(TreasureItemObject itemToEquip)
+    private void EquipItem(object sender, EventManager.OnChangeEquipmentArgs e)
     {
-        switch (itemToEquip.ItemType)
+        switch (e.EquipmentItem.ItemType)
         {
             case ItemType.Default:
                 break;
             case ItemType.Helmet:
-                SetEquipment(itemToEquip, _helmet);
+                CalculateStatChanges(_helmet, e.EquipmentItem);
+                _helmet = e.EquipmentItem;
+                SetEquipmentModel(e.EquipmentItem);
                 break;
             case ItemType.Armor:
-                SetEquipment(itemToEquip, _armor);
+                CalculateStatChanges(_armor, e.EquipmentItem);
+                _armor = e.EquipmentItem;
+                SetEquipmentModel(e.EquipmentItem);
                 break;
             case ItemType.Weapon:
-                SetEquipment(itemToEquip, _weapon);
+                CalculateStatChanges(_weapon, e.EquipmentItem);
+                _weapon = e.EquipmentItem;
+                SetEquipmentModel(e.EquipmentItem);
                 break;
             case ItemType.Offhand:
-                SetEquipment(itemToEquip, _offhand);
+                CalculateStatChanges(_offhand, e.EquipmentItem);
+                _offhand = e.EquipmentItem;
+                SetEquipmentModel(e.EquipmentItem);
                 break;
             default:
                 break;
         }
+
     }
 
-    private void SetEquipment(TreasureItemObject itemToEquip, TreasureItemObject equipedItem)
+    private void SetEquipmentModel(TreasureItemObject itemToEquip)
     {
-        equipedItem = itemToEquip;
-        EventManager.Instance.ChangeEquipment(itemToEquip.ItemType, itemToEquip.Model);
+        EventManager.Instance.ChangeEquipmentModel(itemToEquip.ItemType, itemToEquip.Model);
+    }
+
+    private void CalculateStatChanges(TreasureItemObject oldEquipment, TreasureItemObject newEquipment)
+    {
+        if (oldEquipment!=null)
+        {
+            _damageStat -= oldEquipment.Damage;
+            _healthStat -= oldEquipment.Health;
+            _specialPowerStat -= oldEquipment.SpecialPower;
+        }
+        _damageStat += newEquipment.Damage;
+        _healthStat += newEquipment.Health;
+        _specialPowerStat += newEquipment.SpecialPower;
+        Debug.Log("DAMAGE: " + _damageStat);
+        Debug.Log("HEALTH: " + _healthStat);
+        Debug.Log("SPECIAL: " + _specialPowerStat);
     }
 }

@@ -90,7 +90,6 @@ public class InventorySlotScript : MonoBehaviour
     private float CalculateDragDistance()
     {
         _dragDistance = Vector3.Distance(_startDragPos, Input.mousePosition);
-        Debug.Log(_dragDistance);
         return _dragDistance;
     }
 

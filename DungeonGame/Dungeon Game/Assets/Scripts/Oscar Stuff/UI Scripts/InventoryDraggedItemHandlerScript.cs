@@ -52,8 +52,13 @@ public class InventoryDraggedItemHandlerScript : MonoBehaviour
     {
         if (InventoryManager.Instance.InventoryEquipPanel.bounds.Contains(_boxCollider2D.bounds.center))
         {
-            Debug.Log("Equip");
-            EquipmentManager.Instance.EquipItem(InventoryManager.Instance.PlayerInventoryObject.TreasureList[_linkedSlot.SlotNumber]);
+            EventManager.Instance.ChangeEquipment(InventoryManager.Instance.PlayerInventoryObject.TreasureList[_linkedSlot.SlotNumber]);
+        }
+        else if (InventoryManager.Instance.DeleteIconCollider.bounds.Contains(_boxCollider2D.bounds.center))
+        {
+            InventoryManager.Instance.RemoveItem(_linkedSlot.SlotNumber);
+            EventManager.Instance.UpdateInventoryItems();
+            InventoryManager.Instance.DeleteIconCollider.GetComponent<DeleteItemButton>().PunchButton();
         }
         Destroy(this.gameObject);
         _linkedSlot.StopDragHandler();

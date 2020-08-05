@@ -19,3 +19,6 @@ MonoBehaviour:
   Value: 5
   Rarity: 0
   Description: 
+  Damage: 0
+  Health: 2
+  SpecialPower: 0

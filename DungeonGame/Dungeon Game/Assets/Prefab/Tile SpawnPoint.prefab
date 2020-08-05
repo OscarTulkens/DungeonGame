@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 857828646277296574}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.064, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 7326344938740070552}
   - {fileID: 3477156591369095879}
@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OverrideDeactivateSpawnPoints: 0
-  _normalSpawnPoint: {fileID: 7711642656475427799}
   _specialObjectSpawnPoint: {fileID: 1610522599852447761}
   MovementPoint: {fileID: 483810545259479172}
   Model: {fileID: 3014289949870060812}

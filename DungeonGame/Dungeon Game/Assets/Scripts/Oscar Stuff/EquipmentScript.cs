@@ -24,16 +24,20 @@ public class EquipmentScript : MonoBehaviour
     [SerializeField] private Transform _shieldPoint;
 
 
+
+
+    [Space]
+    [Header("TWEEN VARIABLES")]
     [SerializeField] private float _scaleIncreaseMultiplier;
     [SerializeField] private float _scaleIncreaseTime;
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.Instance.OnChangeEquipment += SetArmorModel;
+        EventManager.Instance.OnChangeEquipmentModel += SetArmorModel;
         SetStartModels();
     }
 
-    private void SetArmorModel(object sender, EventManager.OnChangeEquipmentArgs e)
+    private void SetArmorModel(object sender, EventManager.OnChangeEquipmentModelArgs e)
     {
         switch (e.ItemType)
         {

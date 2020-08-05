@@ -20,7 +20,8 @@ public class InventoryVisualManagerScript : MonoBehaviour
         _inventorySlideBarRectTransform = GetComponent<RectTransform>();
         _inventoryHorizontalLayoutGroup = GetComponent<HorizontalLayoutGroup>();
         CreateInventorySlots();
-        EventManager.Instance.OnUpdateInventory += UpdateInventory;
+        EventManager.Instance.OnUpdateInventoryVisuals += UpdateInventory;
+        EventManager.Instance.OnUpdateInventoryItems += RegenerateInventory;
     }
 
     private void SetScrollBarSize()
@@ -56,7 +57,7 @@ public class InventoryVisualManagerScript : MonoBehaviour
         }
     }
 
-    public void RegenerateInventory()
+    public void RegenerateInventory(object sender, EventArgs e)
     {
         DeleteInventorySlots();
         CreateInventorySlots();

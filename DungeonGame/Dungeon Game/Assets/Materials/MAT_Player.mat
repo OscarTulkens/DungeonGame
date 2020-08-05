@@ -99,4 +99,4 @@ Material:
     - _ObjectFogColor: {r: 1, g: 0.82745105, b: 0.68235296, a: 0}
     - _RightColor: {r: 0.754717, g: 0.60556406, b: 0.4805981, a: 1}
     - _TopColor: {r: 0.9528302, g: 0.816693, b: 0.7056337, a: 1}
-    - _WorldFogColor: {r: 0, g: 0, b: 0, a: 0}
+    - _WorldFogColor: {r: 0.9294118, g: 0.8196079, b: 0.72156864, a: 0}

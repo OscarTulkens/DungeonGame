@@ -22,24 +22,46 @@ public class EventManager : MonoBehaviour
     }
 
     //Inventory Update
-    public event EventHandler OnUpdateInventory;
-    public void UpdateInventory()
+    public event EventHandler OnUpdateInventoryVisuals;
+    public void UpdateInventoryVisuals()
     {
-        OnUpdateInventory?.Invoke(this, EventArgs.Empty);
+        OnUpdateInventoryVisuals?.Invoke(this, EventArgs.Empty);
     }
 
+    public event EventHandler OnUpdateInventoryItems;
+    public void UpdateInventoryItems()
+    {
+        OnUpdateInventoryItems?.Invoke(this, EventArgs.Empty);
+    }
+
+
     //Change Equipment
-    public event EventHandler<OnChangeEquipmentArgs> OnChangeEquipment;
-    public class OnChangeEquipmentArgs : EventArgs
+    public event EventHandler<OnChangeEquipmentModelArgs> OnChangeEquipmentModel;
+    public class OnChangeEquipmentModelArgs : EventArgs
     {
         public ItemType ItemType;
         public GameObject ItemModel;
     }
 
-    public void ChangeEquipment(ItemType itemtype, GameObject itemmodel)
+    public void ChangeEquipmentModel(ItemType itemtype, GameObject itemmodel)
     {
-        OnChangeEquipment?.Invoke(this, new OnChangeEquipmentArgs { ItemType = itemtype, ItemModel = itemmodel });
+        OnChangeEquipmentModel?.Invoke(this, new OnChangeEquipmentModelArgs { ItemType = itemtype, ItemModel = itemmodel });
     }
+
+
+
+    public event EventHandler<OnChangeEquipmentArgs> OnChangeEquipment;
+    public class OnChangeEquipmentArgs:EventArgs
+    {
+        public TreasureItemObject EquipmentItem;
+    }
+
+    public void ChangeEquipment(TreasureItemObject equipmentitem)
+    {
+        OnChangeEquipment?.Invoke(this, new OnChangeEquipmentArgs { EquipmentItem = equipmentitem });
+    }
+
+
 
     //ChangeCurrencyUI
     public event EventHandler<OnChangeCurrencyUIArgs> OnChangeCurrencyUI;

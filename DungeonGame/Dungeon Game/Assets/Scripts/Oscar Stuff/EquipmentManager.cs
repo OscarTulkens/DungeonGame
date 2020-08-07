@@ -64,11 +64,14 @@ public class EquipmentManager : MonoBehaviour
             _healthStat -= oldEquipment.Health;
             _specialPowerStat -= oldEquipment.SpecialPower;
         }
-        _damageStat += newEquipment.Damage;
-        _healthStat += newEquipment.Health;
-        _specialPowerStat += newEquipment.SpecialPower;
-        Debug.Log("DAMAGE: " + _damageStat);
-        Debug.Log("HEALTH: " + _healthStat);
-        Debug.Log("SPECIAL: " + _specialPowerStat);
+
+        if (newEquipment!=null)
+        {
+            _damageStat += newEquipment.Damage;
+            _healthStat += newEquipment.Health;
+            _specialPowerStat += newEquipment.SpecialPower;
+        }
+
+        EventManager.Instance.UpdateEquipmentStats(_damageStat, _healthStat, _specialPowerStat);
     }
 }

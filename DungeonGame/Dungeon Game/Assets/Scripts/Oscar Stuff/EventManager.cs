@@ -155,7 +155,25 @@ public class EventManager : MonoBehaviour
     {
         OnCloseItemWheel?.Invoke(this, EventArgs.Empty);
     }
-    // Start is called before the first frame update
+
+    //Update Stats
+    public event EventHandler OnUpdateEquipmentStats;
+    public class OnUpdateEquipmentStatsArgs : EventArgs
+    {
+        public float EquipmentDamage;
+        public float EquipmentHealth;
+        public float EquipmentSpecialPower;
+    }
+
+    public void UpdateEquipmentStats(float equipmentdamage, float equipmenthealth, float equipmentspecialpower)
+    {
+        OnUpdateEquipmentStats?.Invoke(this, new OnUpdateEquipmentStatsArgs { EquipmentDamage = equipmentdamage, EquipmentHealth = equipmenthealth, EquipmentSpecialPower = equipmentspecialpower });
+    }
+
+
+
+
+
     void Awake()
     {
         if(Instance == null)

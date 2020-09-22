@@ -85,7 +85,7 @@ Material:
     - _RightColor: {r: 0.95699996, g: 0.85113716, b: 0.60976994, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TopColor: {r: 0.97199994, g: 0.8644778, b: 0.6193274, a: 0}
-    - _WorldFogColor: {r: 0, g: 0, b: 0, a: 0}
+    - _WorldFogColor: {r: 0.8033998, g: 0.9622642, b: 0.87479293, a: 0}
 --- !u!114 &3467111163261962010
 MonoBehaviour:
   m_ObjectHideFlags: 11

@@ -20,7 +20,7 @@ public class TileContainedObjectScript : MonoBehaviour
     [HideInInspector] public GameObject SpecialSpawn;
 
     [SerializeField] private Vector3 _modelSpawnOffset = Vector3.zero;
-    [SerializeField] private float _tileMoveUpSpeed = 0;
+    [SerializeField] private float _tileMoveUpTime = 0;
 
     private void Awake()
     {
@@ -45,14 +45,14 @@ public class TileContainedObjectScript : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(Model.transform.position, new Vector3(Model.transform.position.x, 7, Model.transform.position.z)) >= 0.01f)
-        {
-            Model.transform.position = Vector3.Lerp(Model.transform.position, new Vector3(Model.transform.position.x, 7, Model.transform.position.z), _tileMoveUpSpeed * Time.deltaTime);
-        }
-        else if (Model.transform.position != new Vector3(Model.transform.position.x, 7, Model.transform.position.z))
-        {
-            Model.transform.position = new Vector3(Model.transform.position.x, 7, Model.transform.position.z);
-        }
+        //if (Vector3.Distance(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z)) >= 0.01f)
+        //{
+        //    Model.transform.position = Vector3.Lerp(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z), _tileMoveUpSpeed * Time.deltaTime);
+        //}
+        //else if (Model.transform.position != new Vector3(Model.transform.position.x, 0, Model.transform.position.z))
+        //{
+        //    Model.transform.position = new Vector3(Model.transform.position.x, 0, Model.transform.position.z);
+        //}
     }
 
     void ActivateMonsterSpawn()
@@ -108,6 +108,7 @@ public class TileContainedObjectScript : MonoBehaviour
     void SetModelPosition()
     {
         Model.transform.position = new Vector3(Model.transform.position.x+_modelSpawnOffset.x, Model.transform.position.y+_modelSpawnOffset.y, Model.transform.position.z+_modelSpawnOffset.z);
+        LeanTween.move(Model, new Vector3(Model.transform.position.x, 0, Model.transform.position.z), _tileMoveUpTime).setEaseOutExpo();
     }
 
     int RandomInt(int minvalue, int maxvalue)

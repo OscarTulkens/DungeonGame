@@ -61,6 +61,9 @@ public class InventoryFullPopUpScript : MonoBehaviour
     {
         InventoryManager.Instance.Replace = true;
         EventManager.Instance.OpenItemWheel();
+        _mainText.text = "Tap an item to replace";
+        _positiveButton.gameObject.SetActive(false);
+        _negativeButton.gameObject.SetActive(false);
     }
 
 }

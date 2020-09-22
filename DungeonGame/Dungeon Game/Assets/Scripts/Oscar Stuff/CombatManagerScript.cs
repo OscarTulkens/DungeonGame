@@ -17,6 +17,7 @@ public class CombatManagerScript : MonoBehaviour
     [SerializeField] private Transform _playerSpawnPoint = null;
     [SerializeField] private Transform _playerFightPoint = null;
     [SerializeField] private GameObject _playerObject = null;
+    private int _playerDamage = 0;
 
 
     //Monster variables
@@ -76,6 +77,8 @@ public class CombatManagerScript : MonoBehaviour
         _monsterModel = Instantiate(monsterobject.MonsterPrefab, _monsterObject.transform.position, _monsterObject.transform.rotation, _monsterObject.transform);
         _monsterObject.transform.position = _monsterSpawnPoint.position;
         _playerObject.transform.position = _playerSpawnPoint.position;
+        Debug.Log(CharacterStatsManager.TotalDamage);
+        _playerDamage = (int)CharacterStatsManager.TotalDamage;
         _combat = true;
         SlideIn();
         EventManager.Instance.StartCombat();
@@ -129,7 +132,7 @@ public class CombatManagerScript : MonoBehaviour
     private void OnAttackComplete()
     {
         _ongoingTweens.Add(LeanTween.move(_playerObject, _playerFightPoint.transform, 0.2f).setEaseOutQuint().setOnComplete(ActionOnAttackRecallDone).id);
-        _monsterHealth -= 1;
+        _monsterHealth -= _playerDamage;
         _monsterObject.GetComponent<Shake>().AddShake(1.5f, _monsterFightPoint.position);
     }
 

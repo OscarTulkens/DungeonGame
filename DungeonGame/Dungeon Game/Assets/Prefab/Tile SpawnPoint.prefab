@@ -64,8 +64,8 @@ MonoBehaviour:
   MovementPoint: {fileID: 483810545259479172}
   Model: {fileID: 3014289949870060812}
   SpecialSpawn: {fileID: 0}
-  _modelSpawnOffset: {x: 0, y: -30, z: 0}
-  _tileMoveUpSpeed: 20
+  _modelSpawnOffset: {x: 0, y: -3.5, z: 0}
+  _tileMoveUpTime: 0.5
 --- !u!1 &1610522599852447761
 GameObject:
   m_ObjectHideFlags: 0

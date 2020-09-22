@@ -157,7 +157,7 @@ public class EventManager : MonoBehaviour
     }
 
     //Update Stats
-    public event EventHandler OnUpdateEquipmentStats;
+    public event EventHandler<OnUpdateEquipmentStatsArgs> OnUpdateEquipmentStats;
     public class OnUpdateEquipmentStatsArgs : EventArgs
     {
         public float EquipmentDamage;

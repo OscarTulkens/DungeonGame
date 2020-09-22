@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class CharacterStatsManager : MonoBehaviour
 {
-    public float BaseDamage;
-    public float BaseHealth;
-    public float BaseSpecialPower;
+    public float BaseDamage = 0;
+    public float BaseHealth = 0;
+    public float BaseSpecialPower = 0;
 
-    private float _equipmentDamage;
-    private float _equipmentHealth;
-    private float _equipmentSpecialPower;
+    private float _equipmentDamage = 0;
+    private float _equipmentHealth = 0;
+    private float _equipmentSpecialPower = 0;
 
-    private float _totalDamage;
-    private float _totalHealth;
-    private float _totalSpecialPower;
+    [HideInInspector] public static float TotalDamage = 0;
+    [HideInInspector] public static float TotalHealth = 0;
+    [HideInInspector] public static float TotalSpecialPower = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CalculateFinalStats();
+        EventManager.Instance.OnUpdateEquipmentStats += UpdateStats;
     }
 
     // Update is called once per frame
@@ -38,8 +39,8 @@ public class CharacterStatsManager : MonoBehaviour
 
     private void CalculateFinalStats()
     {
-        _totalDamage = BaseDamage + _equipmentDamage;
-        _totalHealth = BaseHealth + _equipmentHealth;
-        _totalSpecialPower = BaseSpecialPower + _equipmentSpecialPower;
+        TotalDamage = BaseDamage + _equipmentDamage;
+        TotalHealth = BaseHealth + _equipmentHealth;
+        TotalSpecialPower = BaseSpecialPower + _equipmentSpecialPower;
     }
 }

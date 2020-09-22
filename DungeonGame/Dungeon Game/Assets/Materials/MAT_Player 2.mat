@@ -60,6 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - OutlineWidth: 0.5
     - _AlphaClip: 0
     - _AlphaCutoff: 0.5
     - _Blend: 0
@@ -90,13 +91,15 @@ Material:
     - _WorldSpaceFogStrength: 0
     - _WorldSpaceFogWidth: 0
     - _ZWrite: 1
+    - __dirty: 0
     m_Colors:
     - _BaseColor: {r: 0.5058824, g: 0.6509804, b: 0.5176471, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0.6792453, g: 0.06728373, b: 0.58520174, a: 0}
-    - _FrontColor: {r: 0.45256317, g: 0.6411863, b: 0.8490566, a: 1}
-    - _ObjectFogColor: {r: 0.06278926, g: 0.61540556, b: 0.7830189, a: 0}
-    - _RightColor: {r: 0.30891773, g: 0.512021, b: 0.735849, a: 1}
-    - _TopColor: {r: 0.5740477, g: 0.74975723, b: 0.9433962, a: 1}
-    - _WorldFogColor: {r: 0.35686275, g: 0.50980395, b: 0.7176471, a: 0}
+    - _FrontColor: {r: 0.452563, g: 0.6411863, b: 0.8490566, a: 1}
+    - _ObjectFogColor: {r: 0.062789194, g: 0.61540556, b: 0.7830188, a: 0}
+    - _OutlineColor: {r: 0.5471698, g: 0.240032, b: 0.240032, a: 1}
+    - _RightColor: {r: 0.3089176, g: 0.5120208, b: 0.735849, a: 1}
+    - _TopColor: {r: 0.5740477, g: 0.7497571, b: 0.9433962, a: 1}
+    - _WorldFogColor: {r: 0.8033998, g: 0.9622642, b: 0.87479293, a: 0}

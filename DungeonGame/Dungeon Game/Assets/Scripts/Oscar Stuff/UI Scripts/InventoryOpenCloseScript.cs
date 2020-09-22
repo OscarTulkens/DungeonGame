@@ -47,6 +47,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
             EventManager.Instance.OnStartTreasure += DisableDeleteSlot;
         }
 
+        PlayerModel.transform.localScale *= GetScreenWidthScaleValue();
         _deleteSlotStartPosition = DeleteSlot.GetComponent<RectTransform>().position;
         _startPositionInventoryButton = InventoryButton.transform.position;
         _inventoryScrollRect = GetComponent<ScrollRect>();
@@ -209,7 +210,7 @@ public class InventoryOpenCloseScript : MonoBehaviour
     private void ClosePlayerModelScreen()
     {
         _onGoingTweens.Add(LeanTween.move(PlayerModelScreen, new Vector3(Screen.width + 10, 0), InventoryOpenTime).setEaseOutQuint().id);
-        _onGoingTweens.Add(LeanTween.moveLocal(PlayerModel, _playerModelStartPosition + new Vector3(1.15f * (Screen.width / 828), 0), InventoryOpenTime).setEaseOutQuint().id);
+        _onGoingTweens.Add(LeanTween.moveLocal(PlayerModel, _playerModelStartPosition + new Vector3(1.15f * GetScreenWidthScaleValue(), 0), InventoryOpenTime).setEaseOutQuint().id);
     }
 
     #endregion
@@ -217,5 +218,10 @@ public class InventoryOpenCloseScript : MonoBehaviour
     private void SpriteSwap()
     {
 
+    }
+
+    private float GetScreenWidthScaleValue()
+    {
+        return((float)Screen.width/828);
     }
 }

@@ -78,12 +78,12 @@ Material:
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0.03137255, g: 0.48235297, b: 0, a: 0}
-    - _FrontColor: {r: 0.48235294, g: 0, b: 0.022234699, a: 0}
-    - _ObjectFogColor: {r: 0, g: 0, b: 0, a: 0}
-    - _RightColor: {r: 0.41568628, g: 0.043596495, b: 0.035294127, a: 0}
+    - _FrontColor: {r: 0.8392157, g: 0.15686275, b: 0.15686275, a: 0}
+    - _ObjectFogColor: {r: 0.8392157, g: 0.15686275, b: 0.15686275, a: 0}
+    - _RightColor: {r: 0.6792453, g: 0.22548884, b: 0.105731584, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _TopColor: {r: 0.67058825, g: 0.086274505, b: 0.086274505, a: 0}
-    - _WorldFogColor: {r: 0, g: 0, b: 0, a: 0}
+    - _TopColor: {r: 0.8773585, g: 0.30210927, b: 0.38290277, a: 0}
+    - _WorldFogColor: {r: 0.8033998, g: 0.9622642, b: 0.87479293, a: 0}
 --- !u!114 &2640158122343844137
 MonoBehaviour:
   m_ObjectHideFlags: 11

@@ -15,8 +15,9 @@ MonoBehaviour:
   MonsterName: Purple Monster
   MonsterPrefab: {fileID: 2347873887362749744, guid: f13678446487cb949bd56acab1387a81,
     type: 3}
-  MonsterHealth: 5
-  MonsterAttack: 2
+  MonsterHealth: 30
+  MonsterAttack: 3
+  MonsterTimeBetweenAttacks: 2.5
   difficultyLevel: 1
   _treasureObjects:
   - {fileID: 11400000, guid: fc1b8a077ff7d704d87caef2825bf28e, type: 2}

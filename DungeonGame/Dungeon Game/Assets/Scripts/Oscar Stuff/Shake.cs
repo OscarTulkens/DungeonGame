@@ -26,6 +26,11 @@ public class Shake : MonoBehaviour
         _shakepower += shakeAmount;
     }
 
+    public void AddShake(float shakeAmount)
+    {
+        AddShake(shakeAmount, _objectStartPos);
+    }
+
     void DoShake()
     {
         if (_shaking)

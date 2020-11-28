@@ -15,8 +15,9 @@ MonoBehaviour:
   MonsterName: Spider Monster
   MonsterPrefab: {fileID: 2347873887362749744, guid: 75b099196d5cd03449882b9d365c24f1,
     type: 3}
-  MonsterHealth: 3
-  MonsterAttack: 2
+  MonsterHealth: 15
+  MonsterAttack: 1
+  MonsterTimeBetweenAttacks: 0.75
   difficultyLevel: 1
   _treasureObjects:
   - {fileID: 11400000, guid: fc1b8a077ff7d704d87caef2825bf28e, type: 2}

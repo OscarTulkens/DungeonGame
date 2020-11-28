@@ -9,6 +9,7 @@ public class MonsterObject : ScriptableObject
     public GameObject MonsterPrefab;
     public int MonsterHealth;
     public int MonsterAttack;
+    public float MonsterTimeBetweenAttacks;
     public int difficultyLevel;
     public List<TreasureObject> _treasureObjects;
 }

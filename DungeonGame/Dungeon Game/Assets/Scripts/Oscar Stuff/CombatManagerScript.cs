@@ -11,22 +11,26 @@ public class CombatManagerScript : MonoBehaviour
     [SerializeField] private float _movementSpeed = 0;
     [SerializeField] private float _attackMovementSpeed = 0;
     private ControlScript _controlScript = null;
+    private CombatStatsManagerScript _combatStatsManagerScript;
 
     //Player variables
     [Header("PLAYER")]
     [SerializeField] private Transform _playerSpawnPoint = null;
     [SerializeField] private Transform _playerFightPoint = null;
-    [SerializeField] private GameObject _playerObject = null;
+    [SerializeField] private GameObject _playerObjectTransform = null;
+    [SerializeField] private GameObject _playerModel = null;
     private int _playerDamage = 0;
+    private int _playerHealth = 0;
 
 
     //Monster variables
     [Header("MONSTER")]
     [SerializeField] private Transform _monsterSpawnPoint = null;
     [SerializeField] private Transform _monsterFightPoint = null;
-    [SerializeField] private GameObject _monsterObject = null;
-    private GameObject _monsterModel = null;
+    [SerializeField] private GameObject _monsterObjectTransform = null;
+    private MonsterObject _monsterObject = null;
     private int _monsterHealth = 0;
+    private GameObject _monsterModel = null;
     private TreasureObject _pickedTreasure;
 
     //Singleton
@@ -38,8 +42,10 @@ public class CombatManagerScript : MonoBehaviour
     private bool _playerAttacked = false;
     private bool _playerHitMonster = false;
 
-    private List<int> _ongoingTweens = new List<int>();
+    private List<int> _activePlayerTweens = new List<int>();
+    private List<int> _activeMonsterTweens = new List<int>();
 
+    private bool _isAbleToAttack = true;
 
     private void Awake()
     {
@@ -49,50 +55,56 @@ public class CombatManagerScript : MonoBehaviour
 
     private Action ActionOnSlideInDone;
     private Action ActionOnSlideOutDone;
-    private Action ActionOnAttackHitDone;
-    private Action ActionOnAttackRecallDone;
+    private Action ActionOnPlayerAttackHitDone;
+    private Action ActionOnPlayerAttackRecallDone;
 
-    
+    //Monster Combat Variables
+    private float _timer = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        _combatStatsManagerScript = GetComponent<CombatStatsManagerScript>();
         ActionOnSlideInDone += SlideInDone;
         ActionOnSlideOutDone += SlideOutDone;
-        ActionOnAttackHitDone += OnAttackComplete;
-        ActionOnAttackRecallDone += SlideOut;
+        ActionOnPlayerAttackHitDone += OnPlayerAttackComplete;
+        ActionOnPlayerAttackRecallDone += SlideOut;
         _controlScript = ControlScript.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckInput();
+        CheckPlayerInput();
+        CheckMonsterAttackTimer();
     }
 
     public void StartCombat(MonsterObject monsterobject)
     {
-        Destroy(_monsterModel);
-        _monsterHealth = monsterobject.MonsterHealth;
-        _monsterModel = Instantiate(monsterobject.MonsterPrefab, _monsterObject.transform.position, _monsterObject.transform.rotation, _monsterObject.transform);
-        _monsterObject.transform.position = _monsterSpawnPoint.position;
-        _playerObject.transform.position = _playerSpawnPoint.position;
-        Debug.Log(CharacterStatsManager.TotalDamage);
+        ResetMonsterTimer();
+        ResetMonsterObject();
+        _playerHealth = (int)CharacterStatsManager.TotalHealth;
+        _monsterObject = monsterobject;
+        _monsterHealth = _monsterObject.MonsterHealth;
+        _monsterModel = Instantiate(monsterobject.MonsterPrefab, _monsterObjectTransform.transform.position, _monsterObjectTransform.transform.rotation, _monsterObjectTransform.transform);
+        _playerObjectTransform.transform.position = _playerSpawnPoint.position;
         _playerDamage = (int)CharacterStatsManager.TotalDamage;
         _combat = true;
         SlideIn();
         EventManager.Instance.StartCombat();
         _pickedTreasure = pickTreasure(monsterobject);
+        _combatStatsManagerScript.SetStartStats(monsterobject.MonsterName, _monsterHealth, monsterobject.MonsterTimeBetweenAttacks);
     }
 
     private void SlideIn()
     {
-        _ongoingTweens.Add(LeanTween.move(_monsterObject, _monsterFightPoint.transform, 1).setEaseOutQuint().id);
-        _ongoingTweens.Add(LeanTween.move(_playerObject, _playerFightPoint.transform, 0.75f).setEaseOutQuint().setOnComplete(ActionOnSlideInDone).id);
+        _activePlayerTweens.Add(LeanTween.move(_monsterObjectTransform, _monsterFightPoint.transform, 1).setEaseOutQuint().id);
+        _activePlayerTweens.Add(LeanTween.move(_playerObjectTransform, _playerFightPoint.transform, 0.75f).setEaseOutQuint().setOnComplete(ActionOnSlideInDone).id);
     }
 
     private void SlideInDone()
     {
+        _isAbleToAttack = true;
         _slideInDone = true;
     }
 
@@ -100,11 +112,11 @@ public class CombatManagerScript : MonoBehaviour
     {
         if (_monsterHealth <= 0)
         {
-            _controlScript.CurrentlySelectedTile.TileSpecialSpawnScript.SpecialSpawn.GetComponentInChildren<Animator>().SetTrigger("Disappear");
             _controlScript.CurrentlySelectedTile.ContainsMonster = false;
-            CancelAllTweensInList();
-            _ongoingTweens.Add(LeanTween.move(_monsterObject, _monsterSpawnPoint.transform, 1).setEaseOutQuint().id);
-            _ongoingTweens.Add(LeanTween.move(_playerObject, _playerSpawnPoint.transform, 0.5f).setEaseOutQuint().setOnComplete(ActionOnSlideOutDone).id);
+            CancelAllTweensInList(_activePlayerTweens);
+            CancelAllTweensInList(_activeMonsterTweens);
+            _activePlayerTweens.Add(LeanTween.scale(_monsterObjectTransform, Vector3.zero, 0.25f).setEaseInBack().id);
+            _activePlayerTweens.Add(LeanTween.move(_playerObjectTransform, _playerSpawnPoint.transform, 0.5f).setEaseOutQuint().setDelay(0.4f).setOnComplete(ActionOnSlideOutDone).id);
             EventManager.Instance.EndCombat();
             TreasureManager.Instance.enabled = true;
             TreasureManager.Instance.StartTreasure(_pickedTreasure);
@@ -123,30 +135,74 @@ public class CombatManagerScript : MonoBehaviour
         _combat = false;
     }
 
-    private void DoAttackMovement()
+    private void DoPlayerAttackMovement()
     {
-        CancelAllTweensInList();
-        _ongoingTweens.Add(LeanTween.move(_playerObject, _monsterFightPoint.transform, 0.1f).setOnComplete(OnAttackComplete).id);
+        CancelAllTweensInList(_activePlayerTweens);
+        _activePlayerTweens.Add(LeanTween.move(_playerObjectTransform, _monsterObjectTransform.transform, 0.1f).setOnComplete(OnPlayerAttackComplete).id);
     }
 
-    private void OnAttackComplete()
+    private void OnPlayerAttackComplete()
     {
-        _ongoingTweens.Add(LeanTween.move(_playerObject, _playerFightPoint.transform, 0.2f).setEaseOutQuint().setOnComplete(ActionOnAttackRecallDone).id);
         _monsterHealth -= _playerDamage;
-        _monsterObject.GetComponent<Shake>().AddShake(1.5f, _monsterFightPoint.position);
+        _activePlayerTweens.Add(LeanTween.move(_playerObjectTransform, _playerFightPoint.transform, 0.2f).setEaseOutQuint().setOnComplete(ActionOnPlayerAttackRecallDone).id);
+        LeanTween.scale(_monsterModel, _monsterModel.transform.localScale * 1.3f, 0.5f).setEasePunch();
+        _combatStatsManagerScript.UpdateHealthStats(_monsterHealth, _playerHealth);
+        
     }
 
-    private void CheckInput()
+    private void CheckPlayerInput()
     {
-        if (Input.GetMouseButtonDown(0) && _slideInDone&& _monsterHealth>0)
+        if (Input.GetMouseButtonDown(0) && _slideInDone && _monsterHealth>0 && _isAbleToAttack)
         {
-            DoAttackMovement();
+            DoPlayerAttackMovement();
         }
     }
 
-    private void CancelAllTweensInList()
+    private void CheckMonsterAttackTimer()
     {
-        foreach (int tween in _ongoingTweens)
+        _combatStatsManagerScript.UpdateMonsterSpecial(_timer);
+        if (_monsterObject!=null && _monsterObject.MonsterTimeBetweenAttacks!=0 && _slideInDone && _isAbleToAttack)
+        {
+            _timer += Time.deltaTime;
+            if (_timer >= _monsterObject.MonsterTimeBetweenAttacks && _monsterHealth > 0)
+            {
+                DoMonsterAttackMovement();
+                ResetMonsterTimer();
+            }
+        }
+    }
+
+    private void DoMonsterAttackMovement()
+    {
+        _isAbleToAttack = false;
+        CancelAllTweensInList(_activeMonsterTweens);
+        CancelAllTweensInList(_activePlayerTweens);
+        _activePlayerTweens.Add(LeanTween.move(_playerObjectTransform, _playerFightPoint, 0.1f).id);
+        _activeMonsterTweens.Add(LeanTween.move(_monsterObjectTransform, _playerObjectTransform.transform, 0.3f).setEaseInQuint().setOnComplete(OnMonsterAttackComplete).id);
+    }
+
+    private void OnMonsterAttackComplete()
+    {
+        _playerHealth -= _monsterObject.MonsterAttack;
+        _combatStatsManagerScript.UpdateHealthStats(_monsterHealth, _playerHealth);
+        EnableAttacking();
+        _activeMonsterTweens.Add(LeanTween.move(_monsterObjectTransform, _monsterFightPoint.transform, 0.3f).setEaseOutQuint().setOnComplete(EnableAttacking).id);
+        LeanTween.scale(_playerModel, _playerModel.transform.localScale * 1.5f, 0.5f).setEasePunch();
+    }
+
+    private void EnableAttacking()
+    {
+        _isAbleToAttack = true;
+    }
+
+    private void ResetMonsterTimer()
+    {
+        _timer = 0;
+    }
+
+    private void CancelAllTweensInList(List<int> tweenlist)
+    {
+        foreach (int tween in tweenlist)
         {
             LeanTween.cancel(tween);
         }
@@ -155,5 +211,12 @@ public class CombatManagerScript : MonoBehaviour
     private TreasureObject pickTreasure(MonsterObject monsterObject)
     {
         return monsterObject._treasureObjects[UnityEngine.Random.Range(0, monsterObject._treasureObjects.Count)];
+    }
+
+    private void ResetMonsterObject()
+    {
+        Destroy(_monsterModel);
+        _monsterObjectTransform.transform.position = _monsterSpawnPoint.position;
+        _monsterObjectTransform.transform.localScale = Vector3.one;
     }
 }

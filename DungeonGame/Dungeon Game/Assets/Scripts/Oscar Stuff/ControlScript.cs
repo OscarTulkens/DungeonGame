@@ -43,7 +43,7 @@ public class ControlScript : MonoBehaviour
 
     private void ResetLevel()
     {
-        if (Input.touchCount>=2)
+        if (Input.touchCount>=2 || Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }

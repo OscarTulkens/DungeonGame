@@ -45,14 +45,6 @@ public class TileContainedObjectScript : MonoBehaviour
 
     private void Update()
     {
-        //if (Vector3.Distance(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z)) >= 0.01f)
-        //{
-        //    Model.transform.position = Vector3.Lerp(Model.transform.position, new Vector3(Model.transform.position.x, 0, Model.transform.position.z), _tileMoveUpSpeed * Time.deltaTime);
-        //}
-        //else if (Model.transform.position != new Vector3(Model.transform.position.x, 0, Model.transform.position.z))
-        //{
-        //    Model.transform.position = new Vector3(Model.transform.position.x, 0, Model.transform.position.z);
-        //}
     }
 
     void ActivateMonsterSpawn()
@@ -108,6 +100,8 @@ public class TileContainedObjectScript : MonoBehaviour
     void SetModelPosition()
     {
         Model.transform.position = new Vector3(Model.transform.position.x+_modelSpawnOffset.x, Model.transform.position.y+_modelSpawnOffset.y, Model.transform.position.z+_modelSpawnOffset.z);
+        Model.transform.localScale = Vector3.zero;
+        LeanTween.scale(Model, Vector3.one, _tileMoveUpTime).setEaseOutBack();
         LeanTween.move(Model, new Vector3(Model.transform.position.x, 0, Model.transform.position.z), _tileMoveUpTime).setEaseOutExpo();
     }
 

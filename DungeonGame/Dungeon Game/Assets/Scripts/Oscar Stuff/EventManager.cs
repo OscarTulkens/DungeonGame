@@ -172,8 +172,6 @@ public class EventManager : MonoBehaviour
 
 
 
-
-
     void Awake()
     {
         if(Instance == null)

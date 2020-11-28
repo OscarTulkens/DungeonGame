@@ -15,8 +15,9 @@ MonoBehaviour:
   MonsterName: Red Monster
   MonsterPrefab: {fileID: 2347873887362749744, guid: e8e596f51406d004aacacbe3ac7c7fbe,
     type: 3}
-  MonsterHealth: 5
+  MonsterHealth: 25
   MonsterAttack: 2
+  MonsterTimeBetweenAttacks: 1.25
   difficultyLevel: 1
   _treasureObjects:
   - {fileID: 11400000, guid: fc1b8a077ff7d704d87caef2825bf28e, type: 2}

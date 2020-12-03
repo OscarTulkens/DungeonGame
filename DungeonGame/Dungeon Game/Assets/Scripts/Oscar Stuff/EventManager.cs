@@ -163,11 +163,12 @@ public class EventManager : MonoBehaviour
         public float EquipmentDamage;
         public float EquipmentHealth;
         public float EquipmentSpecialPower;
+        public float EquipmentSpecialPowerMax;
     }
 
-    public void UpdateEquipmentStats(float equipmentdamage, float equipmenthealth, float equipmentspecialpower)
+    public void UpdateEquipmentStats(float equipmentdamage, float equipmenthealth, float equipmentspecialpower, float equipmentspecialpowermax)
     {
-        OnUpdateEquipmentStats?.Invoke(this, new OnUpdateEquipmentStatsArgs { EquipmentDamage = equipmentdamage, EquipmentHealth = equipmenthealth, EquipmentSpecialPower = equipmentspecialpower });
+        OnUpdateEquipmentStats?.Invoke(this, new OnUpdateEquipmentStatsArgs { EquipmentDamage = equipmentdamage, EquipmentHealth = equipmenthealth, EquipmentSpecialPower = equipmentspecialpower, EquipmentSpecialPowerMax = equipmentspecialpowermax });
     }
 
 

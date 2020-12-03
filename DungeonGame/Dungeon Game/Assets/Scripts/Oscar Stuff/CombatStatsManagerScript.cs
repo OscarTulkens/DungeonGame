@@ -18,7 +18,7 @@ public class CombatStatsManagerScript : MonoBehaviour
     public void SetStartStats(string _monsterName, int _monsterHealth, float _monsterAttackTimer)
     {
         _monsterStats.SetStartStats((int)_monsterHealth, _monsterAttackTimer, _monsterName, _monsterHealth, 0);
-        _playerStats.SetStartStats((int)CharacterStatsManager.TotalHealth, (int)CharacterStatsManager.TotalSpecialPower, _name, (int)CharacterStatsManager.TotalHealth, 0);
+        _playerStats.SetStartStats((int)CharacterStatsManager.TotalHealth, (int)CharacterStatsManager.TotalSpecialPowerMax, _name, (int)CharacterStatsManager.TotalHealth, 0);
     }
 
     public void UpdateHealthStats(int _monsterCurrentHealth, int _playerCurrentHealth)
@@ -34,7 +34,7 @@ public class CombatStatsManagerScript : MonoBehaviour
 
     public void UpdatePlayerSpecial(float _playerSpecial)
     {
-
+        _playerStats.UpdateSpecial(_playerSpecial);
     }
 
     private void EnableStats(object sender, EventArgs e)

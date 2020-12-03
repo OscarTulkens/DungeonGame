@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b1218be23617274cb5977943f586807, type: 3}
+  m_Name: TreasureChest Purple Monster
+  m_EditorClassIdentifier: 
+  TreasurePrefab: {fileID: 5348062252849941347, guid: 54e91ada5ee63b04184bf67c0da8ce94,
+    type: 3}
+  Name: Treasure Chest
+  TreasurePool: {fileID: 11400000, guid: a8ca8dddd486949ca97061a78b719911, type: 2}

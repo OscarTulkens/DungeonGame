@@ -6,18 +6,15 @@ using UnityEngine.UI;
 public class StatScript : MonoBehaviour
 {
     private List<int> _activeUITweens = new List<int>();
-    private List<int> _BarTweens = new List<int>();
+    private List<int> _healthBarTweens = new List<int>();
+    private List<int> _specialBarTweens = new List<int>();
     [SerializeField] private bool _isPlayer;
     [SerializeField] private Text _name;
     [SerializeField] private Slider _healthBar;
     [SerializeField] private Slider _specialBar;
 
-    private float _desiredHealth = 3;
-    private float _desiredSpecial = 5;
-
-    private float _currentHealth = 2;
-    private float _currentSpecial = 7;
-    float val = 0;
+    private float _currentHealth = 0;
+    private float _currentSpecial = 0;
 
     private void Start()
     {
@@ -48,21 +45,33 @@ public class StatScript : MonoBehaviour
         _healthBar.maxValue = maxhealth;
         _specialBar.maxValue = maxspecial;
         _name.text = name;
-        UpdateHealth(currenthealth);
+        _healthBar.value = _currentHealth = maxhealth;
+        _specialBar.value = _currentSpecial = 0;
     }
 
     public void UpdateHealth(float newHealth)
     {
-        CancelTweens(_BarTweens);
-        _desiredHealth = newHealth;
-        _BarTweens.Add(LeanTween.value(_healthBar.gameObject, _currentHealth, newHealth, 0.5f).setOnUpdate((float _currentHealth) => { _healthBar.value = _currentHealth; }).setEaseOutQuint().id);
+        CancelTweens(_healthBarTweens);
+        //_desiredHealth = newHealth;
+        _healthBarTweens.Add(LeanTween.value(_healthBar.gameObject, _currentHealth, newHealth, 0.5f).setOnUpdate((float _currentHealth) => { _healthBar.value = _currentHealth; }).setEaseOutQuint().id);
         _currentHealth = newHealth;
     }
 
     public void UpdateSpecial(float currentSpecial)
     {
-        _currentSpecial = currentSpecial;
-        _specialBar.value = _currentSpecial;
+        if (!_isPlayer)
+        {
+            _currentSpecial = currentSpecial;
+            _specialBar.value = _currentSpecial;
+        }
+        if (_isPlayer)
+        {
+            CancelTweens(_specialBarTweens);
+            _specialBarTweens.Add(LeanTween.value(_specialBar.gameObject, _currentSpecial, currentSpecial, 0.5f).setOnUpdate((float _currentSpecial) => { _specialBar.value = _currentSpecial; }).setEaseOutQuint().id);
+            _currentSpecial = currentSpecial;
+            Debug.Log("HONEY IM HOOMEE");
+        }
+
     }
 
     private void CancelTweens(List<int> tweenlist)

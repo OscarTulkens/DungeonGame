@@ -21,4 +21,3 @@ MonoBehaviour:
   difficultyLevel: 1
   _treasureObjects:
   - {fileID: 11400000, guid: fc1b8a077ff7d704d87caef2825bf28e, type: 2}
-  - {fileID: 11400000, guid: 68f178f94867ed243873e009cfabf8bb, type: 2}

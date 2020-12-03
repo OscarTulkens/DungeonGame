@@ -90,7 +90,7 @@ MonoBehaviour:
   _spawned: 0
   RequiredOpenSides: 0
   RequiredClosedSides: 0
-  ChanceAtExtraSides: 3
+  ChanceAtExtraSides: 40
   TileSpecialSpawnScript: {fileID: 0}
   _tileObject: {fileID: 5122512731778073410}
 --- !u!1 &2610151084048187709

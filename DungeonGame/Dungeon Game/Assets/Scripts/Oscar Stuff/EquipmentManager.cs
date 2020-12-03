@@ -13,6 +13,7 @@ public class EquipmentManager : MonoBehaviour
     private float _damageStat = 0;
     private float _healthStat = 0;
     private float _specialPowerStat = 0;
+    private float _specialPowerMax = 0;
 
     private void Start()
     {
@@ -63,6 +64,10 @@ public class EquipmentManager : MonoBehaviour
             _damageStat -= oldEquipment.Damage;
             _healthStat -= oldEquipment.Health;
             _specialPowerStat -= oldEquipment.SpecialPower;
+            if (oldEquipment.ItemType == ItemType.Weapon)
+            {
+                _specialPowerMax -= (oldEquipment as TreasureItemObjectWeapon).MaxSpecialStat;
+            }
         }
 
         if (newEquipment!=null)
@@ -70,8 +75,12 @@ public class EquipmentManager : MonoBehaviour
             _damageStat += newEquipment.Damage;
             _healthStat += newEquipment.Health;
             _specialPowerStat += newEquipment.SpecialPower;
+            if (newEquipment.ItemType == ItemType.Weapon)
+            {
+                _specialPowerMax += (newEquipment as TreasureItemObjectWeapon).MaxSpecialStat;
+            }
         }
 
-        EventManager.Instance.UpdateEquipmentStats(_damageStat, _healthStat, _specialPowerStat);
+        EventManager.Instance.UpdateEquipmentStats(_damageStat, _healthStat, _specialPowerStat, _specialPowerMax);
     }
 }

@@ -91,19 +91,19 @@ public class TileScript : MonoBehaviour
 
     private void AddRandomOpenSides()
     {
-        if (!RequiredOpenSides.HasFlag(Sides.Top) && UnityEngine.Random.Range(0,ChanceAtExtraSides)==1)
+        if (!RequiredOpenSides.HasFlag(Sides.Top) && UnityEngine.Random.Range(0,100)<ChanceAtExtraSides)
         {
             RequiredOpenSides |= Sides.Top;
         }
-        if (!RequiredOpenSides.HasFlag(Sides.Bot)&& UnityEngine.Random.Range(0,ChanceAtExtraSides) == 1)
+        if (!RequiredOpenSides.HasFlag(Sides.Bot)&& UnityEngine.Random.Range(0,100) < ChanceAtExtraSides)
         {
             RequiredOpenSides |= Sides.Bot;
         }
-        if (!RequiredOpenSides.HasFlag(Sides.Right) && UnityEngine.Random.Range(0,ChanceAtExtraSides) == 1)
+        if (!RequiredOpenSides.HasFlag(Sides.Right) && UnityEngine.Random.Range(0,100) < ChanceAtExtraSides)
         {
             RequiredOpenSides |= Sides.Right;
         }
-        if (!RequiredOpenSides.HasFlag(Sides.Left) && UnityEngine.Random.Range(0,ChanceAtExtraSides) == 1)
+        if (!RequiredOpenSides.HasFlag(Sides.Left) && UnityEngine.Random.Range(0,100) < ChanceAtExtraSides)
         {
             RequiredOpenSides |= Sides.Left;
         }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b1218be23617274cb5977943f586807, type: 3}
-  m_Name: TreasureChest
+  m_Name: TreasureChest Red Monster
   m_EditorClassIdentifier: 
-  TreasurePrefab: {fileID: 5348062252849941347, guid: 54e91ada5ee63b04184bf67c0da8ce94,
+  TreasurePrefab: {fileID: 5348062252849941347, guid: 34be175f4f914784c9999d0e54b01848,
     type: 3}
   Name: Treasure Chest
   TreasurePool: {fileID: 11400000, guid: 1aeab82dc809f9b45b1d7ab75fbd6e36, type: 2}

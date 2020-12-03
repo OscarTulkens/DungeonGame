@@ -21,6 +21,9 @@ public class CombatManagerScript : MonoBehaviour
     [SerializeField] private GameObject _playerModel = null;
     private int _playerDamage = 0;
     private int _playerHealth = 0;
+    private int _playerCurrentSpecialPower = 0;
+    private int _playerMaxSpecialPower = 0;
+    private int _playerSpecialPowerStat = 0;
 
 
     //Monster variables
@@ -89,6 +92,9 @@ public class CombatManagerScript : MonoBehaviour
         _monsterModel = Instantiate(monsterobject.MonsterPrefab, _monsterObjectTransform.transform.position, _monsterObjectTransform.transform.rotation, _monsterObjectTransform.transform);
         _playerObjectTransform.transform.position = _playerSpawnPoint.position;
         _playerDamage = (int)CharacterStatsManager.TotalDamage;
+        _playerMaxSpecialPower = (int)CharacterStatsManager.TotalSpecialPowerMax;
+        _playerCurrentSpecialPower = 0;
+        _playerSpecialPowerStat = (int)CharacterStatsManager.TotalSpecialPower;
         _combat = true;
         SlideIn();
         EventManager.Instance.StartCombat();
@@ -143,11 +149,24 @@ public class CombatManagerScript : MonoBehaviour
 
     private void OnPlayerAttackComplete()
     {
-        _monsterHealth -= _playerDamage;
+        if (_playerCurrentSpecialPower <_playerMaxSpecialPower)
+        {
+            _monsterHealth -= _playerDamage;
+            _playerCurrentSpecialPower += _playerSpecialPowerStat;
+            _combatStatsManagerScript.UpdatePlayerSpecial(_playerCurrentSpecialPower);
+        }
+
+        else if (_playerCurrentSpecialPower >= _playerMaxSpecialPower)
+        {
+            _monsterHealth -= (_playerDamage + 5);
+            _playerCurrentSpecialPower = 0;
+            _combatStatsManagerScript.UpdatePlayerSpecial(_playerCurrentSpecialPower);
+        }
+
+        _combatStatsManagerScript.UpdateHealthStats(_monsterHealth, _playerHealth);
         _activePlayerTweens.Add(LeanTween.move(_playerObjectTransform, _playerFightPoint.transform, 0.2f).setEaseOutQuint().setOnComplete(ActionOnPlayerAttackRecallDone).id);
         LeanTween.scale(_monsterModel, _monsterModel.transform.localScale * 1.3f, 0.5f).setEasePunch();
-        _combatStatsManagerScript.UpdateHealthStats(_monsterHealth, _playerHealth);
-        
+
     }
 
     private void CheckPlayerInput()
